@@ -9,7 +9,9 @@ public class DGraph implements graph{
 
 	private HashMap<Integer, node_data> nodes = new HashMap<>();                   //integer for key, node for value
 	private HashMap<Integer, HashMap<Integer,edge_data>> edges = new HashMap<>();  //integer for src, hashmap for dest
-
+	private static int nodesCount = 0;
+	private static int edgesCount = 0;
+	private static int modeCount = 0;
 
 	@Override
 	public node_data getNode(int key) {
@@ -24,6 +26,8 @@ public class DGraph implements graph{
 	@Override
 	public void addNode(node_data n) {
 		this.nodes.put(n.getKey(),n);
+		nodesCount++;
+		modeCount++;
 	}
 
 	@Override
@@ -42,6 +46,8 @@ public class DGraph implements graph{
 			HashMap<Integer,edge_data> add = new HashMap<>();
 			this.edges.put(src,add).put(dest,temp);
 		}
+		edgesCount++;
+		modeCount++;
 	}
 
 	@Override
@@ -57,17 +63,21 @@ public class DGraph implements graph{
 	@Override
 	public node_data removeNode(int key) {
 		node_data nd = this.nodes.get(key);
-		this.nodes.remove(key);
-		if(this.edges.get(key)!=null){
-			this.edges.remove(key);
-		}
-		Iterator it = this.edges.entrySet().iterator();
-		while (it.hasNext()){
-			Map.Entry mp = (Map.Entry)it.next();           //give the key
-			int temp = ((int)mp.getKey());                 //save the key
-			if(this.edges.get(temp).get(key)!=null){
-				removeEdge(temp,key);
+		if(nd!=null) {
+			this.nodes.remove(key);
+			if (this.edges.get(key) != null) {
+				this.edges.remove(key);
 			}
+			Iterator it = this.edges.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry mp = (Map.Entry) it.next();           //give the key
+				int temp = ((int) mp.getKey());                 //save the key
+				if (this.edges.get(temp).get(key) != null) {
+					removeEdge(temp, key);
+				}
+			}
+			nodesCount--;
+			modeCount++;
 		}
 		return nd;
 	}
@@ -75,26 +85,27 @@ public class DGraph implements graph{
 	@Override
 	public edge_data removeEdge(int src, int dest) {
 		edge_data ed = this.edges.get(src).get(dest);
-		this.edges.get(src).remove(dest);
+		if(ed!=null) {
+			this.edges.get(src).remove(dest);
+			edgesCount--;
+			modeCount++;
+		}
 		return ed;
 	}
 
 	@Override
 	public int nodeSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nodesCount;
 	}
 
 	@Override
 	public int edgeSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return edgesCount;
 	}
 
 	@Override
 	public int getMC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return modeCount;
 	}
 
 }
