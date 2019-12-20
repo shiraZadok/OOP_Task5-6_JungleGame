@@ -85,7 +85,7 @@ public class NodeTest {
             checkforBuildNode[i].setWeight(1);
         }
         for (int i = 0; i <checkforBuildNode.length; i++) {
-            assertEquals(11, checkforBuildNode[i].getWeight(), 0.0001);
+            assertEquals(1, checkforBuildNode[i].getWeight(), 0.0001);
         }
     }
 
