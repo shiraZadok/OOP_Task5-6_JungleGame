@@ -66,8 +66,13 @@ public class DGraph implements graph{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		return this.edges.get(node_id).values();
-	}
+		try {
+			return this.edges.get(node_id).values();
+		}
+		catch (NullPointerException e){
+			return null;
+		}
+		}
 
 	@Override
 	public node_data removeNode(int key) {
