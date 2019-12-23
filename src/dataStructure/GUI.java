@@ -71,20 +71,32 @@ public class GUI {
 
 
     public static void main(String[] args) {
-        GUI g = new GUI();
+        GUI G = new GUI();
         Point3D x = new Point3D(1,4,0);
         Point3D y = new Point3D(2,5,0);
-        Point3D q = new Point3D(4,3,0);
+        Point3D q = new Point3D(3,6,0);
+        Point3D z = new Point3D(4,7,0);
+        Point3D s = new Point3D(5,8,0);
+        Point3D t = new Point3D(6,9,0);
         node_data a = new Node(1,2,3, "asf", x);
         node_data b =new Node(3,4,6,"gik",y);
         node_data c = new Node(5,50,50,"sf",q);
-        DGraph d =new DGraph();
-        d.addNode(a);
-        d.addNode(b);
-        d.addNode(c);
-        d.connect(a.getKey(),b.getKey(),4);
-        d.connect(b.getKey(),c.getKey(),50);
-        d.connect(c.getKey(),a.getKey(),4);
-        g.GUIgraph(d);
+        node_data d = new Node(5,50,50,"sf",z);
+        node_data e = new Node(5,50,50,"sf",s);
+        node_data f = new Node(5,50,50,"sf",t);
+        DGraph g =new DGraph();
+        g.addNode(a);
+        g.addNode(b);
+        g.addNode(c);
+        g.addNode(d);
+        g.addNode(e);
+        g.addNode(f);
+        g.connect(a.getKey(),b.getKey(),5);
+        g.connect(b.getKey(),f.getKey(),3);
+        g.connect(a.getKey(),c.getKey(),4);
+        g.connect(c.getKey(),d.getKey(),5);
+        g.connect(c.getKey(),e.getKey(),1);
+        g.connect(e.getKey(),f.getKey(),1);
+        G.GUIgraph(g);
     }
 }
