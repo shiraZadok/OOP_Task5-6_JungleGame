@@ -83,8 +83,8 @@ public class GUI {
         d.addNode(b);
         d.addNode(c);
         d.connect(a.getKey(),b.getKey(),4);
-        d.connect(a.getKey(),c.getKey(),50);
-        d.connect(b.getKey(),c.getKey(),4);
+        d.connect(b.getKey(),c.getKey(),50);
+        d.connect(c.getKey(),a.getKey(),4);
         g.GUIgraph(d);
     }
 }
