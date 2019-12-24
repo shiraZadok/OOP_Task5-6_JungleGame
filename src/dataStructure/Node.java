@@ -12,7 +12,7 @@ public class Node implements node_data, Serializable {
     private String Info;
     private Point3D Location;
 
-    public Node(){
+    public Node() {
         this.Key = 0;
         this.Tag = 0;
         this.Weight = 0;
@@ -20,7 +20,7 @@ public class Node implements node_data, Serializable {
         this.Location = null;
     }
 
-    public Node(int Key, int Tag, double Weight, String Info, Point3D Location){
+    public Node(int Key, int Tag, double Weight, String Info, Point3D Location) {
         this.Key = Key;
         this.Tag = Tag;
         this.Weight = Weight;
@@ -28,7 +28,7 @@ public class Node implements node_data, Serializable {
         this.Location = new Point3D(Location);
     }
 
-    public Node(Node n){
+    public Node(Node n) {
         this.Key = n.Key;
         this.Tag = n.Tag;
         this.Weight = n.Weight;
@@ -79,5 +79,9 @@ public class Node implements node_data, Serializable {
     @Override
     public void setTag(int t) {
         this.Tag = t;
+    }
+
+    public String toString() {
+        return ""+this.getKey();
     }
 }
