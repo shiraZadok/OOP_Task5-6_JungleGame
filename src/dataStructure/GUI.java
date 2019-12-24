@@ -1,15 +1,25 @@
 package dataStructure;
 
 import utils.Point3D;
-
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GUI {
 
-    public static void GUIgraph(DGraph d) {
+//    private DGraph d = null;
+//
+//    public GUI(){
+//        GUIgraph(this.d);
+//    }
+
+    public void GUIgraph(DGraph d) {
         double minX=0;
         double minY=0;
         double maxX=0;
@@ -62,6 +72,22 @@ public class GUI {
                 }
             }
         }
+
+//        MenuBar menuBar = new MenuBar();
+//        Menu menu = new Menu("Menu");
+//        menuBar.add(menu);
+//        this.setMenuBar(menuBar);
+//
+//        MenuItem item1 = new MenuItem("Item 1");
+//        item1.addActionListener(this);
+//
+//        MenuItem item2 = new MenuItem("Item 2");
+//        item2.addActionListener(this);
+//
+//        menu.add(item1);
+//        menu.add(item2);
+//
+//        this.addMouseListener(this);
 }
 
 
@@ -73,17 +99,17 @@ public class GUI {
     public static void main(String[] args) {
         GUI G = new GUI();
         Point3D x = new Point3D(1,4,0);
-        Point3D y = new Point3D(2,5,0);
-        Point3D q = new Point3D(3,6,0);
-        Point3D z = new Point3D(4,7,0);
-        Point3D s = new Point3D(5,8,0);
-        Point3D t = new Point3D(6,9,0);
+        Point3D y = new Point3D(3,20,0);
+        Point3D q = new Point3D(5,30,0);
+        Point3D z = new Point3D(10,7,0);
+        Point3D s = new Point3D(15,10,0);
+        Point3D t = new Point3D(7,9,0);
         node_data a = new Node(1,2,3, "asf", x);
-        node_data b =new Node(3,4,6,"gik",y);
-        node_data c = new Node(5,50,50,"sf",q);
-        node_data d = new Node(5,50,50,"sf",z);
+        node_data b =new Node(2,4,6,"gik",y);
+        node_data c = new Node(3,50,50,"sf",q);
+        node_data d = new Node(4,50,50,"sf",z);
         node_data e = new Node(5,50,50,"sf",s);
-        node_data f = new Node(5,50,50,"sf",t);
+        node_data f = new Node(6,50,50,"sf",t);
         DGraph g =new DGraph();
         g.addNode(a);
         g.addNode(b);
@@ -98,5 +124,21 @@ public class GUI {
         g.connect(c.getKey(),e.getKey(),1);
         g.connect(e.getKey(),f.getKey(),1);
         G.GUIgraph(g);
+
+//        GUI g = new GUI();
+//        Point3D x = new Point3D(1,4,0);
+//        Point3D y = new Point3D(2,5,0);
+//        Point3D q = new Point3D(4,3,0);
+//        node_data a = new Node(1,2,3, "asf", x);
+//        node_data b =new Node(3,4,6,"gik",y);
+//        node_data c = new Node(5,50,50,"sf",q);
+//        DGraph d =new DGraph();
+//        d.addNode(a);
+//        d.addNode(b);
+//        d.addNode(c);
+//        d.connect(a.getKey(),b.getKey(),4);
+//        d.connect(a.getKey(),c.getKey(),50);
+//        d.connect(b.getKey(),c.getKey(),4);
+//        g.GUIgraph(d);
     }
 }

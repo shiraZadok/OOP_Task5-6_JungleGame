@@ -1,12 +1,14 @@
 package dataStructure;
 
 import utils.Point3D;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-public class DGraph implements graph{
+public class DGraph implements graph, Serializable {
 
 	private HashMap<Integer, node_data> nodes = new HashMap<>();                   //integer for key, node for value
 	private HashMap<Integer, HashMap<Integer,edge_data>> edges = new HashMap<>();  //integer for src, hashmap for dest
