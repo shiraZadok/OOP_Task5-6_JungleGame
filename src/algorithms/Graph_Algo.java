@@ -139,7 +139,6 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -199,8 +198,20 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-
-		return null;
+		List<node_data> ans = new LinkedList<>();
+		Iterator it = targets.iterator();
+		int srs = (int) it.next();
+		while (it.hasNext()){
+			int dest = (int)it.next();
+			List<node_data> temp = this.shortestPath(srs,dest);
+			Iterator put = temp.iterator();
+			while (put.hasNext()){
+				node_data n = (node_data)put.next();
+				ans.add(n);
+			}
+			srs=dest;
+		}
+		return ans;
 	}
 
 	@Override
@@ -307,8 +318,11 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		d.connect(a7.getKey(),a6.getKey(),3);
 		Graph_Algo p = new Graph_Algo();
 		p.algo=d;
-		List<node_data> ans = p.shortestPath(1,7);
-		System.out.println(d.getNode(7).getWeight());
+		List<Integer> r = new LinkedList<>();
+		r.add(a1.getKey());
+		r.add(a6.getKey());
+		List<node_data> ans = p.TSP(r);
+		//System.out.println(d.getNode(7).getWeight());
 		System.out.println(ans);
 	}
 }
