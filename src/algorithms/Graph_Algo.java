@@ -1,13 +1,11 @@
 package algorithms;
 
-import java.io.*;
-import java.util.Iterator;
-import java.util.List;
-
 import dataStructure.*;
 import utils.Point3D;
 
-import javax.swing.text.html.HTMLDocument;
+import java.io.*;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This empty class represents the set of graph-theory algorithms
@@ -26,8 +24,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	@Override
 	public void init(String file_name) {
-		try
-		{
+		try {
 			FileInputStream file = new FileInputStream(file_name);
 			ObjectInputStream in = new ObjectInputStream(file);
 			this.algo = (graph) in.readObject();
@@ -36,14 +33,10 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 			System.out.println("Object has been deserialized");
 		}
-
-		catch(IOException ex)
-		{
+		catch(IOException ex) {
 			System.out.println("IOException is caught");
 		}
-
-		catch(ClassNotFoundException ex)
-		{
+		catch(ClassNotFoundException ex) {
 			System.out.println("ClassNotFoundException is caught");
 		}
 	}
@@ -58,7 +51,8 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 			file.close();
 
 			System.out.println("Object has been serialized");
-		} catch (IOException ex) {
+		}
+		catch (IOException ex) {
 			System.out.println("IOException is caught");
 		}
 	}
@@ -191,9 +185,18 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	@Override
 	public graph copy() {
-
-
-		return null;
+		graph ans = new DGraph();
+		for (node_data n : this.algo.getV()) {
+			node_data temp = new Node((Node) n);
+			ans.addNode(temp);
+		}
+		for (node_data n : ans.getV()) {
+			for (edge_data e : ans.getE(n.getKey())) {
+				edge_data temp = new Edge((Edge) e);
+				ans.connect(temp.getSrc(), temp.getDest(), temp.getWeight());
+			}
+		}
+		return ans;
 	}
 
 	public static void main(String[] args) {
