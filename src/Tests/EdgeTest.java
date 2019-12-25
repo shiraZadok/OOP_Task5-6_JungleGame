@@ -12,14 +12,14 @@ public class EdgeTest {
 
     @Before
     public void BeforeEach() {
-        checkforBuildEdge [0] = new Edge(1,2,3,4,"test");
-        checkforBuildEdge [1] = new Edge(5,6,7,8,"test");
-        checkforBuildEdge [2] = new Edge(9,10,11,12,"test");
-        checkforBuildEdge [3] = new Edge(13,14,15,16,"test");
-        checkforBuildEdge [4] = new Edge(17,18,19,20,"test");
-        checkforBuildEdge [5] = new Edge(21,22,23,24,"test");
-        checkforBuildEdge [6] = new Edge(25,26,27,28,"test");
-        checkforBuildEdge [7] = new Edge(29,30,31,32,"test");
+        checkforBuildEdge [0] = new Edge(1,2,4);
+        checkforBuildEdge [1] = new Edge(5,6,8);
+        checkforBuildEdge [2] = new Edge(9,10,12);
+        checkforBuildEdge [3] = new Edge(13,14,16);
+        checkforBuildEdge [4] = new Edge(17,18,20);
+        checkforBuildEdge [5] = new Edge(21,22,24);
+        checkforBuildEdge [6] = new Edge(25,26,28);
+        checkforBuildEdge [7] = new Edge(29,30,32);
 
     }
 
@@ -50,7 +50,7 @@ public class EdgeTest {
     @Test
     public void getInfo() {
         for (int i = 0; i <checkforBuildEdge.length ; i++) {
-            assertEquals(checkforBuildEdge[i].getInfo(), "test");
+            assertEquals(checkforBuildEdge[i].getInfo(), null);
         }
     }
 
@@ -66,9 +66,8 @@ public class EdgeTest {
 
     @Test
     public void getTag() {
-        int [] ans = {3,7,11,15,19,23,27,31};
         for (int i = 0; i < checkforBuildEdge.length; i++) {
-            assertEquals(ans[i], checkforBuildEdge[i].getTag());
+            assertEquals(0, checkforBuildEdge[i].getTag());
         }
     }
 

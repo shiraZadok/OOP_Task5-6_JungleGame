@@ -40,7 +40,7 @@ public class DGraph implements graph, Serializable {
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		edge_data temp = new Edge(src, dest, 0, w, "");
+		edge_data temp = new Edge(src, dest, w);
 		if (this.getNode(src) != null && this.getNode(dest) != null) {
 			if (this.getEdge(src,dest)==null) {
 				if (this.edges.get(src)== null) {

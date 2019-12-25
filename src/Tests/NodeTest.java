@@ -36,7 +36,7 @@ public class NodeTest {
 
     @Test
     public void getKey() {
-        int ans[] = {1, 4, 7, 11, 14, 17, 20, 23};
+        int ans[] = {1, 2, 3, 4, 5, 6, 7, 8};
         for (int i = 0; i < checkforBuildNode.length; i++) {
             assertEquals(ans[i], checkforBuildNode[i].getKey());
         }
@@ -73,9 +73,8 @@ public class NodeTest {
 
     @Test
     public void getWeight() {
-        double ans[] = {3,6,9,13,16,19,22,25};
         for (int i = 0; i < checkforBuildNode.length; i++) {
-            assertEquals(ans[i], checkforBuildNode[i].getWeight(), 0.0001);
+            assertEquals(0, checkforBuildNode[i].getWeight(), 0.0001);
         }
     }
 
@@ -92,7 +91,7 @@ public class NodeTest {
     @Test
     public void getInfo() {
         for (int i = 0; i <checkforBuildNode.length ; i++) {
-            assertEquals(checkforBuildNode[i].getInfo(), "asf");
+            assertEquals(checkforBuildNode[i].getInfo(), null);
         }
     }
 
@@ -108,9 +107,8 @@ public class NodeTest {
 
     @Test
     public void getTag() {
-        int ans [] = {2,5,8,12,15,18,21,24};
         for (int i = 0; i <checkforBuildNode.length; i++) {
-            assertEquals(ans[i], checkforBuildNode[i].getTag(), 0.0001);
+            assertEquals(0, checkforBuildNode[i].getTag(), 0.0001);
         }
     }
 
