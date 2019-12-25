@@ -24,14 +24,14 @@ public class NodeTest {
         checkPoint3D[6] = new Point3D(13,14,0);
         checkPoint3D[7] = new Point3D(15,16,0);
 
-        checkforBuildNode[0] = new Node(1,2,3, "asf", checkPoint3D[0]);
-        checkforBuildNode[1] = new Node(4,5,6, "asf", checkPoint3D[1]);
-        checkforBuildNode[2] = new Node(7,8,9, "asf", checkPoint3D[2]);
-        checkforBuildNode[3] = new Node(11,12,13, "asf", checkPoint3D[3]);
-        checkforBuildNode[4] = new Node(14,15,16, "asf", checkPoint3D[4]);
-        checkforBuildNode[5] = new Node(17,18,19, "asf", checkPoint3D[5]);
-        checkforBuildNode[6] = new Node(20,21,22, "asf", checkPoint3D[6]);
-        checkforBuildNode[7] = new Node(23,24,25, "asf", checkPoint3D[7]);
+        checkforBuildNode[0] = new Node(checkPoint3D[0]);
+        checkforBuildNode[1] = new Node(checkPoint3D[1]);
+        checkforBuildNode[2] = new Node(checkPoint3D[2]);
+        checkforBuildNode[3] = new Node(checkPoint3D[3]);
+        checkforBuildNode[4] = new Node(checkPoint3D[4]);
+        checkforBuildNode[5] = new Node(checkPoint3D[5]);
+        checkforBuildNode[6] = new Node(checkPoint3D[6]);
+        checkforBuildNode[7] = new Node(checkPoint3D[7]);
     }
 
     @Test

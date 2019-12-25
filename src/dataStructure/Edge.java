@@ -18,12 +18,10 @@ public class Edge implements edge_data,Serializable{
         this.Info = null;
     }
 
-    public Edge(int Src, int Dest, int Tag, double Weight, String Info){
+    public Edge(int Src, int Dest, double Weight){
         this.Src = Src;
         this.Dest = Dest;
-        this.Tag = Tag;
         this.Weight = Weight;
-        this.Info = Info;
     }
 
     public Edge(Edge e){

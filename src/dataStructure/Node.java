@@ -11,21 +11,22 @@ public class Node implements node_data, Serializable {
     private double Weight;
     private String Info;
     private Point3D Location;
+    private static int KeyCount=1;
 
     public Node() {
-        this.Key = 0;
+        this.Key = KeyCount++;
         this.Tag = 0;
         this.Weight = 0;
         this.Info = null;
         this.Location = null;
     }
 
-    public Node(int Key, int Tag, double Weight, String Info, Point3D Location) {
-        this.Key = Key;
-        this.Tag = Tag;
-        this.Weight = Weight;
-        this.Info = Info;
+    public Node(Point3D Location) {
         this.Location = new Point3D(Location);
+        this.Key=KeyCount++;
+        this.Tag = 0;
+        this.Weight = 0;
+        this.Info = null;
     }
 
     public Node(Node n) {

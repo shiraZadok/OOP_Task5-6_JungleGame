@@ -128,9 +128,9 @@ public class DGraph implements graph, Serializable {
 		Point3D x = new Point3D(1,4,0);
 		Point3D y = new Point3D(2,5,0);
 		Point3D q = new Point3D(4,3,0);
-		node_data a = new Node(1,2,3, "asf", x);
-		node_data b =new Node(3,4,6,"gik",y);
-		node_data c = new Node(5,50,50,"sf",q);
+		node_data a = new Node( x);
+		node_data b =new Node(y);
+		node_data c = new Node(q);
 		DGraph d =new DGraph();
 		d.addNode(a);
 		d.addNode(b);
