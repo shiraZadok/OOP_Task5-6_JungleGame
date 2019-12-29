@@ -66,4 +66,8 @@ public class Edge implements edge_data,Serializable{
     public void setTag(int t) {
         this.Tag = t;
     }
+
+    public String toString (){
+        return "Src =" + this.getSrc() + ", " + "Dest = " + this.getDest() + ", " + "Weight =" + this.getWeight();
+    }
 }

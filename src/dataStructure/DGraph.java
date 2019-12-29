@@ -3,8 +3,8 @@ package dataStructure;
 import utils.Point3D;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -18,7 +18,12 @@ public class DGraph implements graph, Serializable {
 
 	@Override
 	public node_data getNode(int key) {
-		return this.nodes.get(key);
+		try {
+			return this.nodes.get(key);
+		}
+		catch (NullPointerException e){
+			return null;
+		}
 	}
 
 	@Override
@@ -56,7 +61,7 @@ public class DGraph implements graph, Serializable {
 			modeCount++;
 		}
 		else{
-			System.err.println("The src and dest must be exist");
+			System.err.println("ERR: The src and dest must be exist");
 		}
 	}
 
@@ -74,7 +79,7 @@ public class DGraph implements graph, Serializable {
 		catch (NullPointerException e){
 			return null;
 		}
-		}
+	}
 
 	@Override
 	public node_data removeNode(int key) {
@@ -125,23 +130,89 @@ public class DGraph implements graph, Serializable {
 	}
 
 	public static void main(String[] args) {
-		Point3D x = new Point3D(1,4,0);
-		Point3D y = new Point3D(2,5,0);
-		Point3D q = new Point3D(4,3,0);
-		node_data a = new Node( x);
-		node_data b =new Node(y);
-		node_data c = new Node(q);
-		DGraph d =new DGraph();
-		d.addNode(a);
-		d.addNode(b);
-		d.addNode(c);
-		d.connect(a.getKey(),b.getKey(),4);
-		d.connect(a.getKey(),c.getKey(),50);
-		System.out.println(d.getEdge(1,5).getWeight());
-		System.out.println(d.edges);
-		d.removeEdge(5,1);
-		System.out.println(d.nodes);
-		System.out.println(d.edges);
+//		Point3D x = new Point3D(1,4,0);
+//		Point3D y = new Point3D(2,5,0);
+//		Point3D q = new Point3D(4,3,0);
+//		node_data a = new Node( x);
+//		node_data b =new Node(y);
+//		node_data c = new Node(q);
+//		DGraph d =new DGraph();
+//		d.addNode(a);
+//		d.addNode(b);
+//		d.addNode(c);
+//		d.connect(a.getKey(),b.getKey(),4);
+//		d.connect(a.getKey(),c.getKey(),50);
+//		System.out.println(d.getEdge(1,5).getWeight());
+//		System.out.println(d.edges);
+//		d.removeEdge(5,1);
+//		System.out.println(d.nodes);
+//		System.out.println(d.edges);
+		////////////////////////TestForTheD-graph//////////////////////////
+
+		DGraph g = new DGraph();
+		Point3D p [] = new Point3D[8];
+		Node n [] = new Node[8];
+
+		p[0] = new Point3D(0,0,0);
+		p[1] = new Point3D(1,4,8);
+		p[2] = new Point3D(5,4,8);
+		p[3] = new Point3D(5,0,0);
+		p[4] = new Point3D(0,4,0);
+		p[5] = new Point3D(0,0,3);
+		p[6] = new Point3D(3,7,5);
+		p[7] = new Point3D(9,1,4);
+
+		n[0] = new Node(p[0]);
+		n[1] = new Node(p[1]);
+		n[2] = new Node(p[2]);
+		n[3] = new Node(p[3]);
+		n[4] = new Node(p[4]);
+		n[5] = new Node(p[5]);
+		n[6] = new Node(p[6]);
+		n[7] = new Node(p[7]);
+
+
+		for(int i=0; i<n.length; i++){
+			g.addNode(n[i]);
+		}
+		System.out.println("11111111");
+		//connection between all the nodes with the node (0,0,0)
+		g.connect(1,2,3);
+		System.out.println("1");
+		g.connect(1,3,3);
+		System.out.println("2");
+		g.connect(1,4,3);
+		System.out.println("3");
+		g.connect(1,5,3);
+		System.out.println("4");
+		g.connect(1,6,3);
+		System.out.println("5");
+		g.connect(1,7,3);
+		System.out.println("6");
+		g.connect(1,8,3);
+		System.out.println("7");
+
+		//connection between some node to the other
+		g.connect(2,8,5);
+		System.out.println("8");
+		g.connect(3,6,10);
+		System.out.println("9");
+		g.connect(4,3,1);
+		System.out.println("10");
+		g.connect(6,7,2);
+		System.out.println("11");
+		g.connect(5,7,4);
+		System.out.println("12");
+		g.connect(3,8,8);
+		System.out.println("13");
+		g.connect(7,8,5);
+		System.out.println("14");
+		g.connect(8,1,11);
+		System.out.println("15");
+
+		for(int i=0; i<n.length ; i++){
+			g.getNode(i+1).getLocation().toString();
+		}
 
 	}
 
