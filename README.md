@@ -29,9 +29,9 @@ An object from class Edge contain the follow feature:
 This class build a graph that defined by nodes and edges.
 It contain a collection of node with use in Node Class and collection of edge with use in Edge Clas.
 ### Main Methods in DGraph:
->AddNode:
+*AddNode:
 This method add nodes to the grph.
->Connect:
+*Connect:
 This method make the edge in the graph.
 >RemoveNode:
 This method delete certain node and all the edge that connect to him from the graph.
