@@ -1,3 +1,4 @@
+![](https://images.app.goo.gl/xGbczwnDjcF1bz198)
 ##### Submit: Yirat Peleg & Shira Zadok
 
 # The Maze Of Waze
