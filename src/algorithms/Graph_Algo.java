@@ -2,7 +2,6 @@ package algorithms;
 
 import dataStructure.*;
 import utils.Point3D;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +16,7 @@ import java.util.List;
  */
 public class Graph_Algo implements graph_algorithms, Serializable {
 
-	private graph algo = null;
+	private graph algo = new DGraph();
 
 	@Override
 	public void init(graph g) {
@@ -199,17 +198,41 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		List<node_data> ans = new LinkedList<>();
-		Iterator it = targets.iterator();
-		int srs = (int) it.next();
-		while (it.hasNext()){
-			int dest = (int)it.next();
-			List<node_data> temp = this.shortestPath(srs,dest);
-			Iterator put = temp.iterator();
-			while (put.hasNext()){
-				node_data n = (node_data)put.next();
-				ans.add(n);
+		double tempshortestPath = 0;
+		int tempk1 = 0;
+		int tempk2 = 0;
+		Iterator it1 = targets.iterator();
+		while (it1.hasNext()){
+			double minshortestPath = Integer.MAX_VALUE;
+			int k1 = (int)it1.next();
+			Iterator it2 = targets.iterator();
+			while (it2.hasNext()){
+				int k2 = (int)it2.next();
+				if(k1!=k2){
+					tempshortestPath = minshortestPath;
+					minshortestPath = Math.min(minshortestPath,this.shortestPathDist(k1,k2));
+					if(tempshortestPath!=minshortestPath){
+						tempk1=k1;
+						tempk2=k2;
+					}
+				}
 			}
-			srs=dest;
+			List<node_data> add = this.shortestPath(tempk1,tempk2);
+			Iterator it3 = add.iterator();
+			while (it3.hasNext()) {
+				node_data n = (node_data) it3.next();
+				ans.add(n);
+				Iterator it4 = targets.iterator();
+				int index = 0;
+				while (it4.hasNext()) {
+					int k4 = (int) it4.next();
+					if (n.getKey() != tempk2 && n.getKey() == k4) {
+						targets.remove(index);
+						it4 = targets.iterator();
+					}
+					index++;
+				}
+			}
 		}
 		return ans;
 	}
@@ -310,10 +333,14 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		d.connect(a1.getKey(),a2.getKey(),5);
 		d.connect(a1.getKey(),a5.getKey(),2);
 		d.connect(a1.getKey(),a3.getKey(),6);
+		d.connect(a1.getKey(),a6.getKey(),5);
 		d.connect(a3.getKey(),a4.getKey(),7);
 		d.connect(a2.getKey(),a8.getKey(),8);
 		d.connect(a2.getKey(),a7.getKey(),3);
+		d.connect(a5.getKey(),a1.getKey(),5);
 		d.connect(a5.getKey(),a6.getKey(),2);
+		d.connect(a6.getKey(),a1.getKey(),3);
+		d.connect(a6.getKey(),a5.getKey(),3);
 		d.connect(a6.getKey(),a7.getKey(),3);
 		d.connect(a7.getKey(),a6.getKey(),3);
 		Graph_Algo p = new Graph_Algo();
@@ -321,6 +348,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		List<Integer> r = new LinkedList<>();
 		r.add(a1.getKey());
 		r.add(a6.getKey());
+		r.add(a5.getKey());
 		List<node_data> ans = p.TSP(r);
 		//System.out.println(d.getNode(7).getWeight());
 		System.out.println(ans);
