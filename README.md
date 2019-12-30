@@ -50,4 +50,4 @@ In this class we solved a algorithmic problems as - What is the shortest path in
 * ShortestPath: This method the vertexes that should pass in the shortest path.
 * TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
 
- ## Image for example of our graph-->
+ ## Image for example of our graph:
