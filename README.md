@@ -29,12 +29,12 @@ An object from class Edge contain the follow feature:
 This class build a graph that defined by nodes and edges.
 It contain a collection of node with use in Node Class and collection of edge with use in Edge Clas.
 ### Main Methods in DGraph:
-*AddNode: This method add nodes to the grph.
-*Connect: This method make the edge in the graph.
-*RemoveNode: This method delete certain node and all the edge that connect to him from the graph.
-*RemoveEdge: This method delete certain edge from the graph.
-*GetV: This method bring the nodes collection of the graph.
-*GetE: This method bring the edges collection of the graph.
+* AddNode: This method add nodes to the grph.
+* Connect: This method make the edge in the graph.
+* RemoveNode: This method delete certain node and all the edge that connect to him from the graph.
+* RemoveEdge: This method delete certain edge from the graph.
+* GetV: This method bring the nodes collection of the graph.
+* GetE: This method bring the edges collection of the graph.
 
 ## GUI Class
 This class draw the the grap.
@@ -42,12 +42,12 @@ This class draw the the grap.
 ## Graph_Algo Class
 In this class we solved a algorithmic problems as - What is the shortest path in the graph, does the graph is a connective graph, how to read graph from file and how save graph as file.
 ### Main Methods in Graph_Algo:
-*init: This method get a graph from the use or from file and make him to the algo graph.
-*Copy: This method compute a deep copy of this graph.
-*Save: This method saves the graph to a file.
-*IsConnected: This method check if exist a valid path from EVREY node to each.
-*ShortestPathDist: This method returns the length of the shortest path between src to dest.
-*ShortestPath: This method the vertexes that should pass in the shortest path.
-*TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
+* Init: This method get a graph from the use or from file and make him to the algo graph.
+* Copy: This method compute a deep copy of this graph.
+* Save: This method saves the graph to a file.
+* IsConnected: This method check if exist a valid path from EVREY node to each.
+* ShortestPathDist: This method returns the length of the shortest path between src to dest.
+* ShortestPath: This method the vertexes that should pass in the shortest path.
+* TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
 
  ## Image for example of our graph-->
