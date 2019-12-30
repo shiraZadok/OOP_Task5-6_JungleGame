@@ -1,4 +1,4 @@
-![alt text](https://images.app.goo.gl/pr8GZ4pZ2KeX2mwH7)
+![Image description](https://images.app.goo.gl/pr8GZ4pZ2KeX2mwH7)
 
 ##### Submit: Shira Zadok & Yirat Peleg
 
