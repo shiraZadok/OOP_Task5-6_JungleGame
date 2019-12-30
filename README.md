@@ -1,5 +1,6 @@
-##### Shira Zadok
-##### Yirat Peleg
+![alt text](https://images.app.goo.gl/ecT3AgFNuBjT4U9m8)
+
+##### Submit: Shira Zadok & Yirat Peleg
 
 # The Maze Of Waze
 This project deal with graphs. There is some algoritims that applied on the graph and help to navigate on him.
