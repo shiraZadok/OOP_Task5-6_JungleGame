@@ -72,33 +72,7 @@ public class GUI {
     }
 
     public static void main(String[] args) {
-//        GUI G = new GUI();
-//        Point3D x = new Point3D(1,4,0);
-//        Point3D y = new Point3D(3,20,0);
-//        Point3D q = new Point3D(5,30,0);
-//        Point3D z = new Point3D(10,7,0);
-//        Point3D s = new Point3D(15,10,0);
-//        Point3D t = new Point3D(7,9,0);
-//        node_data a = new Node( x);
-//        node_data b =new Node(y);
-//        node_data c = new Node(q);
-//        node_data d = new Node(z);
-//        node_data e = new Node(s);
-//        node_data f = new Node(t);
-//        DGraph g =new DGraph();
-//        g.addNode(a);
-//        g.addNode(b);
-//        g.addNode(c);
-//        g.addNode(d);
-//        g.addNode(e);
-//        g.addNode(f);
-//        g.connect(a.getKey(),b.getKey(),5);
-//        g.connect(b.getKey(),f.getKey(),3);
-//        g.connect(a.getKey(),c.getKey(),4);
-//        g.connect(c.getKey(),d.getKey(),5);
-//        g.connect(c.getKey(),e.getKey(),1);
-//        g.connect(e.getKey(),f.getKey(),1);
-//        G.GUIgraph(g);
+
 
         GUI g = new GUI();
         Point3D x = new Point3D(1,4,0);
@@ -114,6 +88,45 @@ public class GUI {
         d.connect(a.getKey(),b.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
         d.connect(b.getKey(),c.getKey(),4);
+
+//        Point3D x = new Point3D(14,4,0);
+//        Point3D x2 = new Point3D(-75,14,0);
+//        Point3D x3 = new Point3D(80,5,0);
+//        Point3D x4 = new Point3D(1,4,0);
+//        Point3D x5 = new Point3D(-5,1,0);
+//        Point3D x6 = new Point3D(8,3,0);
+//        Point3D x7 = new Point3D(4,1,0);
+//        Point3D x8 = new Point3D(75,14,0);
+//        node_data a1 = new Node(x);
+//        node_data a2 = new Node(x2);
+//        node_data a3 = new Node(x3);
+//        node_data a4 = new Node(x4);
+//        node_data a5 = new Node(x5);
+//        node_data a6 = new Node(x6);
+//        node_data a7 = new Node(x7);
+//        node_data a8 = new Node(x8);
+//        DGraph d = new DGraph();
+//        d.addNode(a1);
+//        d.addNode(a2);
+//        d.addNode(a3);
+//        d.addNode(a4);
+//        d.addNode(a5);
+//        d.addNode(a6);
+//        d.addNode(a7);
+//        d.addNode(a8);
+//        d.connect(a1.getKey(),a2.getKey(),5);
+//        d.connect(a1.getKey(),a5.getKey(),2);
+//        d.connect(a1.getKey(),a3.getKey(),6);
+//        d.connect(a1.getKey(),a6.getKey(),5);
+//        d.connect(a3.getKey(),a4.getKey(),7);
+//        d.connect(a2.getKey(),a8.getKey(),8);
+//        d.connect(a2.getKey(),a7.getKey(),3);
+//        d.connect(a5.getKey(),a1.getKey(),5);
+//        d.connect(a5.getKey(),a6.getKey(),2);
+//        d.connect(a6.getKey(),a1.getKey(),3);
+//        d.connect(a6.getKey(),a5.getKey(),3);
+//        d.connect(a6.getKey(),a7.getKey(),3);
+//        d.connect(a7.getKey(),a6.getKey(),3);
         g.GUIgraph(d);
     }
 }

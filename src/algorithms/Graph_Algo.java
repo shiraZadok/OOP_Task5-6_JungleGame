@@ -192,49 +192,55 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 			ans.add(n);
 		}
 		this.oppositeDest(this.algo);
+		List<node_data> temp = new LinkedList<>();
+		for (int i = ans.size()-1; i >=0 ; i--) {
+			temp.add(ans.get(i));
+		}
+		ans=temp;
 		return ans;
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		List<node_data> ans = new LinkedList<>();
-		double tempshortestPath = 0;
-		int tempk1 = 0;
-		int tempk2 = 0;
-		Iterator it1 = targets.iterator();
-		while (it1.hasNext()){
-			double minshortestPath = Integer.MAX_VALUE;
-			int k1 = (int)it1.next();
-			Iterator it2 = targets.iterator();
-			while (it2.hasNext()){
-				int k2 = (int)it2.next();
-				if(k1!=k2){
-					tempshortestPath = minshortestPath;
-					minshortestPath = Math.min(minshortestPath,this.shortestPathDist(k1,k2));
-					if(tempshortestPath!=minshortestPath){
-						tempk1=k1;
-						tempk2=k2;
+		try {
+			List<node_data> ans = new LinkedList<>();
+			double tempshortestPath = 0;
+			int tempk1 = 0;
+			int tempk2 = 0;
+			for (int i = 0; i < targets.size(); i++) {
+				double minshortestPath = Integer.MAX_VALUE;
+				int k1 = targets.get(i);
+				for (int j = 0; j < targets.size(); j++) {
+					int k2 = targets.get(j);
+					if (k1 != k2) {
+						tempshortestPath = minshortestPath;
+						minshortestPath = Math.min(minshortestPath, this.shortestPathDist(k1, k2));
+						if (tempshortestPath != minshortestPath) {
+							tempk1 = k1;
+							tempk2 = k2;
+						}
+					}
+				}
+				List<node_data> add = this.shortestPath(tempk1, tempk2);
+				for (int j = 0; j < add.size(); j++) {
+					node_data n = add.get(j);
+					if (ans.size() == 0 || !ans.get(ans.size() - 1).equals(n)) {
+						ans.add(n);
+					}
+					for (int k = 0; k < targets.size(); k++) {
+						int k4 = targets.get(k);
+						if (n.getKey() != tempk2 && n.getKey() == k4) {
+							targets.remove(k);
+						}
 					}
 				}
 			}
-			List<node_data> add = this.shortestPath(tempk1,tempk2);
-			Iterator it3 = add.iterator();
-			while (it3.hasNext()) {
-				node_data n = (node_data) it3.next();
-				ans.add(n);
-				Iterator it4 = targets.iterator();
-				int index = 0;
-				while (it4.hasNext()) {
-					int k4 = (int) it4.next();
-					if (n.getKey() != tempk2 && n.getKey() == k4) {
-						targets.remove(index);
-						it4 = targets.iterator();
-					}
-					index++;
-				}
-			}
+			return ans;
 		}
-		return ans;
+		catch (Exception e){
+			System.err.println("The graph is not connect");
+		}
+		return null;
 	}
 
 	@Override
@@ -331,16 +337,16 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		d.addNode(a7);
 		d.addNode(a8);
 		d.connect(a1.getKey(),a2.getKey(),5);
-		d.connect(a1.getKey(),a5.getKey(),2);
+		//d.connect(a1.getKey(),a5.getKey(),2);
 		d.connect(a1.getKey(),a3.getKey(),6);
-		d.connect(a1.getKey(),a6.getKey(),5);
+		//d.connect(a1.getKey(),a6.getKey(),5);
 		d.connect(a3.getKey(),a4.getKey(),7);
 		d.connect(a2.getKey(),a8.getKey(),8);
 		d.connect(a2.getKey(),a7.getKey(),3);
-		d.connect(a5.getKey(),a1.getKey(),5);
-		d.connect(a5.getKey(),a6.getKey(),2);
-		d.connect(a6.getKey(),a1.getKey(),3);
-		d.connect(a6.getKey(),a5.getKey(),3);
+		//d.connect(a5.getKey(),a1.getKey(),5);
+		//d.connect(a5.getKey(),a6.getKey(),2);
+		//d.connect(a6.getKey(),a1.getKey(),3);
+		//d.connect(a6.getKey(),a5.getKey(),3);
 		d.connect(a6.getKey(),a7.getKey(),3);
 		d.connect(a7.getKey(),a6.getKey(),3);
 		Graph_Algo p = new Graph_Algo();
@@ -350,7 +356,15 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		r.add(a6.getKey());
 		r.add(a5.getKey());
 		List<node_data> ans = p.TSP(r);
+		List<node_data> ans1 = p.shortestPath(1,6);
+		List<node_data> ans2 = p.shortestPath(5,6);
+		List<Integer> ans3 = new LinkedList<>();
+		ans3.add(1);
+		ans3.add(5);
 		//System.out.println(d.getNode(7).getWeight());
 		System.out.println(ans);
+//        System.out.println(ans1);
+//        System.out.println(ans2);
+//		System.out.println(ans3);
 	}
 }
