@@ -1,5 +1,5 @@
 ![](https://static.inilah.com/data/berita/foto/2554271.jpg)
-##### Submit: Yirat Peleg & Shira Zadok
+##### Submit: Yirat Peleg & Shira Zadok &netanel shimoni
 
 # The Maze Of Waze
 This project deal with graphs. There is some algoritims that applied on the graph and help to navigate on him.
