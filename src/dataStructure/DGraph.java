@@ -1,7 +1,6 @@
 package dataStructure;
 
 import utils.Point3D;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;

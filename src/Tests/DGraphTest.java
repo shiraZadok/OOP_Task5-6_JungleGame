@@ -127,14 +127,6 @@ public class DGraphTest {
         }
     }
 
-    @Test
-    public void getV() {
-
-    }
-
-    @Test
-    public void getE() {
-    }
 
     @Test
     public void removeNode() {
@@ -167,19 +159,85 @@ public class DGraphTest {
 
     @Test
     public void nodeSize() {
-        int ans = 8;
-        assertEquals(ans,g.nodeSize());
+        DGraph graph = new DGraph();
+        Point3D point [] = new Point3D[4];
+        Node node [] = new Node[4];
+
+        point[0] = new Point3D(0,0,0);
+        point[1] = new Point3D(1,4,8);
+        point[2] = new Point3D(5,4,8);
+        point[3] = new Point3D(5,0,0);
+
+        node[0] = new Node(point[0]);
+        node[1] = new Node(point[1]);
+        node[2] = new Node(point[2]);
+        node[3] = new Node(point[3]);
+
+        for(int i=0; i<node.length; i++){
+            graph.addNode(node[i]);
+        }
+
+        int ans = 4;
+        //System.out.println("node_size:" + graph.nodeSize());
+        assertEquals(ans,graph.nodeSize());
     }
 
     @Test
     public void edgeSize() {
-        int ans = 15;
-        assertEquals(ans,g.edgeSize());
+        DGraph graph = new DGraph();
+        Point3D point [] = new Point3D[4];
+        Node node [] = new Node[4];
+
+        point[0] = new Point3D(0,0,0);
+        point[1] = new Point3D(1,4,8);
+        point[2] = new Point3D(5,4,8);
+        point[3] = new Point3D(5,0,0);
+
+        node[0] = new Node(point[0]);
+        node[1] = new Node(point[1]);
+        node[2] = new Node(point[2]);
+        node[3] = new Node(point[3]);
+
+        for(int i=0; i<node.length; i++){
+            graph.addNode(node[i]);
+        }
+
+        graph.connect(node[0].getKey(),node[1].getKey(), 5);
+        graph.connect(node[0].getKey(),node[2].getKey(), 5);
+        graph.connect(node[0].getKey(),node[3].getKey(), 5);
+
+
+        int ans = 3;
+        //System.out.println("edge_size:" + graph.edgeSize());
+        assertEquals(ans,graph.edgeSize());
     }
 
     @Test
     public void getMC() {
-        int ans = 23;
-        assertEquals(ans,g.getMC());
+        DGraph graph = new DGraph();
+        Point3D point [] = new Point3D[4];
+        Node node [] = new Node[4];
+
+        point[0] = new Point3D(0,0,0);
+        point[1] = new Point3D(1,4,8);
+        point[2] = new Point3D(5,4,8);
+        point[3] = new Point3D(5,0,0);
+
+        node[0] = new Node(point[0]);
+        node[1] = new Node(point[1]);
+        node[2] = new Node(point[2]);
+        node[3] = new Node(point[3]);
+
+        for(int i=0; i<node.length; i++){
+            graph.addNode(node[i]);
+        }
+
+        graph.connect(node[0].getKey(),node[1].getKey(), 5);
+        graph.connect(node[0].getKey(),node[2].getKey(), 5);
+        graph.connect(node[0].getKey(),node[3].getKey(), 5);
+
+        int ans = 7;
+        //System.out.println("MC_size:" + graph.getMC());
+        assertEquals(ans,graph.getMC());
     }
 }
