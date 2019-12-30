@@ -1,3 +1,4 @@
+![](https://i.imgur.com/xGJp4W9.jpg)
 ![](https://static.inilah.com/data/berita/foto/2554271.jpg)
 ##### Submit: Yirat Peleg & Shira Zadok &netanel shimoni the king ans shahar the queen
 
