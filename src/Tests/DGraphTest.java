@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.Point3D;
 
-import java.util.HashMap;
-
 import static org.junit.Assert.assertEquals;
 
 
@@ -129,40 +127,6 @@ public class DGraphTest {
         }
     }
 
-    @Test
-    public void getV() {
-        Point3D point [] = new Point3D[8];
-        Node node [] = new Node[8];
-        HashMap<Integer, node_data> ans = new HashMap<>();
-
-        point[0] = new Point3D(0,0,0);
-        point[1] = new Point3D(1,4,8);
-        point[2] = new Point3D(5,4,8);
-        point[3] = new Point3D(5,0,0);
-        point[4] = new Point3D(0,4,0);
-        point[5] = new Point3D(0,0,3);
-        point[6] = new Point3D(3,7,5);
-        point[7] = new Point3D(9,1,4);
-
-        node[0] = new Node(p[0]);
-        node[1] = new Node(p[1]);
-        node[2] = new Node(p[2]);
-        node[3] = new Node(p[3]);
-        node[4] = new Node(p[4]);
-        node[5] = new Node(p[5]);
-        node[6] = new Node(p[6]);
-        node[7] = new Node(p[7]);
-
-        for(int i=0; i<node.length; i++){
-            ans.put(node[i].getKey(), node[i]);
-        }
-
-        //assertEquals(ans.get(node[0].getKey()), g.getMC());
-    }
-
-    @Test
-    public void getE() {
-    }
 
     @Test
     public void removeNode() {
