@@ -1,5 +1,4 @@
-![](https://images.app.goo.gl/pr8GZ4pZ2KeX2mwH7)
-
+![](https://infocurse.com/wp-content/uploads/2015/12/Waze.jpg)
 ##### Submit: Yirat Peleg & Shira Zadok
 
 # The Maze Of Waze
