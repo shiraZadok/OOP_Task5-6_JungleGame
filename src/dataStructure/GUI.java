@@ -1,5 +1,6 @@
 package dataStructure;
 
+import algorithms.Graph_Algo;
 import utils.Point3D;
 import java.awt.*;
 import java.util.Iterator;
@@ -13,38 +14,34 @@ import java.awt.event.MouseListener;
 
 public class GUI {
 
-//    private DGraph d = null;
-//
-//    public GUI(){
-//        GUIgraph(this.d);
-//    }
+
 
     public void GUIgraph(DGraph d) {
-        double minX=0;
-        double minY=0;
-        double maxX=0;
-        double maxY=0;
+        double minX = 0;
+        double minY = 0;
+        double maxX = 0;
+        double maxY = 0;
         Iterator it = d.getV().iterator();
         while (it.hasNext()) {
-            node_data temp = (node_data)it.next();
-            Point3D p =temp.getLocation();
-            minX=Math.min(minX,p.x());
-            minY=Math.min(minY,p.y());
-            maxX=Math.max(maxX,p.x());
-            maxY=Math.max(maxY,p.y());
+            node_data temp = (node_data) it.next();
+            Point3D p = temp.getLocation();
+            minX = Math.min(minX, p.x());
+            minY = Math.min(minY, p.y());
+            maxX = Math.max(maxX, p.x());
+            maxY = Math.max(maxY, p.y());
         }
-        StdDraw.setCanvasSize(1000,1000);
-        StdDraw.setXscale(minX-1,maxX+1);
-        StdDraw.setYscale(minY-1,maxY+1);
+        StdDraw.setCanvasSize(1000, 1000);
+        StdDraw.setXscale(minX - 1, maxX + 1);
+        StdDraw.setYscale(minY - 1, maxY + 1);
         StdDraw.setPenColor(Color.BLUE);
         StdDraw.setPenRadius(0.05);
-        int i=1;
+        int i = 1;
         Iterator it1 = d.getV().iterator();
         while (it1.hasNext()) {
-            node_data temp = (node_data)it1.next();
-            Point3D p1 =temp.getLocation();
-            StdDraw.filledCircle(p1.x(),p1.y(),0.05);
-            StdDraw.text(p1.x(),p1.y()+0.1,""+i);
+            node_data temp = (node_data) it1.next();
+            Point3D p1 = temp.getLocation();
+            StdDraw.filledCircle(p1.x(), p1.y(), 0.05);
+            StdDraw.text(p1.x(), p1.y() + 0.1, "" + i);
             i++;
         }
         StdDraw.setPenRadius(0.01);
@@ -61,40 +58,18 @@ public class GUI {
                     Point3D p1 = n1.getLocation();
                     Point3D p2 = n2.getLocation();
                     StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
-                    double x = 0.2*p1.x()+0.8*p2.x();
-                    double y = 0.2*p1.y()+0.8*p2.y();
-                    StdDraw.text(x,y+0.1,""+temp2.getWeight());
+                    double x = 0.2 * p1.x() + 0.8 * p2.x();
+                    double y = 0.2 * p1.y() + 0.8 * p2.y();
+                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
 
                     StdDraw.setPenColor(Color.YELLOW);
-                    double x1 = 0.1*p1.x()+0.9*p2.x();
-                    double y1 = 0.1*p1.y()+0.9*p2.y();
-                    StdDraw.filledCircle(x1,y1,0.05);
+                    double x1 = 0.1 * p1.x() + 0.9 * p2.x();
+                    double y1 = 0.1 * p1.y() + 0.9 * p2.y();
+                    StdDraw.filledCircle(x1, y1, 0.05);
                 }
             }
         }
-
-//        MenuBar menuBar = new MenuBar();
-//        Menu menu = new Menu("Menu");
-//        menuBar.add(menu);
-//        this.setMenuBar(menuBar);
-//
-//        MenuItem item1 = new MenuItem("Item 1");
-//        item1.addActionListener(this);
-//
-//        MenuItem item2 = new MenuItem("Item 2");
-//        item2.addActionListener(this);
-//
-//        menu.add(item1);
-//        menu.add(item2);
-//
-//        this.addMouseListener(this);
-}
-
-
-
-
-
-
+    }
 
     public static void main(String[] args) {
 //        GUI G = new GUI();
@@ -104,12 +79,12 @@ public class GUI {
 //        Point3D z = new Point3D(10,7,0);
 //        Point3D s = new Point3D(15,10,0);
 //        Point3D t = new Point3D(7,9,0);
-//        node_data a = new Node(1,2,3, "asf", x);
-//        node_data b =new Node(2,4,6,"gik",y);
-//        node_data c = new Node(3,50,50,"sf",q);
-//        node_data d = new Node(4,50,50,"sf",z);
-//        node_data e = new Node(5,50,50,"sf",s);
-//        node_data f = new Node(6,50,50,"sf",t);
+//        node_data a = new Node( x);
+//        node_data b =new Node(y);
+//        node_data c = new Node(q);
+//        node_data d = new Node(z);
+//        node_data e = new Node(s);
+//        node_data f = new Node(t);
 //        DGraph g =new DGraph();
 //        g.addNode(a);
 //        g.addNode(b);

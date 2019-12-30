@@ -25,6 +25,9 @@ package dataStructure;
  *
  ******************************************************************************/
 
+        import algorithms.Graph_Algo;
+        import dataStructure.GUI;
+
         import java.awt.BasicStroke;
         import java.awt.Color;
         import java.awt.FileDialog;
@@ -714,12 +717,29 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     private static JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
+        JMenu menu2 = new JMenu("Algo");
         menuBar.add(menu);
-        JMenuItem menuItem1 = new JMenuItem(" Save...   ");
+        menuBar.add(menu2);
+        JMenuItem menuItem1 = new JMenuItem("Save...");
+        JMenuItem menuItem11 = new JMenuItem("Load");
+        JMenuItem menuItem2 = new JMenuItem("isConnected");
+        JMenuItem menuItem3 = new JMenuItem("shortestPathDist");
+        JMenuItem menuItem4 = new JMenuItem("shortestPath");
+        JMenuItem menuItem5 = new JMenuItem("TSP");
         menuItem1.addActionListener(std);
+        menuItem11.addActionListener(std);
+        menuItem2.addActionListener(std);
+        menuItem3.addActionListener(std);
+        menuItem4.addActionListener(std);
+        menuItem5.addActionListener(std);
         menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menu.add(menuItem1);
+        menu.add(menuItem11);
+        menu2.add(menuItem2);
+        menu2.add(menuItem3);
+        menu2.add(menuItem4);
+        menu2.add(menuItem5);
         return menuBar;
     }
 
@@ -1606,6 +1626,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      *
      * @param  filename the name of the file with one of the required suffixes
      */
+
     public static void save(String filename) {
         if (filename == null) throw new IllegalArgumentException();
         File file = new File(filename);
@@ -1646,17 +1667,32 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-
     /**
      * This method cannot be called directly.
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
-        chooser.setVisible(true);
-        String filename = chooser.getFile();
-        if (filename != null) {
-            StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
+        if(e.getActionCommand().equals("isConnected")){
+            System.out.println();
+        }
+        if(e.getActionCommand().equals("shortestPathDist")){
+
+        }
+        if(e.getActionCommand().equals("shortestPath")){
+
+        }
+        if(e.getActionCommand().equals("TSP")){
+
+        }
+        if(e.getActionCommand().equals("Load")){
+        }
+        if(e.getActionCommand().equals("Save...")) {
+            FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
+            chooser.setVisible(true);
+            String filename = chooser.getFile();
+            if (filename != null) {
+                StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
+            }
         }
     }
 
