@@ -21,8 +21,8 @@ An object from class Node contain the follow feature:
 ## Edge Class
 This class build single edge.
 An object from class Edge contain the follow feature:
-* Src - the key of tne node that represent thr source.
-* Dest - the key of tne node that represent thr destination.
+* Src - the key of tne node that represent the source.
+* Dest - the key of tne node that represent the destination.
 * Tag - it like flag that change if we pass in this edge during the path.
 * Weight - how much cost to pass on this edge in the path.
 * Info.
@@ -33,7 +33,7 @@ It contain a collection of node with use in Node Class and collection of edge wi
 ### Main Methods in DGraph:
 * AddNode: This method add nodes to the grph.
 * Connect: This method make the edge in the graph.
-* RemoveNode: This method delete certain node and all the edge that connect to him from the graph.
+* RemoveNode: This method delete certain node and all the edges that connected it.
 * RemoveEdge: This method delete certain edge from the graph.
 * GetV: This method bring the nodes collection of the graph.
 * GetE: This method bring the edges collection of the graph.
