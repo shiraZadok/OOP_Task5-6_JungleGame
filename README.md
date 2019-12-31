@@ -9,6 +9,8 @@ The algoritim can returns the length between src to dest or the vertexes that sh
 
 In addition, the user can draw the grph with the class GUI.
 
+In order to realize a graph we used the HashMap class.
+
 ## Node Class:
 This class build single node.
 An object from class Node contain the follow feature:
