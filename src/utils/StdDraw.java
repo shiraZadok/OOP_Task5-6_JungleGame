@@ -1,7 +1,5 @@
 package utils;
 
-//package stdDraw;
-// https://introcs.cs.princeton.edu/java/stdlib/StdDraw.java.html
 /******************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw
@@ -26,7 +24,9 @@ package utils;
  *       images and strings
  *
  ******************************************************************************/
-
+import graphGUI.GUI;
+import algorithms.*;
+import dataStructure.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.FileDialog;
@@ -63,22 +63,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.NoSuchElementException;
 import javax.imageio.ImageIO;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 /**
  *  The {@code StdDraw} class provides a basic capability for
  *  creating drawings with your programs. It uses a simple graphics model that
- *  allows you to create drawings consisting of points, lines, squares, 
+ *  allows you to create drawings consisting of points, lines, squares,
  *  circles, and other geometric shapes in a window on your computer and
  *  to save the drawings to a file. Standard drawing also includes
  *  facilities for text, color, pictures, and animation, along with
@@ -247,7 +242,7 @@ import javax.swing.KeyStroke;
  *  <li> {@link #setScale(double min, double max)}
  *  </ul>
  *  <p>
- *  The arguments are the coordinates of the minimum and maximum 
+ *  The arguments are the coordinates of the minimum and maximum
  *  <em>x</em>- or <em>y</em>-coordinates that will appear in the canvas.
  *  For example, if you  wish to use the default coordinate system but
  *  leave a small margin, you can call {@code StdDraw.setScale(-.05, 1.05)}.
@@ -311,7 +306,7 @@ import javax.swing.KeyStroke;
  *  <p>
  *  The supported image formats are JPEG and PNG. The filename must have either the
  *  extension .jpg or .png.
- *  We recommend using PNG for drawing that consist solely of geometric shapes and JPEG 
+ *  We recommend using PNG for drawing that consist solely of geometric shapes and JPEG
  *  for drawings that contains pictures.
  *  <p>
  *  <b>Clearing the canvas.</b>
@@ -346,7 +341,7 @@ import javax.swing.KeyStroke;
  *  all drawing takes place on the <em>offscreen canvas</em>. The offscreen canvas
  *  is not displayed. Only when you call
  *  {@link #show()} does your drawing get copied from the offscreen canvas to
- *  the onscreen canvas, where it is displayed in the standard drawing window. You 
+ *  the onscreen canvas, where it is displayed in the standard drawing window. You
  *  can think of double buffering as collecting all of the lines, points, shapes,
  *  and text that you tell it to draw, and then drawing them all
  *  <em>simultaneously</em>, upon request.
@@ -479,7 +474,7 @@ import javax.swing.KeyStroke;
  *  @author Kevin Wayne
  */
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
-
+     public static GUI g = new GUI();
 	/**
 	 *  The color black.
 	 */
@@ -631,7 +626,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	private static TreeSet<Integer> keysDown = new TreeSet<Integer>();
 
 	// singleton pattern: client can't instantiate
-	private StdDraw() { }
+	StdDraw() { }
 
 
 	// static initializer
@@ -716,12 +711,29 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	private static JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
+		JMenu menu2 = new JMenu("Algo");
 		menuBar.add(menu);
-		JMenuItem menuItem1 = new JMenuItem(" Save...   ");
+		menuBar.add(menu2);
+		JMenuItem menuItem1 = new JMenuItem("Save...");
+		JMenuItem menuItem11 = new JMenuItem("Load");
+		JMenuItem menuItem2 = new JMenuItem("isConnected");
+		JMenuItem menuItem3 = new JMenuItem("shortestPathDist");
+		JMenuItem menuItem4 = new JMenuItem("shortestPath");
+		JMenuItem menuItem5 = new JMenuItem("TSP");
 		menuItem1.addActionListener(std);
+		menuItem11.addActionListener(std);
+		menuItem2.addActionListener(std);
+		menuItem3.addActionListener(std);
+		menuItem4.addActionListener(std);
+		menuItem5.addActionListener(std);
 		menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		menu.add(menuItem1);
+		menu.add(menuItem11);
+		menu2.add(menuItem2);
+		menu2.add(menuItem3);
+		menu2.add(menuItem4);
+		menu2.add(menuItem5);
 		return menuBar;
 	}
 
@@ -1191,7 +1203,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 	/**
-	 * Draws a polygon with the vertices 
+	 * Draws a polygon with the vertices
 	 * (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>),
 	 * (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), ...,
 	 * (<em>x</em><sub><em>n</em>–1</sub>, <em>y</em><sub><em>n</em>–1</sub>).
@@ -1220,7 +1232,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	/**
-	 * Draws a polygon with the vertices 
+	 * Draws a polygon with the vertices
 	 * (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>),
 	 * (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), ...,
 	 * (<em>x</em><sub><em>n</em>–1</sub>, <em>y</em><sub><em>n</em>–1</sub>).
@@ -1303,7 +1315,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             URL url = new URL(filename);
             BufferedImage image = ImageIO.read(url);
             return image;
-        } 
+        }
         catch (IOException e) {
             // ignore
         }
@@ -1313,7 +1325,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             URL url = StdDraw.class.getResource(filename);
             BufferedImage image = ImageIO.read(url);
             return image;
-        } 
+        }
         catch (IOException e) {
             // ignore
         }
@@ -1323,7 +1335,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             URL url = StdDraw.class.getResource("/" + filename);
             BufferedImage image = ImageIO.read(url);
             return image;
-        } 
+        }
         catch (IOException e) {
             // ignore
         }
@@ -1577,7 +1589,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	/**
-	 * Enable double buffering. All subsequent calls to 
+	 * Enable double buffering. All subsequent calls to
 	 * drawing methods such as {@code line()}, {@code circle()},
 	 * and {@code square()} will be deffered until the next call
 	 * to show(). Useful for animations.
@@ -1587,7 +1599,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	/**
-	 * Disable double buffering. All subsequent calls to 
+	 * Disable double buffering. All subsequent calls to
 	 * drawing methods such as {@code line()}, {@code circle()},
 	 * and {@code square()} will be displayed on screen when called.
 	 * This is the default.
@@ -1608,6 +1620,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param  filename the name of the file with one of the required suffixes
 	 */
+
 	public static void save(String filename) {
 		if (filename == null) throw new IllegalArgumentException();
 		File file = new File(filename);
@@ -1648,17 +1661,48 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		}
 	}
 
-
 	/**
 	 * This method cannot be called directly.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
-		chooser.setVisible(true);
-		String filename = chooser.getFile();
-		if (filename != null) {
-			StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
+		if(e.getActionCommand().equals("isConnected")){
+			JFrame jf = new JFrame();
+			System.out.println(g.ga.isConnected());
+			JOptionPane.showMessageDialog(jf,""+g.ga.isConnected());
+		}
+		if(e.getActionCommand().equals("shortestPathDist")){
+            JFrame jf = new JFrame();
+            String s = JOptionPane.showInputDialog(jf,"Please enter the src");
+            String d = JOptionPane.showInputDialog(jf,"Please enter the dest");
+            double ans = g.ga.shortestPathDist(Integer.parseInt(s),Integer.parseInt(d));
+            JOptionPane.showMessageDialog(jf,"The shortestPath between "+s+" to "+d+" is: "+ans);
+		}
+		if(e.getActionCommand().equals("shortestPath")){
+            JFrame jf = new JFrame();
+            String s = JOptionPane.showInputDialog(jf,"Please enter the src");
+            String d = JOptionPane.showInputDialog(jf,"Please enter the dest");
+            List<node_data> ans = g.ga.shortestPath(Integer.parseInt(s),Integer.parseInt(d));
+		}
+		if(e.getActionCommand().equals("TSP")){
+            JFrame jf = new JFrame();
+            String get = JOptionPane.showInputDialog(jf,"Please enter a group of points with ',' between each other");
+            String[]get2 = get.split(",");
+            List<Integer>targets = new LinkedList<>();
+            for (int i = 0; i <get2.length ; i++) {
+                targets.add(Integer.parseInt(get2[i]));
+            }
+            List<node_data> ans = g.ga.TSP(targets);
+		}
+		if(e.getActionCommand().equals("Load")){
+		}
+		if(e.getActionCommand().equals("Save...")) {
+			FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
+			chooser.setVisible(true);
+			String filename = chooser.getFile();
+			if (filename != null) {
+				StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
+			}
 		}
 	}
 
@@ -1904,5 +1948,5 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 }
 
 
-//Copyright © 2000–2017, Robert Sedgewick and Kevin Wayne. 
+//Copyright © 2000–2017, Robert Sedgewick and Kevin Wayne.
 //Last updated: Mon Aug 27 16:43:47 EDT 2018.

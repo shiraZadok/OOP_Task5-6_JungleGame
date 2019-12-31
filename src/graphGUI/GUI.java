@@ -1,8 +1,10 @@
-package dataStructure;
+package graphGUI;
 
 import algorithms.Graph_Algo;
-import utils.Point3D;
+import dataStructure.*;
+import utils.*;
 import java.awt.*;
+import java.security.Guard;
 import java.util.Iterator;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -14,7 +16,7 @@ import java.awt.event.MouseListener;
 
 public class GUI {
 
-
+    public Graph_Algo ga = new Graph_Algo();
 
     public void GUIgraph(DGraph d) {
         double minX = 0;
@@ -72,9 +74,6 @@ public class GUI {
     }
 
     public static void main(String[] args) {
-
-
-        GUI g = new GUI();
         Point3D x = new Point3D(1,4,0);
         Point3D y = new Point3D(2,5,0);
         Point3D q = new Point3D(4,3,0);
@@ -88,6 +87,8 @@ public class GUI {
         d.connect(a.getKey(),b.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
         d.connect(b.getKey(),c.getKey(),4);
+        GUI k = new GUI();
+        k.GUIgraph(d);
 
 //        Point3D x = new Point3D(14,4,0);
 //        Point3D x2 = new Point3D(-75,14,0);
@@ -127,6 +128,6 @@ public class GUI {
 //        d.connect(a6.getKey(),a5.getKey(),3);
 //        d.connect(a6.getKey(),a7.getKey(),3);
 //        d.connect(a7.getKey(),a6.getKey(),3);
-        g.GUIgraph(d);
+
     }
 }
