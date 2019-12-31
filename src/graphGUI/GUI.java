@@ -87,6 +87,8 @@ public class GUI {
         d.connect(a.getKey(),b.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
         d.connect(b.getKey(),c.getKey(),4);
+        Graph_Algo p = new Graph_Algo();
+        p.init(d);
         GUI k = new GUI();
         k.GUIgraph(d);
 
