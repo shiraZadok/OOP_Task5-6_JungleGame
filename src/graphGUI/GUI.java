@@ -17,8 +17,15 @@ import java.awt.event.MouseListener;
 public class GUI {
 
     public Graph_Algo ga = new Graph_Algo();
+    public GUI(){
+        StdDraw.g = this;
+        StdDraw.g.ga = this.ga;
+    }
 
-    public void GUIgraph(DGraph d) {
+    public void GUIgraph(graph d) {
+        StdDraw.clear();
+        ga.init(d);
+        StdDraw.g=this;
         double minX = 0;
         double minY = 0;
         double maxX = 0;
@@ -72,7 +79,6 @@ public class GUI {
             }
         }
     }
-
     public static void main(String[] args) {
         Point3D x = new Point3D(1,4,0);
         Point3D y = new Point3D(2,5,0);
@@ -85,8 +91,9 @@ public class GUI {
         d.addNode(b);
         d.addNode(c);
         d.connect(a.getKey(),b.getKey(),4);
+        d.connect(b.getKey(),a.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
-        d.connect(b.getKey(),c.getKey(),4);
+
         Graph_Algo p = new Graph_Algo();
         p.init(d);
         GUI k = new GUI();

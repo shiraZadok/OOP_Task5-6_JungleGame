@@ -215,6 +215,10 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		List<node_data> ans = new LinkedList<>();
+		if(targets.size()==1){
+			ans.add(this.algo.getNode(targets.get(0)));
+			return ans;
+		}
 		double tempshortestPath = 0;
 		int tempk1 = 0;
 		int tempk2 = 0;
