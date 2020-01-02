@@ -3,10 +3,7 @@ package algorithms;
 import dataStructure.*;
 import utils.Point3D;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This empty class represents the set of graph-theory algorithms
@@ -16,7 +13,7 @@ import java.util.List;
  */
 public class Graph_Algo implements graph_algorithms, Serializable {
 
-	private graph algo = new DGraph();
+	public graph algo = new DGraph();
 
 	@Override
 	public void init(graph g) {
@@ -100,23 +97,34 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		Iterator it = d.getV().iterator();
 		while (it.hasNext()) {
 			node_data n = (node_data) it.next();
-			Iterator it1 = d.getE(n.getKey()).iterator();
-			while (it1.hasNext()) {
-				edge_data e = (edge_data) it1.next();
-				if (e.getTag() == 0) {
-					if (d.getEdge(e.getDest(), e.getSrc()) != null) {
-						d.getEdge(e.getDest(), e.getSrc()).setTag(1);
-						e.setTag(1);
-					} else {
-						d.connect(e.getDest(), e.getSrc(), e.getWeight());
-						d.removeEdge(e.getSrc(), e.getDest());
-						d.getEdge(e.getDest(), e.getSrc()).setTag(1);
-						it1 = d.getE(n.getKey()).iterator();
+			if (d.getE(n.getKey()) != null) {
+				Iterator it1 = d.getE(n.getKey()).iterator();
+				while (it1.hasNext()) {
+					edge_data e = (edge_data) it1.next();
+					if (e.getTag() == 0) {
+						if (d.getEdge(e.getDest(), e.getSrc()) != null) {
+							Edge temps = new Edge((Edge) d.getEdge(e.getSrc(), e.getDest()));
+							double tempWeight1 = d.getEdge(e.getSrc(), e.getDest()).getWeight();
+							double tempWeight2 = d.getEdge(e.getDest(), e.getSrc()).getWeight();
+							d.connect(e.getSrc(), e.getDest(), tempWeight2);
+							d.connect(temps.getDest(), temps.getSrc(), tempWeight1);
+							d.getEdge(temps.getDest(), temps.getSrc()).setTag(1);
+							d.getEdge(temps.getSrc(), temps.getDest()).setTag(1);
+							it1 = d.getE(n.getKey()).iterator();
+						}
+						else {
+							d.connect(e.getDest(), e.getSrc(), e.getWeight());
+							d.removeEdge(e.getSrc(), e.getDest());
+							d.getEdge(e.getDest(), e.getSrc()).setTag(1);
+							it1 = d.getE(n.getKey()).iterator();
+						}
 					}
 				}
 			}
 		}
 	}
+
+
 
 	public void changeTagNode() {
 		Iterator it = this.algo.getV().iterator();
@@ -176,63 +184,73 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 	public List<node_data> shortestPath(int src, int dest) {
 		List<node_data> ans = new LinkedList<>();
 		this.shortestPathDist(src,dest);
-		node_data n = this.algo.getNode(dest);
-		node_data min = new Node();
-		min.setWeight(n.getWeight());
-		this.oppositeDest(this.algo);
-		ans.add(n);
-		while (n.getKey()!=src){
-			for(edge_data e : this.algo.getE(n.getKey())){
-				node_data temp = this.algo.getNode(e.getDest());
-				if(temp.getWeight()<min.getWeight()){
-					min=temp;
+		if(this.algo.getNode(src).getWeight()==Integer.MAX_VALUE  || this.algo.getNode(dest).getWeight()==Integer.MAX_VALUE){
+			System.out.println("There is not a path between this nodes");
+			return ans;
+		}
+		graph tempGraph = this.copy();
+		node_data min = tempGraph.getNode(dest);
+		oppositeDest(tempGraph);
+		ans.add(min);
+		while (min.getKey()!=src){
+			Collection<edge_data> coll =tempGraph.getE(min.getKey());
+			if(coll!=null) {
+				for (edge_data e : coll) {
+					node_data temp = tempGraph.getNode(e.getDest());
+					if (temp.getWeight() + e.getWeight() == min.getWeight()) {
+						min = temp;
+					}
 				}
 			}
-			n=min;
-			ans.add(n);
+			ans.add(min);
 		}
-		this.oppositeDest(this.algo);
+		List<node_data> temp = new LinkedList<>();
+		for (int i = ans.size()-1; i >=0 ; i--) {
+			temp.add(ans.get(i));
+		}
+		ans=temp;
 		return ans;
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		List<node_data> ans = new LinkedList<>();
+		if(targets.size()==1){
+			ans.add(this.algo.getNode(targets.get(0)));
+			return ans;
+		}
 		double tempshortestPath = 0;
 		int tempk1 = 0;
 		int tempk2 = 0;
-		Iterator it1 = targets.iterator();
-		while (it1.hasNext()){
-			double minshortestPath = Integer.MAX_VALUE;
-			int k1 = (int)it1.next();
-			Iterator it2 = targets.iterator();
-			while (it2.hasNext()){
-				int k2 = (int)it2.next();
-				if(k1!=k2){
+		int k1 = targets.get(0);
+		while (targets.size()!=0) {
+			for (int j = 0; j < targets.size(); j++) {
+				double minshortestPath = Integer.MAX_VALUE;
+				int k2 = targets.get(j);
+				if (k1 != k2) {
 					tempshortestPath = minshortestPath;
-					minshortestPath = Math.min(minshortestPath,this.shortestPathDist(k1,k2));
-					if(tempshortestPath!=minshortestPath){
-						tempk1=k1;
-						tempk2=k2;
+					if (this.shortestPathDist(k1, k2) == Integer.MAX_VALUE) return null;
+					minshortestPath = Math.min(minshortestPath, this.shortestPathDist(k1, k2));
+					if (tempshortestPath != minshortestPath) {
+						tempk1 = k1;
+						tempk2 = k2;
 					}
 				}
 			}
-			List<node_data> add = this.shortestPath(tempk1,tempk2);
-			Iterator it3 = add.iterator();
-			while (it3.hasNext()) {
-				node_data n = (node_data) it3.next();
-				ans.add(n);
-				Iterator it4 = targets.iterator();
-				int index = 0;
-				while (it4.hasNext()) {
-					int k4 = (int) it4.next();
-					if (n.getKey() != tempk2 && n.getKey() == k4) {
-						targets.remove(index);
-						it4 = targets.iterator();
+			List<node_data> add = this.shortestPath(tempk1, tempk2);
+			for (int j = 0; j < add.size(); j++) {
+				node_data n = add.get(j);
+				if (ans.size() == 0 || ans.get(ans.size() - 1).getKey()!=n.getKey()) {
+					ans.add(n);
+				}
+				for (int k = 0; k < targets.size(); k++) {
+					int k4 = targets.get(k);
+					if (n.getKey() == k4) {
+						targets.remove(k);
 					}
-					index++;
 				}
 			}
+			k1 = tempk2;
 		}
 		return ans;
 	}
@@ -245,112 +263,74 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 			ans.addNode(temp);
 		}
 		for (node_data n : ans.getV()) {
-			for (edge_data e : ans.getE(n.getKey())) {
-				edge_data temp = new Edge((Edge) e);
-				ans.connect(temp.getSrc(), temp.getDest(), temp.getWeight());
+			Collection<edge_data> coll = this.algo.getE(n.getKey());
+			if(coll!=null) {
+				for (edge_data e : this.algo.getE(n.getKey())) {
+					edge_data temp = new Edge((Edge) e);
+					ans.connect(temp.getSrc(), temp.getDest(), temp.getWeight());
+				}
 			}
 		}
 		return ans;
 	}
 
 	public static void main(String[] args) {
-//		Graph_Algo G = new Graph_Algo();
-//		Point3D x = new Point3D(1,4,0);
-//		Point3D y = new Point3D(2,5,0);
-//		Point3D q = new Point3D(3,6,0);
-//		Point3D z = new Point3D(4,7,0);
-//		Point3D s = new Point3D(5,8,0);
-//		Point3D t = new Point3D(6,9,0);
-//		node_data a = new Node(1,2,3, "asf", x);
-//		node_data b =new Node(3,4,6,"gik",y);
-//		node_data c = new Node(5,50,50,"sf",q);
-//		node_data d = new Node(6,50,50,"sf",z);
-//		node_data e = new Node(7,50,50,"sf",s);
-//		node_data f = new Node(8,50,50,"sf",t);
-//		DGraph g =new DGraph();
-//		g.addNode(a);
-//		g.addNode(b);
-//		g.addNode(c);
-//		g.addNode(d);
-//		g.addNode(e);
-//		g.addNode(f);
-//		g.connect(a.getKey(),b.getKey(),5);
-//		g.connect(b.getKey(),f.getKey(),3);
-//		g.connect(a.getKey(),c.getKey(),4);
-//		g.connect(c.getKey(),d.getKey(),5);
-//		g.connect(c.getKey(),e.getKey(),1);
-//		g.connect(e.getKey(),f.getKey(),1);
-//		G.algo=g;
-//		boolean be =G.isConnected();
-//		System.out.println(G.shortestPathDist(a.getKey(),c.getKey()));
-//		System.out.println(G.shortestPathDist(a.getKey(),f.getKey()));
-//		Graph_Algo g = new Graph_Algo();
-//		Point3D x = new Point3D(1, 4, 0);
-//		Point3D y = new Point3D(2, 5, 0);
-//		Point3D q = new Point3D(4, 3, 0);
-//		node_data a = new Node(1, 2, 3, "asf", x);
-//		node_data b = new Node(3, 4, 6, "gik", y);
-//		node_data c = new Node(5, 50, 50, "sf", q);
-//		DGraph d = new DGraph();
-//		d.addNode(a);
-//		d.addNode(b);
-//		d.addNode(c);
-//		d.connect(a.getKey(), b.getKey(), 4);
-//		d.connect(b.getKey(), c.getKey(), 50);
-//		d.connect(b.getKey(), a.getKey(), 4);
-//		d.connect(c.getKey(), b.getKey(), 4);
-//		g.algo = d;
-//		boolean f = g.isConnected();
-//		System.out.println(f);
-//		g.save("test1");
-//		g.init("test1");
+		Graph_Algo G = new Graph_Algo();
 
-		Point3D x = new Point3D(14,4,0);
-		Point3D x2 = new Point3D(-75,14,0);
-		Point3D x3 = new Point3D(80,5,0);
-		Point3D x4 = new Point3D(1,4,0);
-		Point3D x5 = new Point3D(-5,1,0);
-		Point3D x6 = new Point3D(8,3,0);
-		Point3D x7 = new Point3D(4,1,0);
-		Point3D x8 = new Point3D(75,14,0);
-		node_data a1 = new Node(x);
-		node_data a2 = new Node(x2);
-		node_data a3 = new Node(x3);
-		node_data a4 = new Node(x4);
-		node_data a5 = new Node(x5);
-		node_data a6 = new Node(x6);
-		node_data a7 = new Node(x7);
-		node_data a8 = new Node(x8);
-		DGraph d = new DGraph();
-		d.addNode(a1);
-		d.addNode(a2);
-		d.addNode(a3);
-		d.addNode(a4);
-		d.addNode(a5);
-		d.addNode(a6);
-		d.addNode(a7);
-		d.addNode(a8);
-		d.connect(a1.getKey(),a2.getKey(),5);
-		d.connect(a1.getKey(),a5.getKey(),2);
-		d.connect(a1.getKey(),a3.getKey(),6);
-		d.connect(a1.getKey(),a6.getKey(),5);
-		d.connect(a3.getKey(),a4.getKey(),7);
-		d.connect(a2.getKey(),a8.getKey(),8);
-		d.connect(a2.getKey(),a7.getKey(),3);
-		d.connect(a5.getKey(),a1.getKey(),5);
-		d.connect(a5.getKey(),a6.getKey(),2);
-		d.connect(a6.getKey(),a1.getKey(),3);
-		d.connect(a6.getKey(),a5.getKey(),3);
-		d.connect(a6.getKey(),a7.getKey(),3);
-		d.connect(a7.getKey(),a6.getKey(),3);
-		Graph_Algo p = new Graph_Algo();
-		p.algo=d;
-		List<Integer> r = new LinkedList<>();
-		r.add(a1.getKey());
-		r.add(a6.getKey());
-		r.add(a5.getKey());
-		List<node_data> ans = p.TSP(r);
-		//System.out.println(d.getNode(7).getWeight());
+		Point3D p00 = new Point3D(1, 6, 0);
+		Point3D p11 = new Point3D(0, 2, 3);
+		Point3D p22 = new Point3D(1, 4, 0);
+		Point3D p33 = new Point3D(5, 2, 0);
+		Point3D p44 = new Point3D(6, 5, 0);
+		Point3D p55 = new Point3D(4, 6, 0);
+		Point3D p66 = new Point3D(3, 5, 0);
+
+		node_data node00 = new Node(p00);
+		node_data node11 = new Node(p11);
+		node_data node22 = new Node(p22);
+		node_data node33 = new Node(p33);
+		node_data node44 = new Node(p44);
+		node_data node55 = new Node(p55);
+		node_data node66 = new Node(p66);
+
+		DGraph Dg = new DGraph();
+		Dg.addNode(node00);
+		Dg.addNode(node11);
+		Dg.addNode(node22);
+		Dg.addNode(node33);
+		Dg.addNode(node44);
+		Dg.addNode(node55);
+		Dg.addNode(node66);
+
+		Dg.connect(node00.getKey(), node33.getKey(), 4);
+		Dg.connect(node00.getKey(), node22.getKey(), 6);
+		Dg.connect(node00.getKey(), node11.getKey(), 3);
+		Dg.connect(node11.getKey(), node22.getKey(), 2);
+		Dg.connect(node33.getKey(), node22.getKey(), 1);
+		Dg.connect(node33.getKey(), node44.getKey(), 3);
+		Dg.connect(node22.getKey(), node44.getKey(), 2);
+		Dg.connect(node44.getKey(), node66.getKey(), 7);
+		Dg.connect(node44.getKey(), node55.getKey(), 5);
+		Dg.connect(node00.getKey(), node55.getKey(), 1);
+
+		G.init(Dg);
+		double x = G.shortestPathDist(1, 5);
+		System.out.println(x);
+		String ans = "";
+		List<node_data> lNd = G.shortestPath(1, 5);
+		Iterator<node_data> itList = lNd.iterator();
+		while (itList.hasNext()) {
+			node_data c = itList.next();
+			ans += (c.getKey() + " ");
+		}
 		System.out.println(ans);
+
+		List<Integer> r = new LinkedList<>();
+		r.add(node00.getKey());
+		r.add(node11.getKey());
+		r.add(node55.getKey());
+		List<node_data> ansi = G.TSP(r);
+		System.out.println(ansi);
 	}
 }
+

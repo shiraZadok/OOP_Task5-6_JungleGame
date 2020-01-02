@@ -1,11 +1,10 @@
 package Tests;
 
-import algorithms.Graph_Algo;
+import algorithms.*;
 import dataStructure.DGraph;
 import dataStructure.Node;
 import org.junit.Test;
 import utils.Point3D;
-
 import static org.junit.Assert.assertEquals;
 
 

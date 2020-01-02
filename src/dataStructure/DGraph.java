@@ -56,6 +56,10 @@ public class DGraph implements graph, Serializable {
 					this.edges.get(src).put(dest,temp);
 				}
 			}
+			else{
+				this.removeEdge(src,dest);
+				this.connect(src, dest, w);
+			}
 			edgesCount++;
 			modeCount++;
 		}
