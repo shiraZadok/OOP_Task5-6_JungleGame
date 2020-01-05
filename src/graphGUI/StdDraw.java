@@ -1,4 +1,4 @@
-package utils;
+package graphGUI;
 
 /******************************************************************************
  *  Compilation:  javac StdDraw.java
@@ -24,9 +24,8 @@ package utils;
  *       images and strings
  *
  ******************************************************************************/
-import graphGUI.GUI;
-import algorithms.*;
 import dataStructure.*;
+import utils.Point3D;
 
 import java.awt.*;
 
@@ -716,12 +715,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		JMenuItem menuItem5 = new JMenuItem("TSP");
 		JMenu menuItem6 = new JMenu("Node");
 		JMenu menuItem7 = new JMenu("Edge");
-		JMenu menuItem8 = new JMenu("Add Node");
+		JMenuItem menuItem8 = new JMenuItem("Add Node");
 		JMenuItem menuItem9 = new JMenuItem("Remove Node");
 		JMenuItem menuItem10 = new JMenuItem("Add Edge");
 		JMenuItem menuItem111 = new JMenuItem("Remove Edge");
-		JMenuItem menuItem12 = new JMenuItem("Add by Click");
-		JMenuItem menuItem13 = new JMenuItem("Add by Point");
 
 		menuItem1.addActionListener(std);
 		menuItem11.addActionListener(std);
@@ -735,8 +732,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menuItem9.addActionListener(std);
 		menuItem10.addActionListener(std);
 		menuItem111.addActionListener(std);
-		menuItem12.addActionListener(std);
-		menuItem13.addActionListener(std);
 		menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menuItem11.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
@@ -753,8 +748,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menuItem6.add(menuItem9);
 		menuItem7.add(menuItem10);
 		menuItem7.add(menuItem111);
-		menuItem8.add(menuItem12);
-		menuItem8.add(menuItem13);
 		return menuBar;
 	}
 
@@ -1779,10 +1772,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			g.ga.algo.removeEdge(Integer.parseInt(s),Integer.parseInt(d));
 			g.GUIgraph(g.ga.algo);
 		}
-		if(e.getActionCommand().equals("Add by Click")){
-			frame.addMouseListener(this);
-		}
-		if(e.getActionCommand().equals("Add by Point")){
+
+		if(e.getActionCommand().equals("Add Node")){
 			JFrame jf = new JFrame();
 			String x = JOptionPane.showInputDialog(jf,"Please enter the x Point");
 			String y = JOptionPane.showInputDialog(jf,"Please enter the y Point");
@@ -1856,11 +1847,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		double x = mouseX();
-		double y = mouseY();
-		node_data add = new Node(new Point3D(x,y,0));
-		g.ga.algo.addNode(add);
-		g.GUIgraph(g.ga.algo);
 	}
 
 	/**

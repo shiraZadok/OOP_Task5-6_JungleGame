@@ -1,18 +1,10 @@
 package graphGUI;
 
-import algorithms.Graph_Algo;
+import algorithms.*;
 import dataStructure.*;
 import utils.*;
 import java.awt.*;
-import java.security.Guard;
 import java.util.Iterator;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 public class GUI extends Thread {
@@ -22,7 +14,6 @@ public class GUI extends Thread {
 
     public GUI(){
         StdDraw.g = this;
-        StdDraw.g.ga = this.ga;
         modeCount = this.ga.algo.getMC();
         this.start();
     }
@@ -75,7 +66,6 @@ public class GUI extends Thread {
                     double x = 0.2 * p1.x() + 0.8 * p2.x();
                     double y = 0.2 * p1.y() + 0.8 * p2.y();
                     StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
-
                     StdDraw.setPenColor(Color.YELLOW);
                     double x1 = 0.1 * p1.x() + 0.9 * p2.x();
                     double y1 = 0.1 * p1.y() + 0.9 * p2.y();
@@ -116,13 +106,14 @@ public class GUI extends Thread {
                 }
             }
         }
+
     }
 
     public void run(){
         while(true){
             if(modeCount!=this.ga.algo.getMC()){
-                GUIgraph(this.ga.algo);
-                modeCount = this.ga.algo.getMC();
+                GUIgraph(ga.algo);
+                modeCount = ga.algo.getMC();
             }
         }
     }
@@ -141,8 +132,6 @@ public class GUI extends Thread {
         d.connect(a.getKey(),b.getKey(),4);
         d.connect(b.getKey(),a.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
-        Graph_Algo p = new Graph_Algo();
-        p.init(d);
         GUI k = new GUI();
         k.GUIgraph(d);
         d.connect(c.getKey(),a.getKey(),30);
