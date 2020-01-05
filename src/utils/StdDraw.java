@@ -1699,41 +1699,53 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             double ans = g.ga.shortestPathDist(Integer.parseInt(s),Integer.parseInt(d));
             JOptionPane.showMessageDialog(jf,"The shortestPath between "+s+" to "+d+" is: "+ans);
 		}
-		if(e.getActionCommand().equals("shortestPath")){
-            JFrame jf = new JFrame();
-            String s = JOptionPane.showInputDialog(jf,"Please enter the src");
-            String d = JOptionPane.showInputDialog(jf,"Please enter the dest");
-            List<node_data> ans = g.ga.shortestPath(Integer.parseInt(s),Integer.parseInt(d));
-            StringBuilder ansGUI = new StringBuilder();
-			for (int i = 0; i <ans.size() ; i++) {
-				if(i!=ans.size()-1) {
-					ansGUI.append("" + ans.get(i).getKey() + "->");
-				}
-				else{
-					ansGUI.append("" + ans.get(i).getKey());
-				}
+		if(e.getActionCommand().equals("shortestPath")) {
+			JFrame jf = new JFrame();
+			String s = JOptionPane.showInputDialog(jf, "Please enter the src");
+			String d = JOptionPane.showInputDialog(jf, "Please enter the dest");
+			List<node_data> ans = g.ga.shortestPath(Integer.parseInt(s), Integer.parseInt(d));
+			if (ans.size() == 0) {
+				JOptionPane.showMessageDialog(jf, "There is no a path between the nodes");
 			}
-			JOptionPane.showMessageDialog(jf,"The shortestPath between "+s+" to "+d+" is: "+"[ "+ansGUI+" ]");
+			else {
+				StringBuilder ansGUI = new StringBuilder();
+				for (int i = 0; i < ans.size(); i++) {
+					if (i != ans.size() - 1) {
+						ansGUI.append("" + ans.get(i).getKey() + "->");
+					} else {
+						ansGUI.append("" + ans.get(i).getKey());
+					}
+				}
+				g.GUIPath(ans);
+				JOptionPane.showMessageDialog(jf, "The shortestPath between " + s + " to " + d + " is: " + "[ " + ansGUI + " ]");
+				g.backRed(g.ga.algo);
+			}
 		}
-		if(e.getActionCommand().equals("TSP")){
-            JFrame jf = new JFrame();
-            String get = JOptionPane.showInputDialog(jf,"Please enter a group of points with ',' between each other");
-            String[]get2 = get.split(",");
-            List<Integer>targets = new LinkedList<>();
-            for (int i = 0; i <get2.length ; i++) {
-                targets.add(Integer.parseInt(get2[i]));
-            }
-            List<node_data> ans = g.ga.TSP(targets);
-			StringBuilder ansGUI = new StringBuilder();
-			for (int i = 0; i <ans.size() ; i++) {
-				if(i!=ans.size()-1) {
-					ansGUI.append("" + ans.get(i).getKey() + "->");
-				}
-				else{
-					ansGUI.append("" + ans.get(i).getKey());
-				}
+		if(e.getActionCommand().equals("TSP")) {
+			JFrame jf = new JFrame();
+			String get = JOptionPane.showInputDialog(jf, "Please enter a group of points with ',' between each other");
+			String[] get2 = get.split(",");
+			List<Integer> targets = new LinkedList<>();
+			for (int i = 0; i < get2.length; i++) {
+				targets.add(Integer.parseInt(get2[i]));
 			}
-			JOptionPane.showMessageDialog(jf,"The TSP between the nodes you chose is: "+"[ "+ansGUI+" ]");
+			List<node_data> ans = g.ga.TSP(targets);
+			if (ans == null) {
+				JOptionPane.showMessageDialog(jf, "There is no a path between the nodes");
+			}
+			else {
+				StringBuilder ansGUI = new StringBuilder();
+				for (int i = 0; i < ans.size(); i++) {
+					if (i != ans.size() - 1) {
+						ansGUI.append("" + ans.get(i).getKey() + "->");
+					} else {
+						ansGUI.append("" + ans.get(i).getKey());
+					}
+				}
+				g.GUIPath(ans);
+				JOptionPane.showMessageDialog(jf, "The TSP between the nodes you chose is: " + "[ " + ansGUI + " ]");
+				g.backRed(g.ga.algo);
+			}
 		}
 		if(e.getActionCommand().equals("Load...")){
             FileDialog chooser = new FileDialog(StdDraw.frame, "Load this graph", FileDialog.LOAD);
@@ -1777,6 +1789,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			Point3D p = new Point3D(Double.parseDouble(x),Double.parseDouble(y),0);
 			node_data add = new Node(p);
 			g.ga.algo.addNode(add);
+			g.GUIgraph(g.ga.algo);
+		}
+		if(e.getActionCommand().equals("Remove Node")){
+			JFrame jf = new JFrame();
+			String key = JOptionPane.showInputDialog(jf,"Please enter the key of Node");
+			g.ga.algo.removeNode(Integer.parseInt(key));
 			g.GUIgraph(g.ga.algo);
 		}
 	}

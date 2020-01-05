@@ -13,18 +13,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
-public class GUI {
+public class GUI extends Thread {
 
     public Graph_Algo ga = new Graph_Algo();
+    private int modeCount = 0;
+
     public GUI(){
         StdDraw.g = this;
         StdDraw.g.ga = this.ga;
+        modeCount = this.ga.algo.getMC();
+        this.start();
     }
 
     public void GUIgraph(graph d) {
         StdDraw.clear();
-        ga.init(d);
+        this.ga.init(d);
         StdDraw.g=this;
         double minX = 0;
         double minY = 0;
@@ -79,6 +84,49 @@ public class GUI {
             }
         }
     }
+
+    public void GUIPath(List<node_data> l){
+        StdDraw.setPenRadius(0.01);
+        StdDraw.setPenColor(Color.GREEN);
+        for (int i = 0; i <l.size()-1 ; i++) {
+            Point3D src = this.ga.algo.getNode(l.get(i).getKey()).getLocation();
+            Point3D dest = this.ga.algo.getNode(l.get(i+1).getKey()).getLocation();
+            StdDraw.line(src.x(),src.y(),dest.x(),dest.y());
+        }
+    }
+
+    public void backRed(graph d) {
+        StdDraw.setPenRadius(0.01);
+        Iterator edge1 = d.getV().iterator();
+        while (edge1.hasNext()) {
+            node_data temp1 = (node_data) edge1.next();
+            if (d.getE(temp1.getKey()) != null) {
+                Iterator edge2 = d.getE(temp1.getKey()).iterator();
+                while (edge2.hasNext()) {
+                    StdDraw.setPenColor(Color.RED);
+                    edge_data temp2 = (edge_data) edge2.next();
+                    node_data n1 = d.getNode(temp2.getSrc());
+                    node_data n2 = d.getNode(temp2.getDest());
+                    Point3D p1 = n1.getLocation();
+                    Point3D p2 = n2.getLocation();
+                    StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
+                    double x = 0.2 * p1.x() + 0.8 * p2.x();
+                    double y = 0.2 * p1.y() + 0.8 * p2.y();
+                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
+                }
+            }
+        }
+    }
+
+    public void run(){
+        while(true){
+            if(modeCount!=this.ga.algo.getMC()){
+                GUIgraph(this.ga.algo);
+                modeCount = this.ga.algo.getMC();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Point3D x = new Point3D(1,4,0);
         Point3D y = new Point3D(2,5,0);
@@ -93,11 +141,11 @@ public class GUI {
         d.connect(a.getKey(),b.getKey(),4);
         d.connect(b.getKey(),a.getKey(),4);
         d.connect(a.getKey(),c.getKey(),50);
-
         Graph_Algo p = new Graph_Algo();
         p.init(d);
         GUI k = new GUI();
         k.GUIgraph(d);
+        d.connect(c.getKey(),a.getKey(),30);
 
 //        Point3D x = new Point3D(14,4,0);
 //        Point3D x2 = new Point3D(-75,14,0);
