@@ -1,4 +1,4 @@
-package graphGUI;
+package gui;
 
 import algorithms.*;
 import dataStructure.*;
@@ -35,21 +35,21 @@ public class GUI extends Thread {
             maxX = Math.max(maxX, p.x());
             maxY = Math.max(maxY, p.y());
         }
-        StdDraw.setCanvasSize(1000, 1000);
-        StdDraw.setXscale(minX - 1, maxX + 1);
-        StdDraw.setYscale(minY - 1, maxY + 1);
+        double ScaleX =(maxX-minX)*0.04;
+        double ScaleY=(maxY-minY)*0.04;
+        StdDraw.setCanvasSize(800, 800);
+        StdDraw.setXscale(minX - (maxX - minX) * 0.2+1, maxX * 1.1);
+        StdDraw.setYscale(minY - (maxY - minY) * 0.2+1, maxY * 1.1);
         StdDraw.setPenColor(Color.BLUE);
         StdDraw.setPenRadius(0.05);
-        int i = 1;
         Iterator it1 = d.getV().iterator();
         while (it1.hasNext()) {
             node_data temp = (node_data) it1.next();
             Point3D p1 = temp.getLocation();
-            StdDraw.filledCircle(p1.x(), p1.y(), 0.05);
-            StdDraw.text(p1.x(), p1.y() + 0.1, "" + i);
-            i++;
+            StdDraw.filledCircle(p1.x(), p1.y(),ScaleX*0.2);
+            StdDraw.text(p1.x(), p1.y() + (((maxX-minX)*0.04)*0.2), "" + temp.getKey());
         }
-        StdDraw.setPenRadius(0.01);
+        StdDraw.setPenRadius(0.005);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
@@ -69,14 +69,14 @@ public class GUI extends Thread {
                     StdDraw.setPenColor(Color.YELLOW);
                     double x1 = 0.1 * p1.x() + 0.9 * p2.x();
                     double y1 = 0.1 * p1.y() + 0.9 * p2.y();
-                    StdDraw.filledCircle(x1, y1, 0.05);
+                    StdDraw.filledCircle(x1, y1, ScaleX*0.2);
                 }
             }
         }
     }
 
     public void GUIPath(List<node_data> l){
-        StdDraw.setPenRadius(0.01);
+        StdDraw.setPenRadius(0.005);
         StdDraw.setPenColor(Color.GREEN);
         for (int i = 0; i <l.size()-1 ; i++) {
             Point3D src = this.ga.algo.getNode(l.get(i).getKey()).getLocation();
@@ -86,7 +86,7 @@ public class GUI extends Thread {
     }
 
     public void backRed(graph d) {
-        StdDraw.setPenRadius(0.01);
+        StdDraw.setPenRadius(0.005);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
@@ -106,7 +106,6 @@ public class GUI extends Thread {
                 }
             }
         }
-
     }
 
     public void run(){
@@ -116,64 +115,5 @@ public class GUI extends Thread {
                 modeCount = ga.algo.getMC();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Point3D x = new Point3D(1,4,0);
-        Point3D y = new Point3D(2,5,0);
-        Point3D q = new Point3D(4,3,0);
-        node_data a = new Node(x);
-        node_data b =new Node(y);
-        node_data c = new Node(q);
-        DGraph d =new DGraph();
-        d.addNode(a);
-        d.addNode(b);
-        d.addNode(c);
-        d.connect(a.getKey(),b.getKey(),4);
-        d.connect(b.getKey(),a.getKey(),4);
-        d.connect(a.getKey(),c.getKey(),50);
-        GUI k = new GUI();
-        k.GUIgraph(d);
-        d.connect(c.getKey(),a.getKey(),30);
-
-//        Point3D x = new Point3D(14,4,0);
-//        Point3D x2 = new Point3D(-75,14,0);
-//        Point3D x3 = new Point3D(80,5,0);
-//        Point3D x4 = new Point3D(1,4,0);
-//        Point3D x5 = new Point3D(-5,1,0);
-//        Point3D x6 = new Point3D(8,3,0);
-//        Point3D x7 = new Point3D(4,1,0);
-//        Point3D x8 = new Point3D(75,14,0);
-//        node_data a1 = new Node(x);
-//        node_data a2 = new Node(x2);
-//        node_data a3 = new Node(x3);
-//        node_data a4 = new Node(x4);
-//        node_data a5 = new Node(x5);
-//        node_data a6 = new Node(x6);
-//        node_data a7 = new Node(x7);
-//        node_data a8 = new Node(x8);
-//        DGraph d = new DGraph();
-//        d.addNode(a1);
-//        d.addNode(a2);
-//        d.addNode(a3);
-//        d.addNode(a4);
-//        d.addNode(a5);
-//        d.addNode(a6);
-//        d.addNode(a7);
-//        d.addNode(a8);
-//        d.connect(a1.getKey(),a2.getKey(),5);
-//        d.connect(a1.getKey(),a5.getKey(),2);
-//        d.connect(a1.getKey(),a3.getKey(),6);
-//        d.connect(a1.getKey(),a6.getKey(),5);
-//        d.connect(a3.getKey(),a4.getKey(),7);
-//        d.connect(a2.getKey(),a8.getKey(),8);
-//        d.connect(a2.getKey(),a7.getKey(),3);
-//        d.connect(a5.getKey(),a1.getKey(),5);
-//        d.connect(a5.getKey(),a6.getKey(),2);
-//        d.connect(a6.getKey(),a1.getKey(),3);
-//        d.connect(a6.getKey(),a5.getKey(),3);
-//        d.connect(a6.getKey(),a7.getKey(),3);
-//        d.connect(a7.getKey(),a6.getKey(),3);
-
     }
 }

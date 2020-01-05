@@ -203,7 +203,7 @@ public class Graph_AlgoTest {
         assertEquals(false, G2.isConnected());
         //System.out.println("success2");
 
-        assertEquals(false, G3.isConnected());
+        assertEquals(true, G3.isConnected());
         //System.out.println("success3");
 
     }
@@ -389,31 +389,6 @@ public class Graph_AlgoTest {
         }
 
         assertEquals(ansl1.toString(),check.toString());
-
-        ///////////////////Try2//////////////////////////
-//        LinkedList<Integer> l2 = new LinkedList<Integer>();
-//        l2.add(n9[1].getKey());
-//        l2.add(n9[3].getKey());
-//        l2.add(n9[0].getKey());
-//
-//        String ansl2 = "";
-//        ansl2+= n9[1].getKey();
-//        ansl2+= n9[2].getKey();
-//        ansl2+= n9[3].getKey();
-//        ansl2+= n9[0].getKey();
-//
-//        List<node_data> List2 = new LinkedList<>();
-//        List2 = G9.TSP(l2);
-//
-//        String check2="";
-//        Iterator<node_data> itList2 = List2.iterator();
-//        while (itList2.hasNext())
-//        {
-//            node_data c = (node_data)itList2.next();
-//            check2+=(c.getKey());
-//        }
-//
-//        assertEquals(ansl2.toString(),check2.toString());
     }
 
     @Test
@@ -458,7 +433,6 @@ public class Graph_AlgoTest {
 
 
         assertEquals(G7.isConnected(), G8.isConnected());
-        //System.out.println("success"+j++);
         assertEquals(G7.shortestPathDist(n6[0].getKey(),n6[5].getKey()), G8.shortestPathDist(n6[0].getKey(),n6[5].getKey()),0);
         g7.connect(n6[4].getKey(),n6[5].getKey(),0);
         g7.connect(n6[0].getKey(),n6[5].getKey(),30);

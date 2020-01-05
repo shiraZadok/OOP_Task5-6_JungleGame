@@ -28,6 +28,7 @@ public class Edge implements edge_data,Serializable{
      * @param Weight - the weight of the edge
      */
     public Edge(int Src, int Dest, double Weight){
+        if(Weight<0) throw new RuntimeException("The weight must be positive");
         this.Src = Src;
         this.Dest = Dest;
         this.Weight = Weight;

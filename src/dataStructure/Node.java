@@ -11,7 +11,7 @@ public class Node implements node_data, Serializable {
     private double Weight;
     private String Info;
     private Point3D Location;
-    private static int KeyCount=1;
+    public static int KeyCount=1;
 
     /**
      * a default constructor

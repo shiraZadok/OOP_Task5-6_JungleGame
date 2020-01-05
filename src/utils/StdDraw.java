@@ -1,4 +1,4 @@
-package graphGUI;
+package utils;
 
 /******************************************************************************
  *  Compilation:  javac StdDraw.java
@@ -25,7 +25,7 @@ package graphGUI;
  *
  ******************************************************************************/
 import dataStructure.*;
-import utils.Point3D;
+import gui.GUI;
 
 import java.awt.*;
 
@@ -53,10 +53,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.NoSuchElementException;
 import javax.imageio.ImageIO;
 
 import javax.swing.*;
@@ -1778,6 +1776,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			String x = JOptionPane.showInputDialog(jf,"Please enter the x Point");
 			String y = JOptionPane.showInputDialog(jf,"Please enter the y Point");
 			Point3D p = new Point3D(Double.parseDouble(x),Double.parseDouble(y),0);
+			int keyCheck = Integer.MIN_VALUE;
+			Collection<node_data>temp =g.ga.algo.getV();
+			for(node_data node: temp){
+				if(node.getKey()>keyCheck){
+					keyCheck=node.getKey();
+				}
+			}
+			if(keyCheck==Integer.MAX_VALUE) keyCheck=0;
+			Node.KeyCount=++keyCheck;
 			node_data add = new Node(p);
 			g.ga.algo.addNode(add);
 			g.GUIgraph(g.ga.algo);

@@ -36,10 +36,6 @@ public class DGraphTest {
         n[6] = new Node(p[6]);
         n[7] = new Node(p[7]);
 
-//        for (int i=0; i<n.length; i++){
-//            System.out.println(n[i].getKey());
-//        }
-
         // put all the node in the graph-g
         for(int i=0; i<n.length; i++){
             g.addNode(n[i]);
