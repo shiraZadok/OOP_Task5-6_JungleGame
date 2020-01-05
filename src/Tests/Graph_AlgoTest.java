@@ -401,6 +401,7 @@ public class Graph_AlgoTest {
         int j =1;
         p6[0] = new Point3D(100, 200, 3);
         p6[1] = new Point3D(150, 200, 3);
+
         p6[2] = new Point3D(300, 450, 3);
         p6[3] = new Point3D(450, 500, 3);
         p6[4] = new Point3D(320, 600, 3);
