@@ -3,8 +3,17 @@ package Tests;
 import algorithms.Graph_Algo;
 import dataStructure.DGraph;
 import dataStructure.Node;
+import dataStructure.graph;
+import dataStructure.node_data;
 import org.junit.Test;
 import utils.Point3D;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class Graph_AlgoTest {
 
@@ -25,8 +34,13 @@ public class Graph_AlgoTest {
         g1.addNode(n1[1]);
 
         g1.connect(n1[0].getKey(), n1[1].getKey(), 4);
-
         G.init(g1);
+
+        Graph_Algo ans = new Graph_Algo();
+        ans.init(g1);
+
+        assertEquals(ans.isConnected(), G.isConnected());
+
     }
 
     @Test
@@ -35,8 +49,6 @@ public class Graph_AlgoTest {
         DGraph g2 = new DGraph();
         Point3D p2 [] = new Point3D[5];
         Node n2 [] = new Node[5];
-
-        Graph_Algo Ag = new Graph_Algo();
 
         p2[0] = new Point3D(1, 6, 0);
         p2[1] = new Point3D(0, 2, 3);
@@ -63,18 +75,52 @@ public class Graph_AlgoTest {
         g2.connect(n2[4].getKey(), n2[3].getKey(), 11);
 
         G2.init(g2);
-        G2.save("Test for Save 2");
+        G2.save("TestForSave");
 
         Graph_Algo G3 = new Graph_Algo();
-        G3.init("Test for Save 3");
+        G3.init("TestForSave");
 
-//        Boolean flag = G2.isConnected() == G3.isConnected();
-//        assertEquals(true,flag);
+        Boolean flag = G2.isConnected() == G3.isConnected();
+        assertEquals(true,flag);
     }
 
     @Test
     public void initFile() {
+        Graph_Algo G4 = new Graph_Algo();
+        DGraph g4 = new DGraph();
+        Point3D p4 [] = new Point3D[5];
+        Node n4 [] = new Node[5];
 
+        p4[0] = new Point3D(1, 6, 0);
+        p4[1] = new Point3D(0, 2, 3);
+        p4[2] = new Point3D(1, 4, 0);
+        p4[3] = new Point3D(5, 2, 0);
+        p4[4] = new Point3D(6,5, 0);
+
+        n4[0] = new Node (p4[0]);
+        n4[1] = new Node(p4[1]);
+        n4[2] = new Node(p4[2]);
+        n4[3] = new Node(p4[3]);
+        n4[4] = new Node(p4[4]);
+
+        g4.addNode(n4[0]);
+        g4.addNode(n4[1]);
+        g4.addNode(n4[2]);
+        g4.addNode(n4[3]);
+        g4.addNode(n4[4]);
+
+        g4.connect(n4[1].getKey(), n4[2].getKey(), 11);
+        g4.connect(n4[2].getKey(), n4[3].getKey(), 11);
+        g4.connect(n4[3].getKey(), n4[2].getKey(), 11);
+        g4.connect(n4[3].getKey(), n4[4].getKey(), 11);
+        g4.connect(n4[4].getKey(), n4[3].getKey(), 11);
+
+        G4.init(g4);
+        Graph_Algo G5 = new Graph_Algo();
+        G5.init("TestForSave");
+
+        assertEquals(G4.isConnected(), G5.isConnected());
+        //assertEquals(G4.algo.getNode(n4[0].getKey()).toString(), G5.algo.getNode(n4[0].getKey()).toString());
     }
 
 
@@ -99,7 +145,7 @@ public class Graph_AlgoTest {
 
         G.init(g1);
 
-//        assertEquals(false, G.isConnected());
+        assertEquals(false, G.isConnected());
         //System.out.println("success1");
 
 
@@ -154,31 +200,269 @@ public class Graph_AlgoTest {
         G2.init(g2);
         G3.init(g3);
 
-//        assertEquals(false, G2.isConnected());
-//        //System.out.println("success2");
-//
-//        assertEquals(true, G3.isConnected());
-//        //System.out.println("success3");
+        assertEquals(false, G2.isConnected());
+        //System.out.println("success2");
 
-
-
+        assertEquals(false, G3.isConnected());
+        //System.out.println("success3");
 
     }
 
     @Test
     public void shortestPathDist() {
-    }
+        Graph_Algo G6 = new Graph_Algo();
+        DGraph g6 = new DGraph();
+        Point3D p6[] = new Point3D[6];
+        Node n6[] = new Node[6];
 
+        p6[0] = new Point3D(100, 200, 3);
+        p6[1] = new Point3D(150, 200, 3);
+        p6[2] = new Point3D(300, 450, 3);
+        p6[3] = new Point3D(450, 500, 3);
+        p6[4] = new Point3D(320, 600, 3);
+        p6[5] = new Point3D(226, 260, 3);
+
+        n6[0] = new Node(p6[0]);
+        n6[1] = new Node(p6[1]);
+        n6[2] = new Node(p6[2]);
+        n6[3] = new Node(p6[3]);
+        n6[4] = new Node(p6[4]);
+        n6[5] = new Node(p6[5]);
+
+        g6.addNode(n6[0]);
+        g6.addNode(n6[1]);
+        g6.addNode(n6[2]);
+        g6.addNode(n6[3]);
+        g6.addNode(n6[4]);
+        g6.addNode(n6[5]);
+
+        g6.connect(n6[0].getKey(), n6[1].getKey(), 2);
+        g6.connect(n6[1].getKey(), n6[2].getKey(), 2);
+        g6.connect(n6[2].getKey(), n6[3].getKey(), 2);
+        g6.connect(n6[3].getKey(), n6[4].getKey(), 2);
+        g6.connect(n6[4].getKey(), n6[5].getKey(), 2);
+        g6.connect(n6[5].getKey(), n6[0].getKey(), 2);
+
+        G6.init(g6);
+
+        assertEquals(false, G6.shortestPath(n6[0].getKey(), n6[5].getKey()).isEmpty());
+
+        assertEquals(10, G6.shortestPathDist(n6[0].getKey(), n6[5].getKey()), 0);
+
+        g6.connect(n6[0].getKey(), n6[1].getKey(), 1);
+        g6.connect(n6[1].getKey(), n6[2].getKey(), 1);
+        g6.connect(n6[0].getKey(), n6[5].getKey(), 12);
+
+        assertEquals(false, G6.shortestPath(n6[0].getKey(), n6[5].getKey()).isEmpty());
+
+        assertEquals(8, G6.shortestPathDist(n6[0].getKey(), n6[5].getKey()), 0);
+    }
 
     @Test
     public void shortestPath() {
+        Graph_Algo G7 = new Graph_Algo();
+        DGraph g7 = new DGraph();
+        Point3D p6[] = new Point3D[6];
+        Node n6[] = new Node[6];
+
+        int j = 1;
+
+        p6[0] = new Point3D(100, 200, 3);
+        p6[1] = new Point3D(150, 200, 3);
+        p6[2] = new Point3D(300, 450, 3);
+        p6[3] = new Point3D(450, 500, 3);
+        p6[4] = new Point3D(320, 600, 3);
+        p6[5] = new Point3D(226, 260, 3);
+
+        n6[0] = new Node(p6[0]);
+        n6[1] = new Node(p6[1]);
+        n6[2] = new Node(p6[2]);
+        n6[3] = new Node(p6[3]);
+        n6[4] = new Node(p6[4]);
+        n6[5] = new Node(p6[5]);
+
+        g7.addNode(n6[0]);
+        g7.addNode(n6[1]);
+        g7.addNode(n6[2]);
+        g7.addNode(n6[3]);
+        g7.addNode(n6[4]);
+        g7.addNode(n6[5]);
+
+        g7.connect(n6[0].getKey(),n6[1].getKey(),2);
+        g7.connect(n6[1].getKey(),n6[2].getKey(),4);
+        g7.connect(n6[2].getKey(),n6[3].getKey(),8);
+        g7.connect(n6[3].getKey(),n6[4].getKey(),2);
+        G7.init(g7);
+
+        List<node_data> ansList = new LinkedList<>();
+        ansList = G7.shortestPath(n6[0].getKey(),n6[5].getKey());
+        assertEquals(null,ansList);
+
+        g7.connect(n6[4].getKey(),n6[5].getKey(),0);
+        g7.connect(n6[0].getKey(),n6[5].getKey(),30);
+        G7.init(g7);
+
+        ansList = G7.shortestPath(n6[0].getKey(),n6[5].getKey());
+
+        assertEquals(false,ansList.isEmpty());
+        assertEquals(6,ansList.size(), 0);
+        assertEquals (16,G7.shortestPathDist(n6[0].getKey(),n6[5].getKey()),0);
+
+        String stringAns ="";
+        for (int i=0; i<6; i++){
+            stringAns += n6[i].getKey();
+        }
+
+        String check="";
+        Iterator<node_data> itList = ansList.iterator();
+        while (itList.hasNext())
+        {
+            node_data c = (node_data)itList.next();
+            check+=(c.getKey());
+        }
+        assertEquals(stringAns.toString(), check.toString());
+
+        g7.connect(n6[0].getKey(),n6[5].getKey(),0);
+        G7.init(g7);
+        ansList = (List<node_data>) G7.shortestPath(n6[0].getKey(),n6[5].getKey());
+        assertEquals(false,ansList.isEmpty());
+        assertEquals(2,ansList.size(), 0);
     }
 
     @Test
     public void TSP() {
+        Graph_Algo G9 = new Graph_Algo();
+        graph g9 = new DGraph();
+        Point3D p9[] = new Point3D[5];
+        Node n9[] = new Node[5];
+
+        p9[0] = new Point3D(1, 6, 0);
+        p9[1] = new Point3D(0, 2, 3);
+        p9[2] = new Point3D(1, 4, 0);
+        p9[3] = new Point3D(5, 2, 0);
+        p9[4] = new Point3D(6,5, 0);
+
+        n9[0] = new Node(p9[0]);
+        n9[1] = new Node(p9[1]);
+        n9[2] = new Node(p9[2]);
+        n9[3] = new Node(p9[3]);
+        n9[4] = new Node(p9[4]);
+
+
+        g9.addNode(n9[0]);
+        g9.addNode(n9[1]);
+        g9.addNode(n9[2]);
+        g9.addNode(n9[3]);
+        g9.addNode(n9[4]);
+
+        g9.connect(n9[0].getKey(), n9[1].getKey(), 9);
+        g9.connect(n9[1].getKey(), n9[2].getKey(),3);
+        g9.connect(n9[2].getKey(), n9[3].getKey(), 5);
+        g9.connect(n9[3].getKey(), n9[0].getKey(), 4);
+        g9.connect(n9[1].getKey(), n9[0].getKey(), 2);
+        g9.connect(n9[1].getKey(), n9[4].getKey(), 1);
+        g9.connect(n9[4].getKey(), n9[3].getKey(), 2);
+        g9.connect(n9[3].getKey(), n9[2].getKey(), 6);
+        g9.connect(n9[2].getKey(), n9[1].getKey(), 5);
+
+        G9.init(g9);
+
+        LinkedList<Integer> l1 = new LinkedList<Integer>();
+        l1.add(n9[1].getKey());
+        l1.add(n9[3].getKey());
+        l1.add(n9[4].getKey());
+
+        String ansl1 = "";
+        ansl1+= n9[1].getKey();
+        ansl1+= n9[4].getKey();
+        ansl1+= n9[3].getKey();
+
+        List<node_data> List = new LinkedList<>();
+        List = G9.TSP(l1);
+
+        String check="";
+        Iterator<node_data> itList = List.iterator();
+        while (itList.hasNext())
+        {
+            node_data c = (node_data)itList.next();
+            check+=(c.getKey());
+        }
+
+        assertEquals(ansl1.toString(),check.toString());
+
+        ///////////////////Try2//////////////////////////
+//        LinkedList<Integer> l2 = new LinkedList<Integer>();
+//        l2.add(n9[1].getKey());
+//        l2.add(n9[3].getKey());
+//        l2.add(n9[0].getKey());
+//
+//        String ansl2 = "";
+//        ansl2+= n9[1].getKey();
+//        ansl2+= n9[2].getKey();
+//        ansl2+= n9[3].getKey();
+//        ansl2+= n9[0].getKey();
+//
+//        List<node_data> List2 = new LinkedList<>();
+//        List2 = G9.TSP(l2);
+//
+//        String check2="";
+//        Iterator<node_data> itList2 = List2.iterator();
+//        while (itList2.hasNext())
+//        {
+//            node_data c = (node_data)itList2.next();
+//            check2+=(c.getKey());
+//        }
+//
+//        assertEquals(ansl2.toString(),check2.toString());
     }
 
     @Test
     public void copy() {
+        Graph_Algo G7 = new Graph_Algo();
+        DGraph g7 = new DGraph();
+        Point3D p6[] = new Point3D[6];
+        Node n6[] = new Node[6];
+
+        int j =1;
+        p6[0] = new Point3D(100, 200, 3);
+        p6[1] = new Point3D(150, 200, 3);
+        p6[2] = new Point3D(300, 450, 3);
+        p6[3] = new Point3D(450, 500, 3);
+        p6[4] = new Point3D(320, 600, 3);
+        p6[5] = new Point3D(226, 260, 3);
+
+        n6[0] = new Node(p6[0]);
+        n6[1] = new Node(p6[1]);
+        n6[2] = new Node(p6[2]);
+        n6[3] = new Node(p6[3]);
+        n6[4] = new Node(p6[4]);
+        n6[5] = new Node(p6[5]);
+
+        g7.addNode(n6[0]);
+        g7.addNode(n6[1]);
+        g7.addNode(n6[2]);
+        g7.addNode(n6[3]);
+        g7.addNode(n6[4]);
+        g7.addNode(n6[5]);
+
+        g7.connect(n6[0].getKey(),n6[1].getKey(),2);
+        g7.connect(n6[1].getKey(),n6[2].getKey(),4);
+        g7.connect(n6[2].getKey(),n6[3].getKey(),8);
+        g7.connect(n6[3].getKey(),n6[4].getKey(),2);
+        G7.init(g7);
+
+        Graph_Algo G8 = new Graph_Algo();
+        graph copyGragh = new DGraph();
+        copyGragh = G7.copy();
+        G8.init(copyGragh);
+
+
+        assertEquals(G7.isConnected(), G8.isConnected());
+        //System.out.println("success"+j++);
+        assertEquals(G7.shortestPathDist(n6[0].getKey(),n6[5].getKey()), G8.shortestPathDist(n6[0].getKey(),n6[5].getKey()),0);
+        g7.connect(n6[4].getKey(),n6[5].getKey(),0);
+        g7.connect(n6[0].getKey(),n6[5].getKey(),30);
+        G7.init(g7);
+        assertNotEquals(G7.shortestPathDist(n6[0].getKey(),n6[5].getKey()), G8.shortestPathDist(n6[0].getKey(),n6[5].getKey()),0);
     }
 }
