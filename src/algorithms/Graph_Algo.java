@@ -57,25 +57,24 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	@Override
 	public boolean isConnected() {
-		this.changeTagNode();
-		Iterator it = this.algo.getV().iterator();
+		graph ans = this.copy();
+		Iterator it = ans.getV().iterator();
 		dfs((node_data) it.next());
-		it = this.algo.getV().iterator();
+		it = ans.getV().iterator();
 		while (it.hasNext()) {
 			node_data temp = (node_data) it.next();
 			if (temp.getTag() == 0) return false;
 		}
 		this.changeTagEdge();
 		this.changeTagNode();
-		oppositeDest(this.algo);
-		it = this.algo.getV().iterator();
+		oppositeDest(ans);
+		it = ans.getV().iterator();
 		dfs((node_data) it.next());
-		it = this.algo.getV().iterator();
+		it = ans.getV().iterator();
 		while (it.hasNext()) {
 			node_data temp = (node_data) it.next();
 			if (temp.getTag() == 0) return false;
 		}
-		oppositeDest(this.algo);
 		return true;
 	}
 
@@ -150,19 +149,24 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		this.changeTagNode();
+		if(src==dest) return 0;
+		if(this.algo.getNode(src)==null || this.algo.getNode(dest)==null){
+			throw new RuntimeException("This nodes are not exist");
+		}
+		changeTagNode();
 		Iterator it = this.algo.getV().iterator();
 		while (it.hasNext()) {
 			node_data n = (node_data) it.next();
 			n.setWeight(Integer.MAX_VALUE);
 		}
-		this.algo.getNode(src).setWeight(0);
-		shortestPathDistRec(this.algo.getNode(src), this.algo.getNode(dest));
+		node_data temp = this.algo.getNode(src);
+		temp.setWeight(0);
+		shortestPathDistRec(temp, this.algo.getNode(dest));
 		return this.algo.getNode(dest).getWeight();
 	}
 
 	public void shortestPathDistRec(node_data n, node_data dest) {
-		if (n.getTag() == 1 || n.getKey() == dest.getKey()) {
+		if (n.getTag() == 1 && n.getKey() == dest.getKey()) {
 			return;
 		}
 		if (this.algo.getE(n.getKey()) != null) {
@@ -170,10 +174,9 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 			while (it.hasNext()) {
 				edge_data e = (edge_data) it.next();
 				node_data d = this.algo.getNode(e.getDest());
-				if (n.getWeight() + e.getWeight() < d.getWeight()) {
-					d.setWeight(n.getWeight() + e.getWeight());
+				if (this.algo.getNode(e.getSrc()).getWeight() + e.getWeight() < d.getWeight()) {
+					d.setWeight(this.algo.getNode(e.getSrc()).getWeight() + e.getWeight());
 					n.setTag(1);
-					d.setInfo(""+n.getKey());
 					shortestPathDistRec(this.algo.getNode(e.getDest()), dest);
 				}
 			}
@@ -185,8 +188,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		List<node_data> ans = new LinkedList<>();
 		this.shortestPathDist(src,dest);
 		if(this.algo.getNode(src).getWeight()==Integer.MAX_VALUE  || this.algo.getNode(dest).getWeight()==Integer.MAX_VALUE){
-			System.out.println("There is not a path between this nodes");
-			return ans;
+			return null;
 		}
 		graph tempGraph = this.copy();
 		node_data min = tempGraph.getNode(dest);
@@ -276,61 +278,92 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	public static void main(String[] args) {
 		Graph_Algo G = new Graph_Algo();
-
 		Point3D p00 = new Point3D(1, 6, 0);
 		Point3D p11 = new Point3D(0, 2, 3);
 		Point3D p22 = new Point3D(1, 4, 0);
 		Point3D p33 = new Point3D(5, 2, 0);
-		Point3D p44 = new Point3D(6, 5, 0);
-		Point3D p55 = new Point3D(4, 6, 0);
-		Point3D p66 = new Point3D(3, 5, 0);
-
-		node_data node00 = new Node(p00);
-		node_data node11 = new Node(p11);
-		node_data node22 = new Node(p22);
-		node_data node33 = new Node(p33);
-		node_data node44 = new Node(p44);
-		node_data node55 = new Node(p55);
-		node_data node66 = new Node(p66);
+		Point3D p44 = new Point3D(6,5, 0);
+		Point3D p55 = new Point3D(4,6, 0);
+		Point3D p66 = new Point3D(3,5, 0);
+		Point3D p77 = new Point3D(4,10,0);
+		Point3D p88 = new Point3D(4.10,0);
+		Point3D p99 = new Point3D(1,30);
+		Point3D p10 = new Point3D(10,40);
+		node_data node1 = new Node(p00);
+		node_data node2 = new Node(p11);
+		node_data node3 = new Node(p22);
+		node_data node4 = new Node(p33);
+		node_data node5 = new Node(p44);
+		node_data node6 = new Node(p55);
+		node_data node7 = new Node(p66);
+		node_data node8 = new Node(p77);
+		node_data node9 =new Node(p88);
+		node_data node10 = new Node(p99);
+		node_data node11 = new Node(p10);
 
 		DGraph Dg = new DGraph();
-		Dg.addNode(node00);
+		Dg.addNode(node1);
+		Dg.addNode(node2);
+		Dg.addNode(node3);
+		Dg.addNode(node4);
+		Dg.addNode(node5);
+		Dg.addNode(node6);
+		Dg.addNode(node7);
+		Dg.addNode(node8);
+		Dg.addNode(node9);
+		Dg.addNode(node10);
 		Dg.addNode(node11);
-		Dg.addNode(node22);
-		Dg.addNode(node33);
-		Dg.addNode(node44);
-		Dg.addNode(node55);
-		Dg.addNode(node66);
 
-		Dg.connect(node00.getKey(), node33.getKey(), 4);
-		Dg.connect(node00.getKey(), node22.getKey(), 6);
-		Dg.connect(node00.getKey(), node11.getKey(), 3);
-		Dg.connect(node11.getKey(), node22.getKey(), 2);
-		Dg.connect(node33.getKey(), node22.getKey(), 1);
-		Dg.connect(node33.getKey(), node44.getKey(), 3);
-		Dg.connect(node22.getKey(), node44.getKey(), 2);
-		Dg.connect(node44.getKey(), node66.getKey(), 7);
-		Dg.connect(node44.getKey(), node55.getKey(), 5);
-		Dg.connect(node00.getKey(), node55.getKey(), 1);
+
+		Dg.connect(node1.getKey(), node2.getKey(), 5);
+		Dg.connect(node1.getKey(), node3.getKey(), 3);
+		Dg.connect(node1.getKey(), node4.getKey(), 2);
+		Dg.connect(node2.getKey(), node5.getKey(), 2);
+		Dg.connect(node3.getKey(), node6.getKey(), 4);
+		Dg.connect(node3.getKey(),node1.getKey(),2);
+		Dg.connect(node4.getKey(), node6.getKey(), 4);
+		Dg.connect(node4.getKey(), node7.getKey(), 2);
+		Dg.connect(node5.getKey(), node8.getKey(), 6);
+		Dg.connect(node5.getKey(), node7.getKey(), 1);
+		Dg.connect(node5.getKey(),node2.getKey(),4);
+		Dg.connect(node6.getKey(),node11.getKey(),3);
+		Dg.connect(node7.getKey(),node8.getKey(),4);
+		Dg.connect(node7.getKey(),node6.getKey(),1);
+		Dg.connect(node7.getKey(),node11.getKey(),9);
+		Dg.connect(node8.getKey(),node7.getKey(),1);
+		Dg.connect(node8.getKey(),node9.getKey(),9);
+		Dg.connect(node9.getKey(),node8.getKey(),3);
+		Dg.connect(node9.getKey(),node10.getKey(),5);
+		Dg.connect(node10.getKey(),node9.getKey(),2);
+		Dg.connect(node10.getKey(),node11.getKey(),1);
+		Dg.connect(node11.getKey(),node10.getKey(),2);
 
 		G.init(Dg);
-		double x = G.shortestPathDist(1, 5);
-		System.out.println(x);
-		String ans = "";
-		List<node_data> lNd = G.shortestPath(1, 5);
-		Iterator<node_data> itList = lNd.iterator();
-		while (itList.hasNext()) {
-			node_data c = itList.next();
-			ans += (c.getKey() + " ");
-		}
-		System.out.println(ans);
+		System.out.println("Distance betwenn 1-6 is :" + G.shortestPathDist(node1.getKey(),node6.getKey()));
+		System.out.println("Distance between 6-7 is : " + G.shortestPathDist(node6.getKey(),node7.getKey()));
+		System.out.println("Distance between 4-1 is : " + G.shortestPathDist(node4.getKey(),node1.getKey()));
+		System.out.println("Distance between 7-9 is : " + G.shortestPathDist(node7.getKey(),node9.getKey()));
+		System.out.println("Distance between 3-2 is : " + G.shortestPathDist(node3.getKey(),node2.getKey()));
 
-		List<Integer> r = new LinkedList<>();
-		r.add(node00.getKey());
-		r.add(node11.getKey());
-		r.add(node55.getKey());
-		List<node_data> ansi = G.TSP(r);
-		System.out.println(ansi);
+		System.out.println("The graph is Connected :" + G.isConnected());
+		System.out.println("The shortest path between 5-10 is :" + G.shortestPath(node5.getKey(),node10.getKey()));
+		System.out.println("The shortest path between 10-1 is :" + G.shortestPath(node10.getKey(),node1.getKey()));
+		System.out.println("The shortest path between 7-2 is :" + G.shortestPath(node7.getKey(),node2.getKey()));
+		System.out.println("The shortest path between 1-9 is :" + G.shortestPath(node1.getKey(),node9.getKey()));
+
+		List<Integer> ans = new LinkedList<>();
+		ans.add(1);
+		ans.add(7);
+		ans.add(3);
+		ans.add(10);
+		List<Integer> ans2 = new LinkedList<>();
+		ans2.add(1);
+		ans2.add(10);
+		ans2.add(4);
+		ans2.add(5);
+		G.TSP(ans);
+		System.out.println("TSP[1,7,3,10] is: " +  G.TSP(ans));
+		System.out.println("TSP[10,1,4,5] is : " + G.TSP(ans2));
 	}
 }
 
