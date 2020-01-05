@@ -15,11 +15,19 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 
 	public graph algo = new DGraph();
 
+	/**
+	 * This method get a graph and make him to the algo graph.
+	 * @param g -the algo graph
+	 */
 	@Override
 	public void init(graph g) {
 		this.algo=g;
 	}
 
+	/**
+	 * This method get a file name of graph and make him to the algo graph.
+	 * @param file_name -the name of the file
+	 */
 	@Override
 	public void init(String file_name) {
 		try {
@@ -39,6 +47,10 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		}
 	}
 
+	/**
+	 * this methods save the graph as a file
+	 * @param file_name - to save withe this name on the computer
+	 */
 	@Override
 	public void save(String file_name) {
 		try {
@@ -55,6 +67,9 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		}
 	}
 
+	/**
+	 * @return true if exist a valid path from EVREY node to each else false.
+	 */
 	@Override
 	public boolean isConnected() {
 		graph ans = this.copy();
@@ -91,6 +106,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 			}
 		}
 	}
+
 
 	public void oppositeDest(graph d) {
 		Iterator it = d.getV().iterator();
@@ -133,6 +149,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		}
 	}
 
+
 	public void changeTagEdge() {
 		Iterator it = this.algo.getV().iterator();
 		while (it.hasNext()) {
@@ -147,6 +164,12 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		}
 	}
 
+	/**
+	 * This method get Src and Dest that represented by the key of the desired nodes.
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return the length of the shortest path between src to dest
+	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		if(src==dest) return 0;
@@ -165,6 +188,7 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		return this.algo.getNode(dest).getWeight();
 	}
 
+	// help methods for the shortestPathDist method.
 	public void shortestPathDistRec(node_data n, node_data dest) {
 		if (n.getTag() == 1 && n.getKey() == dest.getKey()) {
 			return;
@@ -183,6 +207,12 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		}
 	}
 
+	/**
+	 *This method get Src and Dest that represented by the key of the desired node
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return the vertexes that should pass in the shortest path.
+	 */
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		List<node_data> ans = new LinkedList<>();
@@ -214,6 +244,10 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		return ans;
 	}
 
+	/**
+	 * @param targets - group of Vertexe
+	 * @return the most optional Path to visit each node in the targets List
+	 */
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		List<node_data> ans = new LinkedList<>();
@@ -257,6 +291,10 @@ public class Graph_Algo implements graph_algorithms, Serializable {
 		return ans;
 	}
 
+	/**
+	 * This method compute a deep copy of this graph.
+	 * @return the copy graph
+	 */
 	@Override
 	public graph copy() {
 		graph ans = new DGraph();

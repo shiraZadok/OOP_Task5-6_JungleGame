@@ -15,6 +15,10 @@ public class DGraph implements graph, Serializable {
 	private int edgesCount = 0;
 	private int modeCount = 0;
 
+	/**
+	 * @param key - the node_id
+	 * @return a specific node identify by the key from the graph
+	 */
 	@Override
 	public node_data getNode(int key) {
 		try {
@@ -25,6 +29,11 @@ public class DGraph implements graph, Serializable {
 		}
 	}
 
+	/**
+	 * @param src of the edge
+	 * @param dest of the edge
+	 * @return This method get Src and Dest that represented by the key of the desired nodes and bring the edge
+	 */
 	@Override
 	public edge_data getEdge(int src, int dest) {
 		try{
@@ -35,6 +44,10 @@ public class DGraph implements graph, Serializable {
 		}
 	}
 
+	/**
+	 * This method get node from the user and add it to the grph.
+	 * @param n - the new node
+	 */
 	@Override
 	public void addNode(node_data n) {
 		this.nodes.put(n.getKey(),n);
@@ -42,6 +55,13 @@ public class DGraph implements graph, Serializable {
 		modeCount++;
 	}
 
+	/**
+	 * This method get Src and Dest that represented by the key of the
+	 * desired nodes and Weight of the edge and make a new edge in the graph.
+	 * @param src - the source of the edge.
+	 * @param dest - the destination of the edge.
+	 * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+	 */
 	@Override
 	public void connect(int src, int dest, double w) {
 		edge_data temp = new Edge(src, dest, w);
@@ -68,12 +88,19 @@ public class DGraph implements graph, Serializable {
 		}
 	}
 
-
+	/**
+	 * @return the nodes collection of the graph
+	 */
 	@Override
 	public Collection<node_data> getV() {
 		return this.nodes.values();
 	}
 
+	/**
+	 *
+	 * @param node_id - the key of node
+	 * @return edges collection tha connect to this node
+	 */
 	@Override
 	public Collection<edge_data> getE(int node_id) {
 		try {
@@ -84,6 +111,11 @@ public class DGraph implements graph, Serializable {
 		}
 	}
 
+	/**
+	 *
+	 * @param key - of node for delete
+	 * @return the deleted node
+	 */
 	@Override
 	public node_data removeNode(int key) {
 		node_data nd = this.nodes.get(key);
@@ -106,6 +138,12 @@ public class DGraph implements graph, Serializable {
 		return nd;
 	}
 
+	/**
+	 *
+	 * @param src of the edge
+	 * @param dest of the edge
+	 * @return the deleted edge
+	 */
 	@Override
 	public edge_data removeEdge(int src, int dest) {
 		edge_data ed = this.getEdge(src,dest);
@@ -117,16 +155,25 @@ public class DGraph implements graph, Serializable {
 		return ed;
 	}
 
+	/**
+	 * @return the nodesCount.
+	 */
 	@Override
 	public int nodeSize() {
 		return this.nodesCount;
 	}
 
+	/**
+	 * @return the edgesCount.
+	 */
 	@Override
 	public int edgeSize() {
 		return this.edgesCount;
 	}
 
+	/**
+	 * @return the modeCount
+	 */
 	@Override
 	public int getMC() {
 		return this.modeCount;
