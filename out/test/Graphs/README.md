@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# Graphs
+=======
 ![](https://static.inilah.com/data/berita/foto/2554271.jpg)
 ##### Submit: Yirat Peleg & Shira Zadok
 
@@ -55,3 +58,4 @@ In this class we solved a algorithmic problems as - What is the shortest path in
 * TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
 
  ## Image for example of our graph:
+>>>>>>> 374dbfa615c1ddc77e1dd03a8cc7183334bc98bb
