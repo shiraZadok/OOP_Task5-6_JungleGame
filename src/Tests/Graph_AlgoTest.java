@@ -7,34 +7,82 @@ import org.junit.Test;
 import utils.Point3D;
 import static org.junit.Assert.assertEquals;
 
-
-
-
-
 public class Graph_AlgoTest {
-
-
-//    @Before
-//    public void BeforeEach(){
-//
-//    }
 
     @Test
     public void initGraph() {
+        Graph_Algo G = new Graph_Algo();
+        DGraph g1 = new DGraph();
+        Point3D p1 [] = new Point3D[2];
+        Node n1 [] = new Node[2];
+
+        p1[0] = new Point3D(0,0,0);
+        p1[1] = new Point3D(5,0,0);
+
+        n1[0] = new Node(p1[0]);
+        n1[1] = new Node(p1[1]);
+
+        g1.addNode(n1[0]);
+        g1.addNode(n1[1]);
+
+        g1.connect(n1[0].getKey(), n1[1].getKey(), 4);
+
+        G.init(g1);
+        assertEquals(G.toString(), g1.toString());
+    }
+
+    @Test
+    public void save() {
+        Graph_Algo G2 = new Graph_Algo();
+        DGraph g2 = new DGraph();
+        Point3D p2 [] = new Point3D[5];
+        Node n2 [] = new Node[5];
+
+        Graph_Algo Ag = new Graph_Algo();
+
+        p2[0] = new Point3D(1, 6, 0);
+        p2[1] = new Point3D(0, 2, 3);
+        p2[2] = new Point3D(1, 4, 0);
+        p2[3] = new Point3D(5, 2, 0);
+        p2[4] = new Point3D(6,5, 0);
+
+        n2[0] = new Node (p2[0]);
+        n2[1] = new Node(p2[1]);
+        n2[2] = new Node(p2[2]);
+        n2[3] = new Node(p2[3]);
+        n2[4] = new Node(p2[4]);
+
+        g2.addNode(n2[0]);
+        g2.addNode(n2[1]);
+        g2.addNode(n2[2]);
+        g2.addNode(n2[3]);
+        g2.addNode(n2[4]);
+
+        g2.connect(n2[1].getKey(), n2[2].getKey(), 11);
+        g2.connect(n2[2].getKey(), n2[3].getKey(), 11);
+        g2.connect(n2[3].getKey(), n2[2].getKey(), 11);
+        g2.connect(n2[3].getKey(), n2[4].getKey(), 11);
+        g2.connect(n2[4].getKey(), n2[3].getKey(), 11);
+
+        G2.init(g2);
+        G2.save("Test for Save 2");
+
+        Graph_Algo G3 = new Graph_Algo();
+        G3.init("Test for Save 3");
+
+        Boolean flag = G2.isConnected() == G3.isConnected();
+        assertEquals(true,flag);
     }
 
     @Test
     public void initFile() {
+
     }
 
-
-    @Test
-    public void save() {
-    }
 
     @Test
     public void isConnected() {
-        ////////////////////////TRY1///////////////////////////
+        ////////////////////////TEST1///////////////////////////
         Graph_Algo G = new Graph_Algo();
         DGraph g1 = new DGraph();
         Point3D p1 [] = new Point3D[2];
@@ -57,7 +105,7 @@ public class Graph_AlgoTest {
         //System.out.println("success1");
 
 
-        //////////////////////////TRY2/////////////////////
+        //////////////////////////TEST2/////////////////////
         Graph_Algo G2 = new Graph_Algo();
         Graph_Algo G3 = new Graph_Algo();
         DGraph g2 = new DGraph();
