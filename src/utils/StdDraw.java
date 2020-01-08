@@ -25,6 +25,7 @@ package utils;
  *
  ******************************************************************************/
 import dataStructure.*;
+import gameClient.MyGameGUI;
 import gui.GUI;
 
 import java.awt.*;

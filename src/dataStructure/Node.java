@@ -36,6 +36,14 @@ public class Node implements node_data, Serializable {
         this.Info = null;
     }
 
+    public Node(int key, Point3D Location) {
+        this.Location = new Point3D(Location);
+        this.Key=key;
+        this.Tag = 0;
+        this.Weight = 0;
+        this.Info = null;
+    }
+
     /**
      * Copy constructor
      * @param n - the node for copy

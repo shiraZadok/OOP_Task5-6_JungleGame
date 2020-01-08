@@ -22,10 +22,10 @@ public class GUI extends Thread {
         StdDraw.clear();
         this.ga.init(d);
         StdDraw.g=this;
-        double minX = 0;
-        double minY = 0;
-        double maxX = 0;
-        double maxY = 0;
+        double minX = Integer.MAX_VALUE;
+        double minY = Integer.MAX_VALUE;
+        double maxX = Integer.MIN_VALUE;
+        double maxY = Integer.MIN_VALUE;
         Iterator it = d.getV().iterator();
         while (it.hasNext()) {
             node_data temp = (node_data) it.next();
@@ -35,18 +35,20 @@ public class GUI extends Thread {
             maxX = Math.max(maxX, p.x());
             maxY = Math.max(maxY, p.y());
         }
+        System.out.println(minX + " ," + maxX);
+        System.out.println(minY + "," + maxY);
         double ScaleX =(maxX-minX)*0.04;
         double ScaleY=(maxY-minY)*0.04;
         StdDraw.setCanvasSize(800, 800);
-        StdDraw.setXscale(minX - (maxX - minX) * 0.2+1, maxX * 1.1);
-        StdDraw.setYscale(minY - (maxY - minY) * 0.2+1, maxY * 1.1);
+        StdDraw.setXscale(minX - 0.002, maxX +0.002);
+        StdDraw.setYscale(minY - 0.002, maxY+ 0.002);
         StdDraw.setPenColor(Color.BLUE);
         StdDraw.setPenRadius(0.05);
         Iterator it1 = d.getV().iterator();
         while (it1.hasNext()) {
             node_data temp = (node_data) it1.next();
             Point3D p1 = temp.getLocation();
-            StdDraw.filledCircle(p1.x(), p1.y(),ScaleX*0.2);
+            StdDraw.filledCircle(p1.x(), p1.y(),ScaleX*0.1);
             StdDraw.text(p1.x(), p1.y() + (((maxX-minX)*0.04)*0.2), "" + temp.getKey());
         }
         StdDraw.setPenRadius(0.005);
@@ -69,7 +71,7 @@ public class GUI extends Thread {
                     StdDraw.setPenColor(Color.YELLOW);
                     double x1 = 0.1 * p1.x() + 0.9 * p2.x();
                     double y1 = 0.1 * p1.y() + 0.9 * p2.y();
-                    StdDraw.filledCircle(x1, y1, ScaleX*0.2);
+                    StdDraw.filledCircle(x1, y1, ScaleX*0.1);
                 }
             }
         }

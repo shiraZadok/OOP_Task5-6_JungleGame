@@ -1,5 +1,7 @@
 package dataStructure;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import utils.Point3D;
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,6 +16,11 @@ public class DGraph implements graph, Serializable {
 	private int nodesCount = 0;
 	private int edgesCount = 0;
 	private int modeCount = 0;
+
+	private void init() {
+		this.nodes = new HashMap();
+		this.edges = new HashMap();
+	}
 
 	/**
 	 * @param key - the node_id
@@ -178,4 +185,32 @@ public class DGraph implements graph, Serializable {
 	public int getMC() {
 		return this.modeCount;
 	}
+
+	public void init(String jsonSTR) {
+		try {
+			this.init();
+			this.nodesCount = 0;
+			this.edgesCount = 0;
+			JSONObject graph = new JSONObject(jsonSTR);
+			JSONArray Jnodes = graph.getJSONArray("Nodes");
+			JSONArray Jedges = graph.getJSONArray("Edges");
+			int i;
+			int s;
+			for(i = 0; i < Jnodes.length(); ++i) {
+				s = Jnodes.getJSONObject(i).getInt("id");
+				String pos = Jnodes.getJSONObject(i).getString("pos");
+				Point3D p = new Point3D(pos);
+				this.addNode(new Node(s, p));
+			}
+			for(i = 0; i < Jedges.length(); ++i) {
+				s = Jedges.getJSONObject(i).getInt("src");
+				int d = Jedges.getJSONObject(i).getInt("dest");
+				double w = Jedges.getJSONObject(i).getDouble("w");
+				this.connect(s, d, w);
+			}
+		} catch (Exception var10) {
+			var10.printStackTrace();
+		}
+	}
 }
+
