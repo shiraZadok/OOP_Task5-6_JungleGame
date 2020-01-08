@@ -53,3 +53,7 @@ In this class we solved a algorithmic problems as - What is the shortest path in
 * ShortestPathDist: This method returns the length of the shortest path between src to dest.
 * ShortestPath: This method the vertexes that should pass in the shortest path.
 * TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
+
+# Image of our graph for example:
+![1](https://user-images.githubusercontent.com/58064644/71783774-35d68b80-2ff4-11ea-8bba-17d3ef3d62b2.jpeg)
+![2](https://user-images.githubusercontent.com/58064644/71783775-366f2200-2ff4-11ea-83f7-0bb03b0ec853.jpeg)
