@@ -1,15 +1,14 @@
 package gameClient;
 
-import com.google.gson.Gson;
-import Server.Fruit;
 import Server.Game_Server;
 import Server.game_service;
 import dataStructure.DGraph;
 import element.Fruits;
 import gui.GUI;
-import org.w3c.dom.ls.LSOutput;
+import org.json.JSONException;
+import org.json.JSONObject;
+import utils.Point3D;
 
-import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,15 +39,29 @@ public class MyGameGUI extends Thread {
 
     public void initFruits(){
         game_service game = Game_Server.getServer(this.server);
-        Gson gson = new Gson();
-        List<String> temp = game.getFruits();
         int i = 0;
-        for(String s : temp){
-            System.out.println(s);
-            Fruits fruit = gson.fromJson(s, Fruits.class);
-            this.fruits.add(fruit);
-            System.out.println(fruits.get(i).toString());
-            i++;
+        for(String fruit_string : game.getFruits())
+        {
+            try
+            {
+                JSONObject line = new JSONObject(fruit_string);
+                JSONObject fruit = line.getJSONObject("Fruit");
+                //System.out.println("the line = "+ fruit);
+                int type = fruit.getInt("type");
+                double value = fruit.getInt("value");
+                String pos = fruit.getString("pos");
+                String[] stringPos = pos.split(",");
+                double [] doublePos = new double[stringPos.length];
+                for (int j=0; j<stringPos.length;j++){
+                    doublePos[j]= Double.valueOf(stringPos[j]);
+                }
+               Fruits newFruit = new Fruits(value, type, new Point3D(doublePos[0], doublePos[1], doublePos[2]));
+                this.fruits.add(newFruit);
+                //System.out.println(i+ " ==== \n" + fruits.get(i).toString());
+                i++;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

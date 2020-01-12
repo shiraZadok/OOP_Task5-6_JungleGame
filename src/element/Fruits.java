@@ -8,14 +8,15 @@ import utils.Point3D;
     private double value;
     private int type;
 
-    public Fruits(Point3D pos, double value, int type){
+
+    public Fruits(double value, int type,Point3D pos){
       this.pos = pos;
       this.value = value;
-      this.type = type;
+      this.type = type  ;
     }
 
 
     public String toString(){
-        return "value:"+ this.value+"\n" + "type:" + this.type;
+        return "pos:"+ pos.toString()+ "\n" + "value:"+ this.value+ "\n" + "type:" + this.type;
     }
 }
