@@ -188,7 +188,7 @@ public class DGraph implements graph, Serializable {
 
 	public void init(String jsonSTR) {
 		try {
-			this.init();
+
 			this.nodesCount = 0;
 			this.edgesCount = 0;
 			JSONObject graph = new JSONObject(jsonSTR);

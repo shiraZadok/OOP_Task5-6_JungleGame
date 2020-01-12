@@ -3,7 +3,7 @@ import dataStructure.node_data;
 
 public interface elementFruitRobot extends node_data {
 
-    public elementFruitRobot init(String json);
+    public void init(String json);
 
     public String get_pic();
 

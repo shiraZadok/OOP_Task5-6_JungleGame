@@ -8,10 +8,10 @@ import utils.Point3D;
 
 public class Fruits implements elementFruitRobot{
 
-        private Point3D pos;
-        private double value;
-        private int type;
-        private String pic;
+    private Point3D pos;
+    private double value;
+    private int type;
+    private String pic;
 
     public Fruits() {
         this.pos = null;
@@ -26,41 +26,49 @@ public class Fruits implements elementFruitRobot{
         this.type = type;
     }
 
-        public String toString(){
+    public String toString(){
         return "pos:"+ pos.toString()+ "\n" + "value:"+ this.value+ "\n" + "type:" + this.type;
     }
 
     @Override
-    public elementFruitRobot init(String json) {
-        Fruits newFruit = new Fruits();
-            try
-            {
-                JSONObject fruit = new JSONObject(json);
-                System.out.println("the line = "+ fruit);
-                int type = fruit.getInt("type");
-                double value = fruit.getInt("value");
-                String pos = fruit.getString("pos");
-                String[] stringPos = pos.split(",");
-                double [] doublePos = new double[stringPos.length];
-                for (int j=0; j<stringPos.length;j++){
-                    doublePos[j]= Double.valueOf(stringPos[j]);
-                }
-                newFruit = new Fruits(value, type, new Point3D(doublePos[0], doublePos[1], doublePos[2]));
+    public void init(String json) {
+        try {
+            JSONObject fruit = new JSONObject(json);
+            this.type = fruit.getInt("type");
+            this.value = fruit.getInt("value");
+
+            if(this.value==1) this.pic="apple.png";
+            else if(this.value==-1) this.pic= "banana.png";
+            else {
+                this.pic = "";
             }
-            catch (JSONException e) {
-                e.printStackTrace();
+
+
+            String pos = fruit.getString("pos");
+            String[] stringPos = pos.split(",");
+            double[] doublePos = new double[stringPos.length];
+            for (int j = 0; j < stringPos.length; j++) {
+                doublePos[j] = Double.valueOf(stringPos[j]);
             }
-            return newFruit;
+            this.pos = new Point3D(doublePos[0], doublePos[1], doublePos[2]);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+    }
+
 
     @Override
     public String get_pic() {
-        return null;
+        if(this.value==1) return "apple.png";
+        else if(this.value==-1) return "banana.png";
+        else{
+            return"";
+        }
     }
 
     @Override
     public void set_pic(String json) {
-
+        this.pic = json;
     }
 
     @Override
@@ -70,22 +78,22 @@ public class Fruits implements elementFruitRobot{
 
     @Override
     public Point3D getLocation() {
-        return null;
+        return this.pos;
     }
 
     @Override
     public void setLocation(Point3D p) {
-
+        this.pos = p;
     }
 
     @Override
     public double getWeight() {
-        return 0;
+        return this.value;
     }
 
     @Override
     public void setWeight(double w) {
-
+        this.value = w;
     }
 
     @Override
@@ -100,11 +108,11 @@ public class Fruits implements elementFruitRobot{
 
     @Override
     public int getTag() {
-        return 0;
+        return this.type;
     }
 
     @Override
     public void setTag(int t) {
-
+        this.type = t;
     }
 }

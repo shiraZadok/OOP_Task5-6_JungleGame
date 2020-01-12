@@ -10,6 +10,7 @@ import java.util.List;
 public class GUI extends Thread {
 
     public Graph_Algo ga = new Graph_Algo();
+    public DGraph g = new DGraph();
     private int modeCount = 0;
 
     public GUI(){
@@ -18,6 +19,11 @@ public class GUI extends Thread {
         this.start();
     }
 
+    public GUI(DGraph d){
+        StdDraw.g=this;
+        this.g=d;
+        ga.init(d);
+    }
     public void GUIgraph(graph d) {
         StdDraw.clear();
         this.ga.init(d);
