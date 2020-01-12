@@ -46,7 +46,7 @@ public class MyGameGUI extends Thread {
             {
                 JSONObject line = new JSONObject(fruit_string);
                 JSONObject fruit = line.getJSONObject("Fruit");
-                //System.out.println("the line = "+ fruit);
+                System.out.println("the line = "+ fruit);
                 int type = fruit.getInt("type");
                 double value = fruit.getInt("value");
                 String pos = fruit.getString("pos");
@@ -57,7 +57,7 @@ public class MyGameGUI extends Thread {
                 }
                Fruits newFruit = new Fruits(value, type, new Point3D(doublePos[0], doublePos[1], doublePos[2]));
                 this.fruits.add(newFruit);
-                //System.out.println(i+ " ==== \n" + fruits.get(i).toString());
+                System.out.println(i+ " ==== \n" + fruits.get(i).toString());
                 i++;
             } catch (JSONException e) {
                 e.printStackTrace();
