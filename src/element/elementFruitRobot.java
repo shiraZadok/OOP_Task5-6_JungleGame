@@ -1,7 +1,7 @@
 package element;
 import dataStructure.node_data;
 
-public interface elementFruitRobot extends node_data {
+public interface elementFruitRobot {
 
     public elementFruitRobot init(String json);
 

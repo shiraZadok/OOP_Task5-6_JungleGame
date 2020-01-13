@@ -3,6 +3,8 @@ package element;
 import Server.Game_Server;
 import Server.game_service;
 import com.google.gson.annotations.JsonAdapter;
+import dataStructure.Edge;
+import dataStructure.edge_data;
 import org.json.JSONException;
 import org.json.JSONObject;
 import utils.Point3D;
@@ -19,12 +21,6 @@ public class Fruits implements elementFruitRobot{
         this.value = 0;
         this.type = 0;
         this.pic = null;
-    }
-
-    public Fruits( double value, int type, Point3D pos){
-        this.pos = pos;
-        this.value = value;
-        this.type = type;
     }
 
     public String toString(){
@@ -51,6 +47,7 @@ public class Fruits implements elementFruitRobot{
         return temp;
     }
 
+
     @Override
     public String get_pic() {
         return this.pic;
@@ -61,48 +58,27 @@ public class Fruits implements elementFruitRobot{
         this.pic = json;
     }
 
-    @Override
-    public int getKey() {
-        return 0;
-    }
-
-    @Override
     public Point3D getLocation() {
         return this.pos;
     }
 
-    @Override
     public void setLocation(Point3D p) {
         this.pos = p;
     }
 
-    @Override
-    public double getWeight() {
+    public double getValue() {
         return this.value;
     }
 
-    @Override
-    public void setWeight(double w) {
-        this.value = w;
+    public void setValue(double v) {
+        this.value = v;
     }
 
-    @Override
-    public String getInfo() {
-        return null;
-    }
-
-    @Override
-    public void setInfo(String s) {
-
-    }
-
-    @Override
-    public int getTag() {
+    public int getType() {
         return this.type;
     }
 
-    @Override
-    public void setTag(int t) {
+    public void setType(int t) {
         this.type = t;
     }
 }

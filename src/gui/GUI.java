@@ -73,7 +73,9 @@ public class GUI extends Thread {
                     StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
                     double x = 0.2 * p1.x() + 0.8 * p2.x();
                     double y = 0.2 * p1.y() + 0.8 * p2.y();
-                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
+                    StdDraw.setPenColor(Color.BLACK);
+                    double weight = Math.round(temp2.getWeight()*100.0)/100.0;
+                    StdDraw.text(x, y , "" + weight);
                     StdDraw.setPenColor(Color.YELLOW);
                     double x1 = 0.1 * p1.x() + 0.9 * p2.x();
                     double y1 = 0.1 * p1.y() + 0.9 * p2.y();
@@ -110,7 +112,8 @@ public class GUI extends Thread {
                     StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
                     double x = 0.2 * p1.x() + 0.8 * p2.x();
                     double y = 0.2 * p1.y() + 0.8 * p2.y();
-                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
+                    StdDraw.setPenColor(Color.BLACK);
+                    StdDraw.text(x, y , "" + temp2.getWeight());
                 }
             }
         }
