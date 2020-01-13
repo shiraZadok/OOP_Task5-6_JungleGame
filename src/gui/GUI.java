@@ -45,7 +45,7 @@ public class GUI extends Thread {
         System.out.println(minY + "," + maxY);
         double ScaleX =(maxX-minX)*0.04;
         double ScaleY=(maxY-minY)*0.04;
-        StdDraw.setCanvasSize(800, 800);
+        StdDraw.setCanvasSize(1024, 512);
         StdDraw.setXscale(minX - 0.002, maxX +0.002);
         StdDraw.setYscale(minY - 0.002, maxY+ 0.002);
         StdDraw.setPenColor(Color.BLUE);
@@ -57,14 +57,14 @@ public class GUI extends Thread {
             StdDraw.filledCircle(p1.x(), p1.y(),ScaleX*0.1);
             StdDraw.text(p1.x(), p1.y() + (((maxX-minX)*0.04)*0.2), "" + temp.getKey());
         }
-        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenRadius(0.004);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
             if (d.getE(temp1.getKey()) != null) {
                 Iterator edge2 = d.getE(temp1.getKey()).iterator();
                 while (edge2.hasNext()) {
-                    StdDraw.setPenColor(Color.RED);
+                    StdDraw.setPenColor(Color.LIGHT_GRAY);
                     edge_data temp2 = (edge_data) edge2.next();
                     node_data n1 = d.getNode(temp2.getSrc());
                     node_data n2 = d.getNode(temp2.getDest());
@@ -94,14 +94,14 @@ public class GUI extends Thread {
     }
 
     public void backRed(graph d) {
-        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenRadius(0.004);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
             if (d.getE(temp1.getKey()) != null) {
                 Iterator edge2 = d.getE(temp1.getKey()).iterator();
                 while (edge2.hasNext()) {
-                    StdDraw.setPenColor(Color.RED);
+                    StdDraw.setPenColor(Color.LIGHT_GRAY);
                     edge_data temp2 = (edge_data) edge2.next();
                     node_data n1 = d.getNode(temp2.getSrc());
                     node_data n2 = d.getNode(temp2.getDest());

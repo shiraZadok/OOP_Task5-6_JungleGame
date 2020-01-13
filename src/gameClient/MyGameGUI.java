@@ -6,12 +6,7 @@ import dataStructure.DGraph;
 import element.Fruits;
 import element.FruitsList;
 import gui.GUI;
-import org.json.JSONException;
-import org.json.JSONObject;
-import utils.Point3D;
 import utils.StdDraw;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class MyGameGUI extends Thread {
@@ -22,19 +17,19 @@ public class MyGameGUI extends Thread {
     private game_service server;
 
     public MyGameGUI(int g){
-        game_service game = Game_Server.getServer(g);
-        String graph= game.getGraph();
+        this.server = Game_Server.getServer(g);
+        String graph= this.server.getGraph();
         this.GraphGame= new DGraph();
         this.GraphGame.init(graph);
         this.g = new GUI(this.GraphGame);
-        List<String> temp = game.getFruits();
+        this.g.GUIgraph(this.GraphGame);
+        List<String> temp = this.server.getFruits();
         for(String s : temp){
             System.out.println(s);
         }
-        this.server = game;
         this.fruits = new FruitsList(this.server);
         for(Fruits f : this.fruits.fruits){
-            StdDraw.picture(f.getLocation().x(),f.getLocation().y(),f.get_pic(),0.0005,0.0005);
+            StdDraw.picture(f.getLocation().x(),f.getLocation().y(),f.get_pic(),0.001,0.0008);
         }
     }
 

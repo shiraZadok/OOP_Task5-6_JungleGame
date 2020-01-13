@@ -25,24 +25,17 @@ public class FruitsList {
         this.numGame = numGame;
         this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
-        listF(this.numGame.getFruits());
+        this.fruits = listF(this.numGame.getFruits());
     }
 
-    public void listF(List<String> temp) {
+    public List<Fruits> listF(List<String> temp) {
         for (String f : temp) {
-            try {
-                Fruits fr = new Fruits();
-                JSONObject line = new JSONObject(f);
-                JSONObject fruit = line.getJSONObject("Fruit");
-                fr.init(fruit.toString());
-                System.out.println(fr.get_pic());
-                this.fruits.add(fr);
-            }
-            catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Fruits fr = new Fruits();
+            fr = (Fruits) fr.init(f);
+            this.fruits.add(fr);
         }
         this.amountFruits = this.fruits.size();
+        return this.fruits;
     }
 
     public int getAmountFruits() {

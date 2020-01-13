@@ -2,6 +2,7 @@ package element;
 
 import Server.Game_Server;
 import Server.game_service;
+import com.google.gson.annotations.JsonAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 import utils.Point3D;
@@ -31,39 +32,28 @@ public class Fruits implements elementFruitRobot{
     }
 
     @Override
-    public void init(String json) {
+    public elementFruitRobot init(String json) {
+        Fruits temp = new Fruits();
         try {
             JSONObject fruit = new JSONObject(json);
-            this.type = fruit.getInt("type");
-            this.value = fruit.getInt("value");
-
-            if(this.value==1) this.pic="apple.png";
-            else if(this.value==-1) this.pic= "banana.png";
-            else {
-                this.pic = "";
-            }
-
-
-            String pos = fruit.getString("pos");
-            String[] stringPos = pos.split(",");
-            double[] doublePos = new double[stringPos.length];
-            for (int j = 0; j < stringPos.length; j++) {
-                doublePos[j] = Double.valueOf(stringPos[j]);
-            }
-            this.pos = new Point3D(doublePos[0], doublePos[1], doublePos[2]);
-        } catch (JSONException e) {
+            JSONObject fruitt = fruit.getJSONObject("Fruit");
+            temp.type = fruitt.getInt("type");
+            temp.value = fruitt.getDouble("value");
+            if(temp.type==1) temp.pic="apple.png";
+            else if(temp.type==-1) temp.pic= "banana.png";
+            else temp.pic = "";
+            String pos = fruitt.getString("pos");
+            temp.pos = new Point3D(pos);
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
+        return temp;
     }
-
 
     @Override
     public String get_pic() {
-        if(this.value==1) return "apple.png";
-        else if(this.value==-1) return "banana.png";
-        else{
-            return"";
-        }
+        return this.pic;
     }
 
     @Override
