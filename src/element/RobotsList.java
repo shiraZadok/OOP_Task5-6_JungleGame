@@ -18,16 +18,18 @@ public class RobotsList {
         this.amountRobots = getAmountRobots();
         this.robots = new LinkedList<>();
         this.robots = listR(this.numGame.getRobots());
-        System.out.println("this.numGame.getRobots" + this.numGame.getRobots()); /////////////////
+        //System.out.println("this.numGame.getRobots" + this.numGame.getRobots()); /////////////////
     }
 
     public List<Robots> listR(List<String> temp) {
+        List<Robots> tempR = new LinkedList<>();
         for (String r : temp) {
-            System.out.println("the line of the robot" + r); ////////////////
+            //System.out.println("the line of the robot" + r); ////////////////
             Robots ro = new Robots();
             ro = (Robots) ro.init(r);
-            this.robots.add(ro);
+            tempR.add(ro);
         }
+        this.robots = tempR;
         this.amountRobots = this.robots.size();
         return this.robots;
     }

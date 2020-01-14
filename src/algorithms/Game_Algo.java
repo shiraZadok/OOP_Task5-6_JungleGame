@@ -17,13 +17,13 @@ public class Game_Algo {
     private DGraph GraphGame;
     private FruitsList fruits;
     private game_service server;
-    private int numOfRobot;
+    public int numOfRobot;
 
 
-    public Game_Algo(game_service game){
+    public Game_Algo(game_service game) {
         this.server = game;
-        String graph= this.server.getGraph();
-        this.GraphGame= new DGraph();
+        String graph = this.server.getGraph();
+        this.GraphGame = new DGraph();
         this.GraphGame.init(graph);
         this.fruits = new FruitsList(this.server);
         RobotsList robots = new RobotsList(this.server);
@@ -39,14 +39,13 @@ public class Game_Algo {
                     ans = (edge_data) it.next();
                     node_data dest = this.GraphGame.getNode(ans.getDest());
                     node_data src = this.GraphGame.getNode(ans.getSrc());
-                    double dis = distance(src.getLocation(),dest.getLocation());
-                    double sTf = distance(src.getLocation(),fruit.getLocation());
-                    double fTd = distance(fruit.getLocation(),dest.getLocation());
-                    if(sTf+fTd<=dis+0.0001){
-                        if(fruit.getType()==-1 && src.getKey()>dest.getKey()){
+                    double dis = distance(src.getLocation(), dest.getLocation());
+                    double sTf = distance(src.getLocation(), fruit.getLocation());
+                    double fTd = distance(fruit.getLocation(), dest.getLocation());
+                    if (sTf + fTd <= dis + 0.0001) {
+                        if (fruit.getType() == -1 && src.getKey() > dest.getKey()) {
                             return ans;
-                        }
-                        else if(fruit.getType()==1 && src.getKey()<dest.getKey()){
+                        } else if (fruit.getType() == 1 && src.getKey() < dest.getKey()) {
                             return ans;
                         }
                     }
@@ -56,23 +55,24 @@ public class Game_Algo {
         return null;
     }
 
-    public double distance(Point3D p1, Point3D p2){
-        double x = Math.pow(p1.x()-p2.x(), 2);
-        double y = Math.pow(p1.y()-p2.y(), 2);
-        return Math.sqrt(x+y);
+    public double distance(Point3D p1, Point3D p2) {
+        double x = Math.pow(p1.x() - p2.x(), 2);
+        double y = Math.pow(p1.y() - p2.y(), 2);
+        return Math.sqrt(x + y);
     }
 
-    public List<edge_data> getListOfEdgeF(){
+    public List<edge_data> getListOfEdgeF() {
         List<edge_data> edgeOfFruit = new LinkedList<>();
-        for(Fruits f : this.fruits.fruits){
+        this.fruits = new FruitsList(this.server);
+        for (Fruits f : this.fruits.fruits) {
             edgeOfFruit.add(getEdge(f));
         }
         return edgeOfFruit;
     }
 
-    public void locationRobot (){
+    public void locationRobot() {
         List<edge_data> edgeOfFruit = getListOfEdgeF();
-        for (int i=0; i< this.numOfRobot; i++) {
+        for (int i = 0; i < this.numOfRobot; i++) {
             double min = Integer.MAX_VALUE;
             edge_data ans = new Edge();
             for (edge_data e : edgeOfFruit) {
@@ -92,13 +92,23 @@ public class Game_Algo {
         List<edge_data> edgeOfFruit = getListOfEdgeF();
         edge_data minDest = new Edge();
         double min = Integer.MAX_VALUE;
-            for (edge_data e : edgeOfFruit) {
-                double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
-                if (temp < min) {
-                    min = temp;
-                    minDest = e;
-                }
+        for (edge_data e : edgeOfFruit) {
+            double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
+            if (temp < min) {
+                min = temp;
+                minDest = e;
             }
-            this.server.chooseNextEdge(r.getId(), minDest.getDest());
         }
+        List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
+        shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
+        if (shortestPath.size() > 1) {
+            if (r.getLocation().equalsXY(this.GraphGame.getNode(minDest.getSrc()).getLocation())){
+                this.server.chooseNextEdge(r.getId(), minDest.getDest());
+            }
+            else this.server.chooseNextEdge(r.getId(), shortestPath.get(1).getKey());
+            this.server.move();
+            System.out.println("\n");
+            System.out.println("the Dest of the robot- " + r.getId() +"after nextNode - " +r.getDest());
+        }
+    }
 }

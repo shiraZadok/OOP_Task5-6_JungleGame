@@ -41,9 +41,9 @@ public class Robots implements elementFruitRobot {
             JSONObject robot = new JSONObject(json);
             JSONObject robott = robot.getJSONObject("Robot");
             temp.src = robott.getInt("src");
-            System.out.println("srcRobot:" + temp.src); //////////////////
+            //System.out.println("srcRobot:" + temp.src); //////////////////
             temp.dest = robott.getInt("dest");
-            System.out.println("destRobot:" + temp.dest); ///////////////
+            //System.out.println("destRobot:" + temp.dest); ///////////////
             temp.value = robott.getDouble("value");
             temp.id = robott.getInt("id");
             String pos = robott.getString("pos");

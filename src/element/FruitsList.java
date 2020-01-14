@@ -26,7 +26,7 @@ public class FruitsList {
         this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
         this.fruits = listF(this.numGame.getFruits());
-        System.out.println("this.numGame.getFruits:" + this.numGame.getFruits()); /////////////////
+        //System.out.println("this.numGame.getFruits:" + this.numGame.getFruits()); /////////////////
     }
 
     public List<Fruits> listF(List<String> temp) {
