@@ -1745,7 +1745,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             String filename = chooser.getFile();
             if (filename != null) {
                 g.ga.init(chooser.getDirectory() + File.separator + chooser.getFile());
-                g.GUIgraph(g.ga.algo);
+                g.GUIgraph();
             }
 		}
 		if(e.getActionCommand().equals("Save...")) {
@@ -1762,14 +1762,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			String d = JOptionPane.showInputDialog(jf,"Please enter the dest of Edge");
 			String w = JOptionPane.showInputDialog(jf,"Please enter the weight of Edge");
 			g.ga.algo.connect(Integer.parseInt(s),Integer.parseInt(d),Integer.parseInt(w));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 		if(e.getActionCommand().equals("Remove Edge")){
 			JFrame jf = new JFrame();
 			String s = JOptionPane.showInputDialog(jf,"Please enter the src of Edge");
 			String d = JOptionPane.showInputDialog(jf,"Please enter the dest of Edge");
 			g.ga.algo.removeEdge(Integer.parseInt(s),Integer.parseInt(d));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 
 		if(e.getActionCommand().equals("Add Node")){
@@ -1788,13 +1788,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			Node.KeyCount=++keyCheck;
 			node_data add = new Node(p);
 			g.ga.algo.addNode(add);
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 		if(e.getActionCommand().equals("Remove Node")){
 			JFrame jf = new JFrame();
 			String key = JOptionPane.showInputDialog(jf,"Please enter the key of Node");
 			g.ga.algo.removeNode(Integer.parseInt(key));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 	}
 

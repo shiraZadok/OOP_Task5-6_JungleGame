@@ -23,8 +23,14 @@ public class GUI extends Thread {
         StdDraw.g=this;
         this.g=d;
         ga.init(d);
+        StdDraw.enableDoubleBuffering();
     }
-    public void GUIgraph(graph d) {
+    public void GUIgraph() {
+        StdDraw.setCanvasSize(1024, 512);
+        DrawGraph(this.g);
+    }
+
+    public void DrawGraph(graph d){
         StdDraw.clear();
         this.ga.init(d);
         StdDraw.g=this;
@@ -45,7 +51,6 @@ public class GUI extends Thread {
         System.out.println(minY + "," + maxY);
         double ScaleX =(maxX-minX)*0.04;
         double ScaleY=(maxY-minY)*0.04;
-        StdDraw.setCanvasSize(1024, 512);
         StdDraw.setXscale(minX - 0.002, maxX +0.002);
         StdDraw.setYscale(minY - 0.002, maxY+ 0.002);
         StdDraw.setPenColor(Color.BLUE);
@@ -122,7 +127,7 @@ public class GUI extends Thread {
     public void run(){
         while(true){
             if(modeCount!=this.ga.algo.getMC()){
-                GUIgraph(ga.algo);
+                GUIgraph();
                 modeCount = ga.algo.getMC();
             }
         }

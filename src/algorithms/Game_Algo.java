@@ -4,6 +4,7 @@ import Server.game_service;
 import dataStructure.*;
 import element.Fruits;
 import element.FruitsList;
+import element.Robots;
 import element.RobotsList;
 import utils.Point3D;
 
@@ -16,6 +17,7 @@ public class Game_Algo {
     private DGraph GraphGame;
     private FruitsList fruits;
     private game_service server;
+    private int numOfRobot;
 
 
     public Game_Algo(game_service game){
@@ -24,6 +26,8 @@ public class Game_Algo {
         this.GraphGame= new DGraph();
         this.GraphGame.init(graph);
         this.fruits = new FruitsList(this.server);
+        RobotsList robots = new RobotsList(this.server);
+        this.numOfRobot = robots.getAmountRobots();
     }
 
     public edge_data getEdge(Fruits fruit) {
@@ -58,14 +62,17 @@ public class Game_Algo {
         return Math.sqrt(x+y);
     }
 
-    public void locationRobot (){
+    public List<edge_data> getListOfEdgeF(){
         List<edge_data> edgeOfFruit = new LinkedList<>();
         for(Fruits f : this.fruits.fruits){
             edgeOfFruit.add(getEdge(f));
         }
-        RobotsList robots = new RobotsList(this.server);
-        int numOfRobot = robots.getAmountRobots();
-        for (int i=0; i< numOfRobot; i++) {
+        return edgeOfFruit;
+    }
+
+    public void locationRobot (){
+        List<edge_data> edgeOfFruit = getListOfEdgeF();
+        for (int i=0; i< this.numOfRobot; i++) {
             double min = Integer.MAX_VALUE;
             edge_data ans = new Edge();
             for (edge_data e : edgeOfFruit) {
@@ -79,7 +86,19 @@ public class Game_Algo {
         }
     }
 
-    public void moveRobot(){
-
-    }
+    public void nextNode(Robots r, DGraph graphGame) {
+        Graph_Algo g = new Graph_Algo();
+        g.init(graphGame);
+        List<edge_data> edgeOfFruit = getListOfEdgeF();
+        edge_data minDest = new Edge();
+        double min = Integer.MAX_VALUE;
+            for (edge_data e : edgeOfFruit) {
+                double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
+                if (temp < min) {
+                    min = temp;
+                    minDest = e;
+                }
+            }
+            this.server.chooseNextEdge(r.getId(), minDest.getDest());
+        }
 }
