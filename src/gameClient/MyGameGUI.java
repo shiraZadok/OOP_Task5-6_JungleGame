@@ -30,22 +30,24 @@ public class MyGameGUI extends Thread {
     public   game_service server;
     private  RobotsList robots;
     public   Game_Algo game_algo;
-    private boolean b = false;
+    private boolean b , menual, auto = false;
     private Robots r;
 
-
     public MyGameGUI() {
-        StdDraw.gameGui = this;
+
         String[] chooseNumOfGame = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
         Object selectedNumOfGame = JOptionPane.showInputDialog(null, "Choose a num of game", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseNumOfGame, chooseNumOfGame[0]);
+
         int num = Integer.parseInt((String) selectedNumOfGame);
         this.server = Game_Server.getServer(num);
 
         String[] chooseGame = {"Manual game", "Auto game"};
-        Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[1]);
+        Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[0]);
 
+        StdDraw.gameGui = this;
 
         if (selectedGame == "Manual game"){
+            this.menual = true;
             String graph= this.server.getGraph();
             this.robots = new RobotsList(this.server);
             this.fruits = new FruitsList(this.server);
@@ -57,12 +59,10 @@ public class MyGameGUI extends Thread {
             FruitsGui();
             StdDraw.show();
             System.out.println(this.server.toString());
-
-//            this.server.startGame();
-//            this.start();
         }
 
         if (selectedGame=="Auto game") {
+            this.auto = true;
             String graph= this.server.getGraph();
             this.GraphGame= new DGraph();
             this.GraphGame.init(graph);
@@ -116,9 +116,9 @@ public class MyGameGUI extends Thread {
         this.server.move();
     }
 
-    public void MoveRobotByClick() throws InterruptedException {
+    public void moveRobotByClick() throws InterruptedException {
         double x;
-        double y;  //and then on the desired destination
+        double y;
         JFrame jf = new JFrame();
         if (this.b == false) {
             x = StdDraw.mouseX();
@@ -140,14 +140,15 @@ public class MyGameGUI extends Thread {
                         this.server.chooseNextEdge(this.r.getId(), nextNode.getKey());
                     }
                 }
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(jf, "The Robot can't move their");
             }
             this.b = false;
         }
     }
 
-    private void moveRobotsToDEst() {
+    private void moveRobotsToDest() {
         List<String> log = this.server.move();
         if(log!=null)
         {
@@ -162,7 +163,6 @@ public class MyGameGUI extends Thread {
         }
         this.server.move();
     }
-
 
     private node_data getTheRobot(double x, double y) {
         this.robots.listR(this.server.getRobots());
@@ -195,30 +195,20 @@ public class MyGameGUI extends Thread {
         while (this.server.isRunning()){
             FruitsGui();
             RobotsGui();
-            moveRobotsToDEst();
+            if(this.auto==true) moveRobots();
+            if(this.menual==true) moveRobotsToDest();
             StdDraw.show();
             this.g.DrawGraph(this.GraphGame);
+            try {
+                sleep(10);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
-        System.out.println("YOUR GRADE IS:" + myGrade(this.server));
+        JFrame jf = new JFrame();
+        JOptionPane.showMessageDialog(jf,"YOUR GRADE IS : " + myGrade(this.server) );
     }
-
-//    public void run(){
-//        while (this.server.isRunning()){
-//            FruitsGui();
-//            RobotsGui();
-//            moveRobots();
-//            StdDraw.show();
-//            this.g.DrawGraph(this.GraphGame);
-//            try {
-//                sleep(10);
-//            }
-//            catch (InterruptedException e){
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("YOUR GRADE IS:" + myGrade(this.server));
-//    }
-
 
     public double myGrade(game_service server){
         double myGrade =0 ;
@@ -235,6 +225,6 @@ public class MyGameGUI extends Thread {
     }
 
     public static void main(String[] args) {
-        MyGameGUI m =new MyGameGUI();
+      MyGameGUI m =new MyGameGUI();
     }
 }

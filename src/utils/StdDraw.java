@@ -1890,7 +1890,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
-			this.gameGui.MoveRobotByClick();
+			this.gameGui.moveRobotByClick();
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
