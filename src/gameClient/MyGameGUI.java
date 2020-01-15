@@ -26,9 +26,9 @@ public class MyGameGUI extends Thread {
 
     private DGraph GraphGame;
     private GUI g;
-    private  FruitsList fruits;
+    public   FruitsList fruits;
     public   game_service server;
-    private  RobotsList robots;
+    public   RobotsList robots;
     public   Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;

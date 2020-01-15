@@ -705,13 +705,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menuBar.add(game);
 		JMenuItem add = new JMenuItem("Add Robots");
 		JMenuItem move = new JMenuItem("Move Robots");
-		JMenuItem stop = new JMenuItem("Stop the game");
 		add.addActionListener(std);
 		move.addActionListener(std);
-		stop.addActionListener(std);
 		game.add(add);
 		game.add(move);
-		game.add(stop);
 
 //		JMenu menu = new JMenu("File");
 //		JMenu menu2 = new JMenu("Algo");
@@ -1707,10 +1704,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			JFrame jf = new JFrame();
 			JOptionPane.showMessageDialog(jf, "Please press on the robot you want move and then on the desired destination");
 		}
-
-        if(e.getActionCommand().equals("Stop the game")){
-
-        }
 
 		if(e.getActionCommand().equals("isConnected")){
 			JFrame jf = new JFrame();
