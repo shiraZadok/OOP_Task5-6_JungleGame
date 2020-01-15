@@ -606,7 +606,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	private static JFrame frame;
 
 	// mouse state
-	private static boolean isMousePressed = false;
+	public static boolean isMousePressed = false;
 	private static double mouseX = 0;
 	private static double mouseY = 0;
 
@@ -1698,11 +1698,16 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
                 String s = JOptionPane.showInputDialog(jf, "Please enter a key of node");
                 gameGui.AddRobot(Integer.parseInt(s));
             }
+            gameGui.server.startGame();
+            gameGui.start();
+
         }
 
         if(e.getActionCommand().equals("Move Robots")){
+			JFrame jf = new JFrame();
+			JOptionPane.showMessageDialog(jf, "Please press on the robot you want move and then on the desired destination");
+		}
 
-        }
         if(e.getActionCommand().equals("Stop the game")){
 
         }
@@ -1838,6 +1843,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	public static boolean isMousePressed() {
 		synchronized (mouseLock) {
+			if(isMousePressed) System.out.println("Press");
 			return isMousePressed;
 		}
 	}
@@ -1883,6 +1889,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		try {
+			this.gameGui.MoveRobotByClick();
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	/**
