@@ -63,6 +63,7 @@ public class Game_Algo {
 
     public List<edge_data> getListOfEdgeF() {
         List<edge_data> edgeOfFruit = new LinkedList<>();
+        System.out.println("this.server: " + this.server.toString());
         this.fruits = new FruitsList(this.server);
         for (Fruits f : this.fruits.fruits) {
             edgeOfFruit.add(getEdge(f));
