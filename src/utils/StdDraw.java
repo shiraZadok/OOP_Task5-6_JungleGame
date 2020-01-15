@@ -465,6 +465,7 @@ import javax.swing.*;
  */
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
      public static GUI g = new GUI();
+     public static MyGameGUI gameGui;
 	/**
 	 *  The color black.
 	 */
@@ -700,53 +701,65 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	// create the menu bar (changed to private)
 	private static JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu("File");
-		JMenu menu2 = new JMenu("Algo");
-		JMenu menu3 = new JMenu("Edit");
-		menuBar.add(menu);
-		menuBar.add(menu2);
-		menuBar.add(menu3);
-		JMenuItem menuItem1 = new JMenuItem("Save...");
-		JMenuItem menuItem11 = new JMenuItem("Load...");
-		JMenuItem menuItem2 = new JMenuItem("isConnected");
-		JMenuItem menuItem3 = new JMenuItem("shortestPathDist");
-		JMenuItem menuItem4 = new JMenuItem("shortestPath");
-		JMenuItem menuItem5 = new JMenuItem("TSP");
-		JMenu menuItem6 = new JMenu("Node");
-		JMenu menuItem7 = new JMenu("Edge");
-		JMenuItem menuItem8 = new JMenuItem("Add Node");
-		JMenuItem menuItem9 = new JMenuItem("Remove Node");
-		JMenuItem menuItem10 = new JMenuItem("Add Edge");
-		JMenuItem menuItem111 = new JMenuItem("Remove Edge");
+		JMenu game = new JMenu("Game");
+		menuBar.add(game);
+		JMenuItem add = new JMenuItem("Add Robots");
+		JMenuItem move = new JMenuItem("Move Robots");
+		JMenuItem stop = new JMenuItem("Stop the game");
+		add.addActionListener(std);
+		move.addActionListener(std);
+		stop.addActionListener(std);
+		game.add(add);
+		game.add(move);
+		game.add(stop);
 
-		menuItem1.addActionListener(std);
-		menuItem11.addActionListener(std);
-		menuItem2.addActionListener(std);
-		menuItem3.addActionListener(std);
-		menuItem4.addActionListener(std);
-		menuItem5.addActionListener(std);
-		menuItem6.addActionListener(std);
-		menuItem7.addActionListener(std);
-		menuItem8.addActionListener(std);
-		menuItem9.addActionListener(std);
-		menuItem10.addActionListener(std);
-		menuItem111.addActionListener(std);
-		menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        menuItem11.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		menu.add(menuItem1);
-		menu.add(menuItem11);
-		menu2.add(menuItem2);
-		menu2.add(menuItem3);
-		menu2.add(menuItem4);
-		menu2.add(menuItem5);
-		menu3.add(menuItem6);
-		menu3.add(menuItem7);
-		menuItem6.add(menuItem8);
-		menuItem6.add(menuItem9);
-		menuItem7.add(menuItem10);
-		menuItem7.add(menuItem111);
+//		JMenu menu = new JMenu("File");
+//		JMenu menu2 = new JMenu("Algo");
+//		JMenu menu3 = new JMenu("Edit");
+//		menuBar.add(menu);
+//		menuBar.add(menu2);
+//		menuBar.add(menu3);
+//		JMenuItem menuItem1 = new JMenuItem("Save...");
+//		JMenuItem menuItem11 = new JMenuItem("Load...");
+//		JMenuItem menuItem2 = new JMenuItem("isConnected");
+//		JMenuItem menuItem3 = new JMenuItem("shortestPathDist");
+//		JMenuItem menuItem4 = new JMenuItem("shortestPath");
+//		JMenuItem menuItem5 = new JMenuItem("TSP");
+//		JMenu menuItem6 = new JMenu("Node");
+//		JMenu menuItem7 = new JMenu("Edge");
+//		JMenuItem menuItem8 = new JMenuItem("Add Node");
+//		JMenuItem menuItem9 = new JMenuItem("Remove Node");
+//		JMenuItem menuItem10 = new JMenuItem("Add Edge");
+//		JMenuItem menuItem111 = new JMenuItem("Remove Edge");
+//
+//		menuItem1.addActionListener(std);
+//		menuItem11.addActionListener(std);
+//		menuItem2.addActionListener(std);
+//		menuItem3.addActionListener(std);
+//		menuItem4.addActionListener(std);
+//		menuItem5.addActionListener(std);
+//		menuItem6.addActionListener(std);
+//		menuItem7.addActionListener(std);
+//		menuItem8.addActionListener(std);
+//		menuItem9.addActionListener(std);
+//		menuItem10.addActionListener(std);
+//		menuItem111.addActionListener(std);
+//		menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+//				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+//        menuItem11.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
+//                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+//		menu.add(menuItem1);
+//		menu.add(menuItem11);
+//		menu2.add(menuItem2);
+//		menu2.add(menuItem3);
+//		menu2.add(menuItem4);
+//		menu2.add(menuItem5);
+//		menu3.add(menuItem6);
+//		menu3.add(menuItem7);
+//		menuItem6.add(menuItem8);
+//		menuItem6.add(menuItem9);
+//		menuItem7.add(menuItem10);
+//		menuItem7.add(menuItem111);
 		return menuBar;
 	}
 
@@ -1679,6 +1692,21 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("Add Robots")) {
+			JFrame jf = new JFrame();
+            for (int i = 0; i < gameGui.game_algo.numOfRobot; i++) {
+                String s = JOptionPane.showInputDialog(jf, "Please enter a key of node");
+                gameGui.AddRobot(Integer.parseInt(s));
+            }
+        }
+
+        if(e.getActionCommand().equals("Move Robots")){
+
+        }
+        if(e.getActionCommand().equals("Stop the game")){
+
+        }
+
 		if(e.getActionCommand().equals("isConnected")){
 			JFrame jf = new JFrame();
 			System.out.println(g.ga.isConnected());
@@ -1745,7 +1773,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             String filename = chooser.getFile();
             if (filename != null) {
                 g.ga.init(chooser.getDirectory() + File.separator + chooser.getFile());
-                g.GUIgraph(g.ga.algo);
+                g.GUIgraph();
             }
 		}
 		if(e.getActionCommand().equals("Save...")) {
@@ -1762,14 +1790,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			String d = JOptionPane.showInputDialog(jf,"Please enter the dest of Edge");
 			String w = JOptionPane.showInputDialog(jf,"Please enter the weight of Edge");
 			g.ga.algo.connect(Integer.parseInt(s),Integer.parseInt(d),Integer.parseInt(w));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 		if(e.getActionCommand().equals("Remove Edge")){
 			JFrame jf = new JFrame();
 			String s = JOptionPane.showInputDialog(jf,"Please enter the src of Edge");
 			String d = JOptionPane.showInputDialog(jf,"Please enter the dest of Edge");
 			g.ga.algo.removeEdge(Integer.parseInt(s),Integer.parseInt(d));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 
 		if(e.getActionCommand().equals("Add Node")){
@@ -1788,13 +1816,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			Node.KeyCount=++keyCheck;
 			node_data add = new Node(p);
 			g.ga.algo.addNode(add);
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 		if(e.getActionCommand().equals("Remove Node")){
 			JFrame jf = new JFrame();
 			String key = JOptionPane.showInputDialog(jf,"Please enter the key of Node");
 			g.ga.algo.removeNode(Integer.parseInt(key));
-			g.GUIgraph(g.ga.algo);
+			g.GUIgraph();
 		}
 	}
 

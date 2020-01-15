@@ -58,7 +58,7 @@ class Ex2Test {
     boolean drawGraph(graph g) {
         GUI G = new GUI();
         G.ga.algo=g;
-        G.GUIgraph(g);
+        G.GUIgraph();
         return true;
 
     }

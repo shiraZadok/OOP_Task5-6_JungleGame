@@ -23,8 +23,14 @@ public class GUI extends Thread {
         StdDraw.g=this;
         this.g=d;
         ga.init(d);
+        StdDraw.enableDoubleBuffering();
     }
-    public void GUIgraph(graph d) {
+    public void GUIgraph() {
+        StdDraw.setCanvasSize(1024, 512);
+        DrawGraph(this.g);
+    }
+
+    public void DrawGraph(graph d){
         StdDraw.clear();
         this.ga.init(d);
         StdDraw.g=this;
@@ -45,7 +51,6 @@ public class GUI extends Thread {
         System.out.println(minY + "," + maxY);
         double ScaleX =(maxX-minX)*0.04;
         double ScaleY=(maxY-minY)*0.04;
-        StdDraw.setCanvasSize(800, 800);
         StdDraw.setXscale(minX - 0.002, maxX +0.002);
         StdDraw.setYscale(minY - 0.002, maxY+ 0.002);
         StdDraw.setPenColor(Color.BLUE);
@@ -57,14 +62,14 @@ public class GUI extends Thread {
             StdDraw.filledCircle(p1.x(), p1.y(),ScaleX*0.1);
             StdDraw.text(p1.x(), p1.y() + (((maxX-minX)*0.04)*0.2), "" + temp.getKey());
         }
-        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenRadius(0.004);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
             if (d.getE(temp1.getKey()) != null) {
                 Iterator edge2 = d.getE(temp1.getKey()).iterator();
                 while (edge2.hasNext()) {
-                    StdDraw.setPenColor(Color.RED);
+                    StdDraw.setPenColor(Color.LIGHT_GRAY);
                     edge_data temp2 = (edge_data) edge2.next();
                     node_data n1 = d.getNode(temp2.getSrc());
                     node_data n2 = d.getNode(temp2.getDest());
@@ -73,7 +78,9 @@ public class GUI extends Thread {
                     StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
                     double x = 0.2 * p1.x() + 0.8 * p2.x();
                     double y = 0.2 * p1.y() + 0.8 * p2.y();
-                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
+                    StdDraw.setPenColor(Color.BLACK);
+                    double weight = Math.round(temp2.getWeight()*100.0)/100.0;
+                    StdDraw.text(x, y , "" + weight);
                     StdDraw.setPenColor(Color.YELLOW);
                     double x1 = 0.1 * p1.x() + 0.9 * p2.x();
                     double y1 = 0.1 * p1.y() + 0.9 * p2.y();
@@ -94,14 +101,14 @@ public class GUI extends Thread {
     }
 
     public void backRed(graph d) {
-        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenRadius(0.004);
         Iterator edge1 = d.getV().iterator();
         while (edge1.hasNext()) {
             node_data temp1 = (node_data) edge1.next();
             if (d.getE(temp1.getKey()) != null) {
                 Iterator edge2 = d.getE(temp1.getKey()).iterator();
                 while (edge2.hasNext()) {
-                    StdDraw.setPenColor(Color.RED);
+                    StdDraw.setPenColor(Color.LIGHT_GRAY);
                     edge_data temp2 = (edge_data) edge2.next();
                     node_data n1 = d.getNode(temp2.getSrc());
                     node_data n2 = d.getNode(temp2.getDest());
@@ -110,7 +117,8 @@ public class GUI extends Thread {
                     StdDraw.line(p1.x(), p1.y(), p2.x(), p2.y());
                     double x = 0.2 * p1.x() + 0.8 * p2.x();
                     double y = 0.2 * p1.y() + 0.8 * p2.y();
-                    StdDraw.text(x, y + 0.1, "" + temp2.getWeight());
+                    StdDraw.setPenColor(Color.BLACK);
+                    StdDraw.text(x, y , "" + temp2.getWeight());
                 }
             }
         }
@@ -119,7 +127,7 @@ public class GUI extends Thread {
     public void run(){
         while(true){
             if(modeCount!=this.ga.algo.getMC()){
-                GUIgraph(ga.algo);
+                GUIgraph();
                 modeCount = ga.algo.getMC();
             }
         }
