@@ -24,16 +24,6 @@ public class Robots implements elementFruitRobot {
         this.pic = "robot.png";
     }
 
-    public Robots(int src, int dest, int id, int speed, int value, Point3D pos){
-        this.src = src;
-        this.dest = dest;
-        this.id = id;
-        this.pos = pos;
-        this.speed = speed;
-        this.value = value;
-        this.pic = "robot.png";
-    }
-
     @Override
     public elementFruitRobot init(String json) {
         Robots temp = new Robots();
