@@ -1,6 +1,7 @@
-package algorithms;
+package gameClient;
 
 import Server.game_service;
+import algorithms.Graph_Algo;
 import dataStructure.*;
 import element.Fruits;
 import element.FruitsList;

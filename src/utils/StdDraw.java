@@ -25,6 +25,7 @@ package utils;
  *
  ******************************************************************************/
 import dataStructure.*;
+import gameClient.KML_Logger;
 import gameClient.MyGameGUI;
 import gui.GUI;
 
@@ -54,6 +55,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -1691,13 +1693,25 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Add Robots")) {
 			JFrame jf = new JFrame();
-            for (int i = 0; i < gameGui.game_algo.numOfRobot; i++) {
+            for (int i = 0; i < gameGui.getGame_algo().numOfRobot; i++) {
                 String s = JOptionPane.showInputDialog(jf, "Please enter a key of node");
                 gameGui.AddRobot(Integer.parseInt(s));
             }
-            gameGui.server.startGame();
+            gameGui.getServer().startGame();
             gameGui.start();
-
+			KML_Logger k = new KML_Logger();
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						k.objKML();
+					}
+					catch (ParseException|InterruptedException ex){
+						ex.printStackTrace();
+					}
+				}
+			});
+			t.start();
         }
 
         if(e.getActionCommand().equals("Move Robots")){

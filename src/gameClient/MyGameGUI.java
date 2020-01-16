@@ -2,7 +2,6 @@ package gameClient;
 
 import Server.Game_Server;
 import Server.game_service;
-import algorithms.Game_Algo;
 import dataStructure.DGraph;
 import dataStructure.Node;
 import dataStructure.edge_data;
@@ -12,29 +11,38 @@ import element.FruitsList;
 import element.Robots;
 import element.RobotsList;
 import gui.GUI;
-import oop_dataStructure.oop_graph;
 import org.json.JSONException;
 import org.json.JSONObject;
 import utils.Point3D;
 import utils.StdDraw;
 
 import javax.swing.*;
-import java.util.Iterator;
+import java.awt.*;
+import java.text.ParseException;
 import java.util.List;
 
 public class MyGameGUI extends Thread {
 
     private DGraph GraphGame;
     private GUI g;
-    public   FruitsList fruits;
-    public   game_service server;
-    public   RobotsList robots;
-    public   Game_Algo game_algo;
+    private FruitsList fruits;
+    private game_service server;
+    private RobotsList robots;
+    private Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;
 
     public MyGameGUI() {
 
+        StdDraw.setCanvasSize(1024,512);
+        StdDraw.setYscale(-51,50);
+        StdDraw.setXscale(-51,50);
+        StdDraw.clear();
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.setPenRadius(0.1);
+        StdDraw.picture(0,0,"jungle_open.jpg");
+        StdDraw.picture(-3,0,"welcome.png");
+        StdDraw.text(-3,-8,"to the jungle");
         String[] chooseNumOfGame = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
         Object selectedNumOfGame = JOptionPane.showInputDialog(null, "Choose a num of game", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseNumOfGame, chooseNumOfGame[0]);
 
@@ -74,6 +82,19 @@ public class MyGameGUI extends Thread {
             StdDraw.show();
             this.server.startGame();
             this.start();
+            KML_Logger k = new KML_Logger();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        k.objKML();
+                    }
+                    catch (ParseException |InterruptedException ex){
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            t.start();
         }
     }
 
@@ -89,14 +110,14 @@ public class MyGameGUI extends Thread {
         this.game_algo.locationRobot();
         this.robots = new RobotsList(this.server);
         for(Robots c : this.robots.robots){
-            StdDraw.picture(c.getLocation().x(), c.getLocation().y(), "robot.png",0.002,0.001);
+            StdDraw.picture(c.getLocation().x(), c.getLocation().y(), "monkey.png",0.0009,0.001);
         }
     }
 
     public void AddRobot(int key){
         this.robots = new RobotsList(this.server);
         this.server.addRobot(key);
-        StdDraw.picture(this.GraphGame.getNode(key).getLocation().x(), this.GraphGame.getNode(key).getLocation().y(), "robot.png",0.002,0.001);
+        StdDraw.picture(this.GraphGame.getNode(key).getLocation().x(), this.GraphGame.getNode(key).getLocation().y(), "monkey.png",0.002,0.001);
         StdDraw.show();
     }
 
@@ -154,8 +175,6 @@ public class MyGameGUI extends Thread {
         {
             this.robots.listR(log);
             for (Robots r : this.robots.robots){
-                System.out.println("\n");
-                System.out.println("the Src of the robot - " + r.getId() +" before nextNode" +r.getSrc());
                 if (r.getDest() ==-1){
                     this.server.move();
                 }
@@ -195,10 +214,14 @@ public class MyGameGUI extends Thread {
         while (this.server.isRunning()){
             FruitsGui();
             RobotsGui();
+//            StdDraw.setPenColor(Color.BLACK);
+//            StdDraw.setPenRadius(0.0005);
+//            StdDraw.text(50,40,"TIMER: "+this.server.timeToEnd()/1000);
             if(this.auto==true) moveRobots();
             if(this.menual==true) moveRobotsToDest();
             StdDraw.show();
             this.g.DrawGraph(this.GraphGame);
+//            StdDraw.picture(0,0,"jungle_open.jpg");
             try {
                 sleep(10);
             }
@@ -207,7 +230,7 @@ public class MyGameGUI extends Thread {
             }
         }
         JFrame jf = new JFrame();
-        JOptionPane.showMessageDialog(jf,"YOUR GRADE IS : " + myGrade(this.server) );
+        JOptionPane.showMessageDialog(jf,"THE GAME IS OVER"+"/n"+"YOUR GRADE IS : " + myGrade(this.server) );
     }
 
     public double myGrade(game_service server){
@@ -224,7 +247,23 @@ public class MyGameGUI extends Thread {
         return myGrade;
     }
 
+    public GUI getG(){
+        return this.g;
+    }
+    public FruitsList getFruits(){
+        return this.fruits;
+    }
+    public game_service getServer(){
+        return this.server;
+    }
+    public RobotsList getRobots(){
+        return this.robots;
+    }
+    public Game_Algo getGame_algo(){
+        return this.game_algo;
+    }
+
     public static void main(String[] args) {
-      MyGameGUI m =new MyGameGUI();
+        MyGameGUI m =new MyGameGUI();
     }
 }
