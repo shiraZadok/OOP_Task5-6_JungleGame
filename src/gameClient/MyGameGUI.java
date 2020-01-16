@@ -24,11 +24,11 @@ import java.util.List;
 
 public class MyGameGUI extends Thread {
 
+    public RobotsList robots;
+    public FruitsList fruits;
     private DGraph GraphGame;
     private GUI g;
-    public   FruitsList fruits;
     public   game_service server;
-    public   RobotsList robots;
     public   Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;
