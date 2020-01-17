@@ -23,6 +23,13 @@ public class Fruits implements elementFruitRobot{
         this.pic = null;
     }
 
+    public Fruits(Point3D pos, double value, int type, String pic){
+        this.pos = pos;
+        this.value = value;
+        this.type = type;
+        this.pic = pic;
+    }
+
     public String toString(){
         return "pos:"+ pos.toString()+ "\n" + "value:"+ this.value+ "\n" + "type:" + this.type;
     }

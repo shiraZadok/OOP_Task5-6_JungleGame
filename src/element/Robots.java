@@ -24,6 +24,16 @@ public class Robots implements elementFruitRobot {
         this.pic = "robot.png";
     }
 
+    public Robots(int src,int dest,int id,Point3D pos,int speed,double value,String pic){
+        this.src = src;
+        this.dest = dest;
+        this.id = id;
+        this.pos = pos;
+        this.speed = speed;
+        this.value = value;
+        this.pic = pic;
+    }
+
     @Override
     public elementFruitRobot init(String json) {
         Robots temp = new Robots();
@@ -31,9 +41,7 @@ public class Robots implements elementFruitRobot {
             JSONObject robot = new JSONObject(json);
             JSONObject robott = robot.getJSONObject("Robot");
             temp.src = robott.getInt("src");
-            //System.out.println("srcRobot:" + temp.src); //////////////////
             temp.dest = robott.getInt("dest");
-            //System.out.println("destRobot:" + temp.dest); ///////////////
             temp.value = robott.getDouble("value");
             temp.id = robott.getInt("id");
             String pos = robott.getString("pos");
@@ -48,7 +56,7 @@ public class Robots implements elementFruitRobot {
 
     @Override
     public String get_pic() {
-        return "robot.png";
+        return "monkey.png";
     }
 
     @Override
@@ -56,16 +64,10 @@ public class Robots implements elementFruitRobot {
 
     }
 
-    public int getId() {
-        return this.id;    }
+    public int getId() { return this.id; }
 
     public Point3D getLocation() {
         return this.pos;
-    }
-
-    public void setLocation(Point3D p) {
-        this.pos = p;
-
     }
 
     public int getSrc(){
@@ -82,14 +84,6 @@ public class Robots implements elementFruitRobot {
 
     public void setDest(int d){
         this.dest = d;
-    }
-
-    public int getSpeed(){
-        return this.speed;
-    }
-
-    public void setSpeed(int sp){
-        this.speed=sp;
     }
 
     public double getValue(){

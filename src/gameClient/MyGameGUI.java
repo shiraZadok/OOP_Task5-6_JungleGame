@@ -230,7 +230,7 @@ public class MyGameGUI extends Thread {
             }
         }
         JFrame jf = new JFrame();
-        JOptionPane.showMessageDialog(jf,"THE GAME IS OVER"+"/n"+"YOUR GRADE IS : " + myGrade(this.server) );
+        JOptionPane.showMessageDialog(jf,"THE GAME IS OVER"+"\n"+"YOUR GRADE IS : " + myGrade(this.server) );
     }
 
     public double myGrade(game_service server){
