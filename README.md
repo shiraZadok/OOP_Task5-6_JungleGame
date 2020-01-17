@@ -1,59 +1,26 @@
-![](https://static.inilah.com/data/berita/foto/2554271.jpg)
+![openGame](https://user-images.githubusercontent.com/58064644/72602430-efe8c400-391f-11ea-886c-68d487501bac.png)
 ##### Submit: Yirat Peleg & Shira Zadok
 
-# The Maze Of Waze
-This project deal with graphs. There is some algoritims that applied on the graph and help to navigate on him.
+# The Jungle Game
+In this project we build a Jungle Game.
+The game based on Grahs with nodes and edges taht represent the route. The player in the game represented by moneky. There are fruits scattered on the graph randomly and the goal of the game is to eat as much fruit as possible and earn as many points as possible.
+In the game there is two option - Automatical game or Manual game. The player is asked before the play what he prefers. If he chose in Manual game - he needs to have a good strategy for navigating the graph best so he can eat as much fruit as possible.
+If he chose in automatical game - we have programmed an algorithm that is based on the shortest path that exists between a certain monkey in graph and fruit.
+There is few level in the game at a rising difficulty level.
+Ia addition, there is an option at the end of the game to see it on GoogleEarth.
 
-For example, the user can find the shortest path between two vertex on the graph, one vertex represent the source and the second represent the destination.
-The algoritim can returns the length between src to dest or the vertexes that should pass in the shortest path.
+The game draw by STDraw class.
 
-In addition, the user can draw the grph with the class GUI.
+# Image of the game
 
-In order to realize a graph we used the HashMap class.
+### Select a level 
+![choseLevel](https://user-images.githubusercontent.com/58064644/72608537-8ff81a80-392b-11ea-8b20-00d72f9c8ddf.png)
 
-## Node Class:
-This class build single node.
-An object from class Node contain the follow feature:
-* Key - it the ID of this node in the graph.
-* Tag - it like flag that change if we pass in this node during the path.
-* Weight - it represent the cost of the path that take to get from Src to this node that represent the Dest.  
-* Location - represent the locatiobn of the node on the axis - X, Y, Z.
-* Info.
+### Select type of game
+![modeGame](https://user-images.githubusercontent.com/58064644/72608540-9090b100-392b-11ea-8999-4e676ce7c836.png)
 
-## Edge Class
-This class build single edge.
-An object from class Edge contain the follow feature:
-* Src - the key of tne node that represent the source.
-* Dest - the key of tne node that represent the destination.
-* Tag - it like flag that change if we pass in this edge during the path.
-* Weight - how much cost to pass on this edge in the path.
-* Info.
+### Visual game 
+![visualGame](https://user-images.githubusercontent.com/58064644/72608538-9090b100-392b-11ea-8080-0435cc2073e8.png)
 
-## DGraph Class
-This class build a graph that defined by nodes and edges.
-It contain a collection of node with use in Node Class and collection of edge with use in Edge Clas.
-### Main Methods in DGraph:
-* AddNode: This method add nodes to the grph.
-* Connect: This method make the edge in the graph.
-* RemoveNode: This method delete certain node and all the edges that connected it.
-* RemoveEdge: This method delete certain edge from the graph.
-* GetV: This method bring the nodes collection of the graph.
-* GetE: This method bring the edges collection of the graph.
 
-## GUI Class
-This class draw the the grap.
-
-## Graph_Algo Class
-In this class we solved a algorithmic problems as - What is the shortest path in the graph, does the graph is a connective graph, how to read graph from file and how save graph as file.
-### Main Methods in Graph_Algo:
-* Init: This method get a graph from the use or from file and make him to the algo graph.
-* Copy: This method compute a deep copy of this graph.
-* Save: This method saves the graph to a file.
-* IsConnected: This method check if exist a valid path from EVREY node to each.
-* ShortestPathDist: This method returns the length of the shortest path between src to dest.
-* ShortestPath: This method the vertexes that should pass in the shortest path.
-* TSP: This method get group of Vertexes and return the most optional Path to visit each node in the targets List.
-
-# Image of our graph for example:
-![1](https://user-images.githubusercontent.com/58064644/71783774-35d68b80-2ff4-11ea-8bba-17d3ef3d62b2.jpeg)
-![2](https://user-images.githubusercontent.com/58064644/71783775-366f2200-2ff4-11ea-83f7-0bb03b0ec853.jpeg)
+### Diagram structure 
