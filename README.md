@@ -14,13 +14,13 @@ The game draw by STDraw class.
 # Image of the game
 
 ### Select a level 
-![chose level](https://user-images.githubusercontent.com/58064644/72607890-24fa1400-392a-11ea-9459-1e29b49d0b17.png)
+![choseLevel](https://user-images.githubusercontent.com/58064644/72608537-8ff81a80-392b-11ea-8b20-00d72f9c8ddf.png)
 
 ### Select type of game
-![chosegame](https://user-images.githubusercontent.com/58064644/72607875-20cdf680-392a-11ea-83df-7d88d657f90b.png)
+![modeGame](https://user-images.githubusercontent.com/58064644/72608540-9090b100-392b-11ea-8999-4e676ce7c836.png)
 
 ### Visual game 
-![visualGame](https://user-images.githubusercontent.com/58064644/72607878-23305080-392a-11ea-934b-04bae0280a5f.png)
+![visualGame](https://user-images.githubusercontent.com/58064644/72608538-9090b100-392b-11ea-8080-0435cc2073e8.png)
 
 
 ### Diagram structure 
