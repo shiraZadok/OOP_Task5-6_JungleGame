@@ -1,8 +1,19 @@
-![](https://static.inilah.com/data/berita/foto/2554271.jpg)
+![openGame](https://user-images.githubusercontent.com/58064644/72602430-efe8c400-391f-11ea-886c-68d487501bac.png)
 ##### Submit: Yirat Peleg & Shira Zadok
 
-# The Maze Of Waze
-This project deal with graphs. There is some algoritims that applied on the graph and help to navigate on him.
+# The Jungle Game
+In this project we build a Jungle Game.
+The game based on Grahs with nodes and edges taht represent the route. The player in the game represented by moneky. There are fruits scattered on the graph randomly and the goal of the game is to eat as much fruit as possible and earn as many points as possible.
+In the game there is two option - Automatical game or Manual game. The player is asked before the play what he prefers. If he chose in Manual game - he needs to have a good strategy for navigating the graph best so he can eat as much fruit as possible.
+If he chose in automatical game - we have programmed an algorithm that is based on the shortest path that exists between a certain monkey in graph and fruit.
+There is few level in the game at a rising difficulty level.
+Ia addition, there is an option at the end of the game to see it on GoogleEarth.
+
+The game draw by STDraw class.
+
+## Image of the game
+
+
 
 For example, the user can find the shortest path between two vertex on the graph, one vertex represent the source and the second represent the destination.
 The algoritim can returns the length between src to dest or the vertexes that should pass in the shortest path.
