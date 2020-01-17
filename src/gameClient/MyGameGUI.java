@@ -23,12 +23,12 @@ import java.util.List;
 
 public class MyGameGUI extends Thread {
 
+    public RobotsList robots;
+    public FruitsList fruits;
     private DGraph GraphGame;
     private GUI g;
-    private FruitsList fruits;
-    private game_service server;
-    private RobotsList robots;
-    private Game_Algo game_algo;
+    public   game_service server;
+    public   Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;
 
