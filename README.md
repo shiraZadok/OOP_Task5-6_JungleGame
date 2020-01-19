@@ -129,4 +129,4 @@ This class make a KML-file that in the end of the game the user can see his game
 This class responsible for drawing all game data to user with help class STDraw.
 
 
-#GOOD_LUCK!
+# WE HOPE YOU WILL ENJOY!
