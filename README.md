@@ -1,4 +1,3 @@
-![openGame](https://user-images.githubusercontent.com/58064644/72602430-efe8c400-391f-11ea-886c-68d487501bac.png)
 ##### Submit: Yirat Peleg & Shira Zadok
 
 # The Jungle Game
@@ -20,7 +19,6 @@ The game draw by STDraw class.
 ![modeGame](https://user-images.githubusercontent.com/58064644/72608540-9090b100-392b-11ea-8999-4e676ce7c836.png)
 
 ### Visual game 
-![visualGame](https://user-images.githubusercontent.com/58064644/72608538-9090b100-392b-11ea-8080-0435cc2073e8.png)
 
 
 ### Diagram structure 
