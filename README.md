@@ -1,3 +1,5 @@
+![Jungle-Game](https://user-images.githubusercontent.com/58064644/72680447-a2f12300-3ac2-11ea-86b5-a3ebffd9234b.png)
+
 ##### Submit: Yirat Peleg & Shira Zadok
 
 # The Jungle Game
