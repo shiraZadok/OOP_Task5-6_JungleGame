@@ -20,8 +20,7 @@ The game draw by STDraw class.
 ![choseLevel](https://user-images.githubusercontent.com/58064644/72608537-8ff81a80-392b-11ea-8b20-00d72f9c8ddf.png)
 
 ### Select type of game
-![modeGame](https://user-images.githubusercontent.com/58064644/72608540-9090b100-392b-11ea-8999-4e676ce7c836.png)
-
+![select_picture](https://user-images.githubusercontent.com/58064644/72687706-41a07280-3b09-11ea-9f88-dc6262fceba3.png)
 ### Visual game 
 ![visualGame](https://user-images.githubusercontent.com/58064644/72686440-92aa6980-3afd-11ea-86f4-1548e1d54203.png)
 ### Diagram structure 
