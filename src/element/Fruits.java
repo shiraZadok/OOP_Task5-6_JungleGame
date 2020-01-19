@@ -15,6 +15,7 @@ public class Fruits implements elementFruitRobot{
     private double value;
     private int type;
     private String pic;
+    private int tag;
 
     /**
      * a default constructor.
@@ -24,6 +25,7 @@ public class Fruits implements elementFruitRobot{
         this.value = 0;
         this.type = 0;
         this.pic = null;
+        this.tag = 0;
     }
 
     /**
