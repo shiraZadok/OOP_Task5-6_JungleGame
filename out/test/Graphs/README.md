@@ -23,6 +23,6 @@ The game draw by STDraw class.
 ![modeGame](https://user-images.githubusercontent.com/58064644/72608540-9090b100-392b-11ea-8999-4e676ce7c836.png)
 
 ### Visual game 
-
+![‏‏צילום מסך (13)](https://user-images.githubusercontent.com/58064644/72686427-4d863780-3afd-11ea-89bc-06cdf79d1733.png)
 
 ### Diagram structure 

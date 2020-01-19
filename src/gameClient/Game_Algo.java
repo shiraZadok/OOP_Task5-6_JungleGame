@@ -1,16 +1,16 @@
 package gameClient;
 
-import Server.game_service;
-import algorithms.Graph_Algo;
-import dataStructure.*;
-import element.Fruits;
-import element.FruitsList;
-import element.Robots;
-import element.RobotsList;
-import utils.Point3D;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+        import Server.game_service;
+        import algorithms.Graph_Algo;
+        import dataStructure.*;
+        import element.Fruits;
+        import element.FruitsList;
+        import element.Robots;
+        import element.RobotsList;
+        import utils.Point3D;
+        import java.util.Iterator;
+        import java.util.LinkedList;
+        import java.util.List;
 
 public class Game_Algo {
 
@@ -130,12 +130,6 @@ public class Game_Algo {
         }
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
-        if (shortestPath.size() > 1) {
-            if (r.getLocation().equalsXY(this.GraphGame.getNode(minDest.getSrc()).getLocation())){
-                this.server.chooseNextEdge(r.getId(), minDest.getDest());
-            }
-            else this.server.chooseNextEdge(r.getId(), shortestPath.get(1).getKey());
-            this.server.move();
-        }
+        this.server.move();
     }
 }

@@ -51,8 +51,6 @@ public class MyGameGUI extends Thread {
 
         int num = Integer.parseInt((String) selectedNumOfGame);
         this.server = Game_Server.getServer(num);
-//        System.out.println("***************************************************");
-//        System.out.println(this.server.toString());
 
         String[] chooseGame = {"Manual game", "Auto game"};
         Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[0]);
@@ -327,6 +325,5 @@ public class MyGameGUI extends Thread {
 
     public static void main(String[] args) {
         MyGameGUI m =new MyGameGUI();
-
     }
 }
