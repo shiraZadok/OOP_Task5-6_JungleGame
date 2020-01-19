@@ -705,8 +705,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		JMenuBar menuBar = new JMenuBar();
 		JMenu game = new JMenu("Game");
 		menuBar.add(game);
-		JMenuItem add = new JMenuItem("Add Robots");
-		JMenuItem move = new JMenuItem("Move Robots");
+		JMenuItem add = new JMenuItem("Add Monkey");
+		JMenuItem move = new JMenuItem("Move Monkey");
 		add.addActionListener(std);
 		move.addActionListener(std);
 		game.add(add);
@@ -1691,7 +1691,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Add Robots")) {
+        if(e.getActionCommand().equals("Add monkey")) {
 			JFrame jf = new JFrame();
             for (int i = 0; i < gameGui.getGame_algo().numOfRobot; i++) {
                 String s = JOptionPane.showInputDialog(jf, "Please enter a key of node");
@@ -1714,9 +1714,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			t.start();
         }
 
-        if(e.getActionCommand().equals("Move Robots")){
+        if(e.getActionCommand().equals("Move Monkey")){
 			JFrame jf = new JFrame();
-			JOptionPane.showMessageDialog(jf, "Please press on the robot you want move and then on the desired destination");
+			JOptionPane.showMessageDialog(jf, "Please press on the monkey you want move and then on the desired destination");
 		}
 
 		if(e.getActionCommand().equals("isConnected")){

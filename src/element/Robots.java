@@ -14,6 +14,9 @@ public class Robots implements elementFruitRobot {
     private double value;
     private String pic;
 
+    /**
+     * a default constructor.
+     */
     public Robots(){
         this.src = 0;
         this.dest = 0;
@@ -24,6 +27,31 @@ public class Robots implements elementFruitRobot {
         this.pic = "robot.png";
     }
 
+    /**
+     * constructor of new robot.
+     * @param src is the node the robot is on.
+     * @param dest is the node the robot goes to.
+     * @param id is the robot id.
+     * @param pos is the robot location
+     * @param speed is the robot speed.
+     * @param value is the value the robot collected.
+     * @param pic is the robot picture for gui.
+     */
+    public Robots(int src,int dest,int id,Point3D pos,int speed,double value,String pic){
+        this.src = src;
+        this.dest = dest;
+        this.id = id;
+        this.pos = pos;
+        this.speed = speed;
+        this.value = value;
+        this.pic = pic;
+    }
+
+    /**
+     * This function receives a json file and saves from it all the values of the fields of the robot.
+     * @param json is the file we get.
+     * @return the robot.
+     */
     @Override
     public elementFruitRobot init(String json) {
         Robots temp = new Robots();
@@ -31,9 +59,7 @@ public class Robots implements elementFruitRobot {
             JSONObject robot = new JSONObject(json);
             JSONObject robott = robot.getJSONObject("Robot");
             temp.src = robott.getInt("src");
-            //System.out.println("srcRobot:" + temp.src); //////////////////
             temp.dest = robott.getInt("dest");
-            //System.out.println("destRobot:" + temp.dest); ///////////////
             temp.value = robott.getDouble("value");
             temp.id = robott.getInt("id");
             String pos = robott.getString("pos");
@@ -46,59 +72,77 @@ public class Robots implements elementFruitRobot {
         return temp;
     }
 
+    /**
+     * @return a string that represent the picture of the robot.
+     */
     @Override
     public String get_pic() {
-        return "robot.png";
+        return "monkey.png";
     }
 
+    /**
+     * This function updates the picture of the robot.
+     * @param json is the new picture.
+     */
     @Override
     public void set_pic(String json) {
 
     }
 
-    public int getId() {
-        return this.id;    }
+    /**
+     * @return the robot id.
+     */
+    public int getId() { return this.id; }
 
+    /**
+     * @return a point that represent the location of the robot.
+     */
     public Point3D getLocation() {
         return this.pos;
     }
 
-    public void setLocation(Point3D p) {
-        this.pos = p;
-
-    }
-
+    /**
+     * @return the key of node the robot is on.
+     */
     public int getSrc(){
         return this.src;
     }
 
+    /**
+     * This function updates the src of the robot.
+     * @param s is the new src.
+     */
     public void setSrc(int s){
         this.src = s;
     }
 
+    /**
+     * @return the key of node the robot goes to.
+     */
     public int getDest(){
         return this.dest;
     }
 
+    /**
+     * This function updates the dest of the robot.
+     * @param d is the new dest.
+     */
     public void setDest(int d){
         this.dest = d;
     }
 
-    public int getSpeed(){
-        return this.speed;
-    }
-
-    public void setSpeed(int sp){
-        this.speed=sp;
-    }
-
+    /**
+     * @return the value the robot collected.
+     */
     public double getValue(){
         return this.value;
     }
 
+    /**
+     * This function updates the value of the robot.
+     * @param v is the new value.
+     */
     public void setValue(double v){
         this.value = v;
     }
-
-
 }

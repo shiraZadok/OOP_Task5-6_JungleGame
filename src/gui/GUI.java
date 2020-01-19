@@ -2,6 +2,7 @@ package gui;
 
 import algorithms.*;
 import dataStructure.*;
+import gameClient.MyGameGUI;
 import utils.*;
 import java.awt.*;
 import java.util.Iterator;
@@ -34,27 +35,19 @@ public class GUI extends Thread {
         StdDraw.clear();
         this.ga.init(d);
         StdDraw.g=this;
-        double minX = Integer.MAX_VALUE;
-        double minY = Integer.MAX_VALUE;
-        double maxX = Integer.MIN_VALUE;
-        double maxY = Integer.MIN_VALUE;
-        Iterator it = d.getV().iterator();
-        while (it.hasNext()) {
-            node_data temp = (node_data) it.next();
-            Point3D p = temp.getLocation();
-            minX = Math.min(minX, p.x());
-            minY = Math.min(minY, p.y());
-            maxX = Math.max(maxX, p.x());
-            maxY = Math.max(maxY, p.y());
-        }
+        double minX = getMinXY(d).x();
+        double minY = getMinXY(d).y();
+        double maxX = getMaxXY(d).x();
+        double maxY = getMaxXY(d).y();
         System.out.println(minX + " ," + maxX);
         System.out.println(minY + "," + maxY);
         double ScaleX =(maxX-minX)*0.04;
         double ScaleY=(maxY-minY)*0.04;
         StdDraw.setXscale(minX - 0.002, maxX +0.002);
         StdDraw.setYscale(minY - 0.002, maxY+ 0.002);
-        StdDraw.setPenColor(Color.BLUE);
+        StdDraw.setPenColor(Color.RED);
         StdDraw.setPenRadius(0.05);
+        StdDraw.picture((maxX+minX)/2,(maxY+minY)/2,"jungle_open.jpg");
         Iterator it1 = d.getV().iterator();
         while (it1.hasNext()) {
             node_data temp = (node_data) it1.next();
@@ -88,6 +81,34 @@ public class GUI extends Thread {
                 }
             }
         }
+    }
+
+    public Point3D getMinXY(graph d){
+        double minX = Integer.MAX_VALUE;
+        double minY = Integer.MAX_VALUE;
+        Iterator it = d.getV().iterator();
+        while (it.hasNext()) {
+            node_data temp = (node_data) it.next();
+            Point3D p = temp.getLocation();
+            minX = Math.min(minX, p.x());
+            minY = Math.min(minY, p.y());
+        }
+        Point3D ans = new Point3D(minX,minY,0);
+        return ans;
+    }
+
+    public Point3D getMaxXY(graph d){
+        double maxX = Integer.MIN_VALUE;
+        double maxY = Integer.MIN_VALUE;
+        Iterator it = d.getV().iterator();
+        while (it.hasNext()) {
+            node_data temp = (node_data) it.next();
+            Point3D p = temp.getLocation();
+            maxX = Math.max(maxX, p.x());
+            maxY = Math.max(maxY, p.y());
+        }
+        Point3D ans = new Point3D(maxX,maxY,0);
+        return ans;
     }
 
     public void GUIPath(List<node_data> l){

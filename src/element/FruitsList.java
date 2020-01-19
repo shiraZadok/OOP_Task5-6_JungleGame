@@ -15,20 +15,31 @@ public class FruitsList {
     private int amountFruits;
     private game_service numGame;
 
+    /**
+     * a default constructor.
+     */
     public FruitsList() {
         this.fruits = new LinkedList<>();
         this.amountFruits = fruits.size();
         this.numGame = null;
     }
 
+    /**
+     * constructor of new FruitsList.
+     * @param numGame is the type of the game.
+     */
     public FruitsList(game_service numGame) {
         this.numGame = numGame;
         this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
         this.fruits = listF(this.numGame.getFruits());
-        //System.out.println("this.numGame.getFruits:" + this.numGame.getFruits()); /////////////////
     }
 
+    /**
+     * This function creates a list that contains all the fruits in the game.
+     * @param temp is a file of the fruits.
+     * @return the list the function build.
+     */
     public List<Fruits> listF(List<String> temp) {
         for (String f : temp) {
             Fruits fr = new Fruits();
@@ -39,6 +50,10 @@ public class FruitsList {
         return this.fruits;
     }
 
+    /**
+     * This function calculates how much fruit there is in the game.
+     * @return the amount of fruits.
+     */
     public int getAmountFruits() {
         int amount = 0;
         try {
