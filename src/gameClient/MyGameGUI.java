@@ -19,6 +19,7 @@ import utils.StdDraw;
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.List;
 
 public class MyGameGUI extends Thread {
@@ -51,6 +52,8 @@ public class MyGameGUI extends Thread {
 
         int num = Integer.parseInt((String) selectedNumOfGame);
         this.server = Game_Server.getServer(num);
+//        System.out.println("***************************************************");
+//        System.out.println(this.server.toString());
 
         String[] chooseGame = {"Manual game", "Auto game"};
         Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[0]);
@@ -145,10 +148,25 @@ public class MyGameGUI extends Thread {
             for (Robots r : this.robots.robots){
                 if (r.getDest() ==-1){
                     this.game_algo.nextNode(r, this.GraphGame);
+                    freeEdge(this.GraphGame);
                 }
             }
         }
         this.server.move();
+    }
+
+    private void freeEdge(DGraph g) {
+        Iterator it = g.getV().iterator();
+        while (it.hasNext()) {
+            node_data n = (node_data) it.next();
+            if (g.getE(n.getKey()) != null) {
+                Iterator itEdge = g.getE(n.getKey()).iterator();
+                while (itEdge.hasNext()) {
+                    edge_data e = (edge_data) itEdge.next();
+                    e.setTag(0);
+                }
+            }
+        }
     }
 
     /**
@@ -324,6 +342,7 @@ public class MyGameGUI extends Thread {
     }
 
     public static void main(String[] args) {
-        MyGameGUI m =new MyGameGUI();
-    }
+    MyGameGUI m =new MyGameGUI();
+
+}
 }
