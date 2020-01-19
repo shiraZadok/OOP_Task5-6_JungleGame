@@ -110,7 +110,7 @@ public class Game_Algo {
     }
 
     /**
-     * This function checks which node should send the robots.
+     * This function checks which vertex should send the robots.
      * @param r is the robot.
      * @param graphGame is the graph of this game.
      */
