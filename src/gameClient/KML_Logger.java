@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import de.micromata.opengis.kml.v_2_2_0.*;
 import element.Fruits;
 import element.Robots;
@@ -16,7 +15,7 @@ public class KML_Logger {
         Kml kml = new Kml();
         Document d = kml.createAndSetDocument();
         int i = 0;
-        if (StdDraw.gameGui.getServer()!=null){
+        if (StdDraw.gameGui!=null && StdDraw.gameGui.getServer()!=null){
             while (StdDraw.gameGui.getServer().isRunning()){
                 Thread.sleep(100);
                 i++;

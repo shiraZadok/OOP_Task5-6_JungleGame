@@ -24,6 +24,11 @@ public class FruitsList {
         this.numGame = null;
     }
 
+    public FruitsList(List<Fruits> fruits, int amountFruits){
+        this.fruits = fruits;
+        this.amountFruits = amountFruits;
+    }
+
     /**
      * constructor of new FruitsList.
      * @param numGame is the type of the game.

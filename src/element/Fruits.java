@@ -43,13 +43,6 @@ public class Fruits implements elementFruitRobot{
     }
 
     /**
-     * @return String that represent the fruit.
-     */
-    public String toString(){
-        return "pos:"+ pos.toString()+ "\n" + "value:"+ this.value+ "\n" + "type:" + this.type;
-    }
-
-    /**
      * This function receives a json file and saves from it all the values of the fields of the fruit.
      * @param json is the file we get.
      * @return the fruit.

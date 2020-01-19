@@ -10,7 +10,7 @@ public class FruitsTest {
 
     static Fruits[] checkforBuildFruit = new Fruits[8];
     static Point3D[] checkPoint3D = new Point3D[8];
-    static String[] checkStringJson = new String[8];
+    static String[] checkJsonString = new String[8];
 
     @Before
     public void BeforeEach() {
@@ -33,26 +33,21 @@ public class FruitsTest {
         checkforBuildFruit [6] = new Fruits(new Point3D(13,14,0),7,-1,"banana.png");
         checkforBuildFruit [7] = new Fruits(new Point3D(15,16,0),8,-1,"banana.png");
 
-        checkStringJson[0] = "{\"Fruit\":{\"value\":1.0,\"type\":-1,\"pos\":\"1.0,2.0,0.0\"}}";
-        checkStringJson[1] = "{\"Fruit\":{\"value\":2.0,\"type\":-1,\"pos\":\"3.0,4.0,0.0\"}}";
-        checkStringJson[2] = "{\"Fruit\":{\"value\":3.0,\"type\":-1,\"pos\":\"5.0,6.0,0.0\"}}";
-        checkStringJson[3] = "{\"Fruit\":{\"value\":4.0,\"type\":-1,\"pos\":\"7.0,8.0,0.0\"}}";
-        checkStringJson[4] = "{\"Fruit\":{\"value\":5.0,\"type\":-1,\"pos\":\"9.0,10.0,0.0\"}}";
-        checkStringJson[5] = "{\"Fruit\":{\"value\":6.0,\"type\":-1,\"pos\":\"11.0,12.0,0.0\"}}";
-        checkStringJson[6] = "{\"Fruit\":{\"value\":7.0,\"type\":-1,\"pos\":\"13.0,14.0,0.0\"}}";
-        checkStringJson[7] = "{\"Fruit\":{\"value\":8.0,\"type\":-1,\"pos\":\"15.0,16.0,0.0\"}}";
-    }
-
-    @Test
-    public void TesttoString() {
-
+        checkJsonString[0] = "{\"Fruit\":{\"value\":1.0,\"type\":-1,\"pos\":\"1.0,2.0,0.0\"}}";
+        checkJsonString[1] = "{\"Fruit\":{\"value\":2.0,\"type\":-1,\"pos\":\"3.0,4.0,0.0\"}}";
+        checkJsonString[2] = "{\"Fruit\":{\"value\":3.0,\"type\":-1,\"pos\":\"5.0,6.0,0.0\"}}";
+        checkJsonString[3] = "{\"Fruit\":{\"value\":4.0,\"type\":-1,\"pos\":\"7.0,8.0,0.0\"}}";
+        checkJsonString[4] = "{\"Fruit\":{\"value\":5.0,\"type\":-1,\"pos\":\"9.0,10.0,0.0\"}}";
+        checkJsonString[5] = "{\"Fruit\":{\"value\":6.0,\"type\":-1,\"pos\":\"11.0,12.0,0.0\"}}";
+        checkJsonString[6] = "{\"Fruit\":{\"value\":7.0,\"type\":-1,\"pos\":\"13.0,14.0,0.0\"}}";
+        checkJsonString[7] = "{\"Fruit\":{\"value\":8.0,\"type\":-1,\"pos\":\"15.0,16.0,0.0\"}}";
     }
 
     @Test
     public void init() {
         Fruits check = new Fruits();
         for (int i = 0; i < checkforBuildFruit.length; i++) {
-            check = (Fruits) check.init(checkStringJson[i]);
+            check = (Fruits) check.init(checkJsonString[i]);
             assertEquals((i*2)+1, check.getLocation().x(), 0.0001);
             assertEquals((i*2)+2, check.getLocation().y(), 0.0001);
             assertEquals(0.0, check.getLocation().z(), 0.0001);
