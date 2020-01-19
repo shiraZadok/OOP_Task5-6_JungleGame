@@ -13,18 +13,25 @@ public class RobotsList {
     private int amountRobots;
     private game_service numGame;
 
+    /**
+     * constructor of new RobotsList.
+     * @param numGame is the type of the game.
+     */
     public RobotsList(game_service numGame) {
         this.numGame = numGame;
         this.amountRobots = getAmountRobots();
         this.robots = new LinkedList<>();
         this.robots = listR(this.numGame.getRobots());
-        //System.out.println("this.numGame.getRobots" + this.numGame.getRobots()); /////////////////
     }
 
+    /**
+     * This function creates a list that contains all the robots in the game.
+     * @param temp is a file of the robots.
+     * @return the list the function build.
+     */
     public List<Robots> listR(List<String> temp) {
         List<Robots> tempR = new LinkedList<>();
         for (String r : temp) {
-            //System.out.println("the line of the robot" + r); ////////////////
             Robots ro = new Robots();
             ro = (Robots) ro.init(r);
             tempR.add(ro);
@@ -34,6 +41,10 @@ public class RobotsList {
         return this.robots;
     }
 
+    /**
+     * This function calculates how much robot there is in the game.
+     * @return the amount of robots.
+     */
     public int getAmountRobots() {
         int amount = 0;
         try {

@@ -27,11 +27,14 @@ public class MyGameGUI extends Thread {
     public FruitsList fruits;
     private DGraph GraphGame;
     private GUI g;
-    public   game_service server;
-    public   Game_Algo game_algo;
+    public game_service server;
+    public Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;
 
+    /**
+     * a default constructor.
+     */
     public MyGameGUI() {
 
         StdDraw.setCanvasSize(1024,512);
@@ -98,6 +101,9 @@ public class MyGameGUI extends Thread {
         }
     }
 
+    /**
+     * This function draw the fruits.
+     */
     public void FruitsGui(){
         this.fruits = new FruitsList(this.server);
         for(Fruits f : this.fruits.fruits){
@@ -105,6 +111,9 @@ public class MyGameGUI extends Thread {
         }
     }
 
+    /**
+     * This function draw the robots.
+     */
     public void RobotsGui(){
         this.robots = new RobotsList(this.server);
         this.game_algo.locationRobot();
@@ -114,6 +123,10 @@ public class MyGameGUI extends Thread {
         }
     }
 
+    /**
+     * This function adds a robot to the list of all existing robots in the game.
+     * @param key is the key of robot.
+     */
     public void AddRobot(int key){
         this.robots = new RobotsList(this.server);
         this.server.addRobot(key);
@@ -121,14 +134,15 @@ public class MyGameGUI extends Thread {
         StdDraw.show();
     }
 
+    /**
+     * This function updating new robot location.
+     */
     private void moveRobots() {
         List<String> log = this.server.move();
         if(log!=null)
         {
             this.robots.listR(log);
             for (Robots r : this.robots.robots){
-                System.out.println("\n");
-                System.out.println("the Src of the robot - " + r.getId() +" before nextNode" +r.getSrc());
                 if (r.getDest() ==-1){
                     this.game_algo.nextNode(r, this.GraphGame);
                 }
@@ -137,6 +151,10 @@ public class MyGameGUI extends Thread {
         this.server.move();
     }
 
+    /**
+     * This function updating new robot location in the manual game.
+     * @throws InterruptedException
+     */
     public void moveRobotByClick() throws InterruptedException {
         double x;
         double y;
@@ -169,6 +187,9 @@ public class MyGameGUI extends Thread {
         }
     }
 
+    /**
+     * This function move the robot to him dest.
+     */
     private void moveRobotsToDest() {
         List<String> log = this.server.move();
         if(log!=null)
@@ -183,6 +204,12 @@ public class MyGameGUI extends Thread {
         this.server.move();
     }
 
+    /**
+     * An auxiliary function that found the node on which the robot is clicked.
+     * @param x is the x of point that clicked.
+     * @param y is the y of point that clicked.
+     * @return the node on which the robot is clicked.
+     */
     private node_data getTheRobot(double x, double y) {
         this.robots.listR(this.server.getRobots());
         for(Robots n : this.robots.robots) {
@@ -199,6 +226,12 @@ public class MyGameGUI extends Thread {
         return null;
     }
 
+    /**
+     * An auxiliary function that found the node on which the robot is clicked.
+     * @param x is the x of point that clicked.
+     * @param y is the y of point that clicked.
+     * @return the node on which the robot is clicked.
+     */
     private node_data getNextNode(double x, double y) {
         for(node_data n : this.GraphGame.getV()){
             double nX = n.getLocation().x();
@@ -210,18 +243,21 @@ public class MyGameGUI extends Thread {
         return null;
     }
 
+    /**
+     * The run function of the thread.
+     */
     public void run(){
         while (this.server.isRunning()){
             FruitsGui();
             RobotsGui();
-//            StdDraw.setPenColor(Color.BLACK);
-//            StdDraw.setPenRadius(0.0005);
-//            StdDraw.text(50,40,"TIMER: "+this.server.timeToEnd()/1000);
             if(this.auto==true) moveRobots();
             if(this.menual==true) moveRobotsToDest();
             StdDraw.show();
             this.g.DrawGraph(this.GraphGame);
-//            StdDraw.picture(0,0,"jungle_open.jpg");
+            StdDraw.setPenColor(Color.YELLOW);
+            StdDraw.setPenRadius(0.0005);
+            StdDraw.text(this.g.getMinXY(this.GraphGame).x(),this.g.getMaxXY(this.GraphGame).y()+0.001,"TIMER: "+this.server.timeToEnd()/1000);
+            StdDraw.text(this.g.getMinXY(this.GraphGame).x()+0.003,this.g.getMaxXY(this.GraphGame).y()+0.001,"SCORE: "+myGrade(this.server));
             try {
                 sleep(10);
             }
@@ -233,6 +269,11 @@ public class MyGameGUI extends Thread {
         JOptionPane.showMessageDialog(jf,"THE GAME IS OVER"+"\n"+"YOUR GRADE IS : " + myGrade(this.server) );
     }
 
+    /**
+     * This function takes from the server as points earned in the game.
+     * @param server is the type of game.
+     * @return the grade of game.
+     */
     public double myGrade(game_service server){
         double myGrade =0 ;
         try {
@@ -247,18 +288,37 @@ public class MyGameGUI extends Thread {
         return myGrade;
     }
 
+    /**
+     * @return the gui that draw the graph..
+     */
     public GUI getG(){
         return this.g;
     }
+
+    /**
+     * @return the FruitsList.
+     */
     public FruitsList getFruits(){
         return this.fruits;
     }
+
+    /**
+     * @return the server.
+     */
     public game_service getServer(){
         return this.server;
     }
+
+    /**
+     * @return the RobotsList.
+     */
     public RobotsList getRobots(){
         return this.robots;
     }
+
+    /**
+     * @return the Game_Algo.
+     */
     public Game_Algo getGame_algo(){
         return this.game_algo;
     }

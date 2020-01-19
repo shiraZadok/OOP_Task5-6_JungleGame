@@ -35,7 +35,7 @@ public class KML_Logger {
                     is.setColor("ff007db3");
                     is.setIcon(ic);
                     p.createAndAddStyle().setIconStyle(is);
-                    p.withDescription("Mac: "+"\nType: CAR").withOpen(Boolean.TRUE).createAndSetPoint().addToCoordinates(rb.getLocation().x(), rb.getLocation().y());
+                    p.withDescription("Mac: "+"\nType: Monkey").withOpen(Boolean.TRUE).createAndSetPoint().addToCoordinates(rb.getLocation().x(), rb.getLocation().y());
                     String t1 = millisToString(stringToMillis(timeNoe())+i*1000);
                     String t2 = millisToString(stringToMillis(timeNoe())+(i+1)*1000);
                     String[] s1 = t1.split(" ");
@@ -59,7 +59,7 @@ public class KML_Logger {
                     is.setColor("ff007db3");
                     is.setIcon(ic);
                     p.createAndAddStyle().setIconStyle(is);
-                    p.withDescription("Mac: "+"\nType: CAR").withOpen(Boolean.TRUE).createAndSetPoint().addToCoordinates(rb.getLocation().x(), rb.getLocation().y());
+                    p.withDescription("Mac: "+"\nType: Banana").withOpen(Boolean.TRUE).createAndSetPoint().addToCoordinates(rb.getLocation().x(), rb.getLocation().y());
                     String t1 = millisToString(stringToMillis(timeNoe())+i*1000);
                     String t2 = millisToString(stringToMillis(timeNoe())+(i+1)*1000);
                     String[] s1 = t1.split(" ");
