@@ -23,7 +23,6 @@ The game draw by STDraw class.
 ![select_picture](https://user-images.githubusercontent.com/58064644/72687706-41a07280-3b09-11ea-9f88-dc6262fceba3.png)
 ### Visual game 
 ![visualGame](https://user-images.githubusercontent.com/58064644/72686440-92aa6980-3afd-11ea-86f4-1548e1d54203.png)
-### Diagram structure 
 
 ## Edge class
 This class build single edge.
