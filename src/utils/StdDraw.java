@@ -1691,7 +1691,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Add monkey")) {
+        if(e.getActionCommand().equals("Add Monkey")) {
 			JFrame jf = new JFrame();
             for (int i = 0; i < gameGui.getGame_algo().numOfRobot; i++) {
                 String s = JOptionPane.showInputDialog(jf, "Please enter a key of node");
