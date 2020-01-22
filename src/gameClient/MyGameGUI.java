@@ -30,6 +30,7 @@ public class MyGameGUI extends Thread {
     private boolean b , menual, auto = false;
     private Robots r;
     private int numGame;
+    private int prevNodeRobot[];
 
 
     /**
@@ -128,6 +129,9 @@ public class MyGameGUI extends Thread {
         }
         this.game_algo.locationRobot();
         this.robots = new RobotsList(this.server);
+        prevNodeRobot = new int[4];
+        for (Robots r : this.robots.robots)
+            prevNodeRobot[r.getId()]= r.getSrc();
         for(Robots c : this.robots.robots){
             StdDraw.picture(c.getLocation().x(), c.getLocation().y(), "monkey.png",0.0009,0.001);
         }
@@ -155,7 +159,10 @@ public class MyGameGUI extends Thread {
             this.robots.listR(log);
             for (Robots r : this.robots.robots){
                 if (r.getDest() ==-1){
-                    this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit);
+                    this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit, prevNodeRobot);
+                }
+                else {
+                    prevNodeRobot[r.getId()] = r.getSrc();
                 }
             }
             for (edge_data e : edgeOfFruit){

@@ -22,6 +22,7 @@ public class Game_Algo {
 
     /**
      * A constructor that accepts the game type and initializes the fields according to it.
+     *
      * @param game is the type of game.
      */
     public Game_Algo(game_service game) {
@@ -36,7 +37,8 @@ public class Game_Algo {
     }
 
     /**
-     *This function finds the edge on which the fruit is located.
+     * This function finds the edge on which the fruit is located.
+     *
      * @param fruit is the fruit we are looking for.
      * @return the edge we found.
      */
@@ -52,7 +54,7 @@ public class Game_Algo {
                     double dis = distance(src.getLocation(), dest.getLocation());
                     double sTf = distance(src.getLocation(), fruit.getLocation());
                     double fTd = distance(fruit.getLocation(), dest.getLocation());
-                    if (sTf + fTd <= dis + 0.0001) {
+                    if (sTf + fTd <= dis + 0.0001*0.0001) {
                         if (fruit.getType() == -1 && src.getKey() > dest.getKey()) {
                             return ans;
                         } else if (fruit.getType() == 1 && src.getKey() < dest.getKey()) {
@@ -67,6 +69,7 @@ public class Game_Algo {
 
     /**
      * This is an auxiliary function for calculating distance between two points.
+     *
      * @param p1 is the first point.
      * @param p2 is the second point.
      * @return the distance.
@@ -79,6 +82,7 @@ public class Game_Algo {
 
     /**
      * This function collects all the edges that have fruit in a list.
+     *
      * @return the list the function has built.
      */
     public List<edge_data> getListOfEdgeF() {
@@ -86,32 +90,32 @@ public class Game_Algo {
         this.fruits = new FruitsList(this.server);
         for (Fruits f : this.fruits.fruits) {
             boolean b = true;
-            for(edge_data e : edgeOfFruit){
-                if(edgeOfFruit.size()>0){
-                    if(e.equals(getEdge(f))) b=false;
+            for (edge_data e : edgeOfFruit) {
+                if (edgeOfFruit.size() > 0) {
+                    if (e.equals(getEdge(f))) b = false;
                 }
             }
-            if(b) edgeOfFruit.add(getEdge(f));
+            if (b) edgeOfFruit.add(getEdge(f));
         }
         return edgeOfFruit;
     }
 
-    public void changeTagEdgeGame(graph g) {
-        Iterator it = g.getV().iterator();
-        while (it.hasNext()) {
-            node_data n = (node_data) it.next();
-            if (g.getE(n.getKey()) != null) {
-                Iterator itEdge = g.getE(n.getKey()).iterator();
-                while (itEdge.hasNext()) {
-                    edge_data e = (edge_data) itEdge.next();
-                    e.setTag(0);
-                }
-            }
-        }
-    }
+//    public void changeTagEdgeGame(graph g) {
+//        Iterator it = g.getV().iterator();
+//        while (it.hasNext()) {
+//            node_data n = (node_data) it.next();
+//            if (g.getE(n.getKey()) != null) {
+//                Iterator itEdge = g.getE(n.getKey()).iterator();
+//                while (itEdge.hasNext()) {
+//                    edge_data e = (edge_data) itEdge.next();
+//                    e.setTag(0);
+//                }
+//            }
+//        }
+//    }
 
     /**
-     *This function checks which nodes to place the robots on.
+     * This function checks which nodes to place the robots on.
      */
     public void locationRobot() {
         List<edge_data> edgeOfFruit = getListOfEdgeF();
@@ -131,18 +135,18 @@ public class Game_Algo {
 
     /**
      * This function checks which vertex should send the robots.
-     * @param r is the robot.
+     *
+     * @param r         is the robot.
      * @param graphGame is the graph of this game.
      */
-    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit ) {
-        this.robots.listR(this.server.move());
+    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit, int prevNode[]) {
+        //this.robots.listR(this.server.move());
         Graph_Algo g = new Graph_Algo();
         g.init(graphGame);
-        //List<edge_data> edgeOfFruit = getListOfEdgeF();
         edge_data minDest = new Edge();
         double min = Integer.MAX_VALUE;
         for (edge_data e : edgeOfFruit) {
-            if(e.getTag()==0) {
+            if (e.getTag() == 0) {
                 double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
                 if (temp < min) {
                     min = temp;
@@ -153,22 +157,33 @@ public class Game_Algo {
         minDest.setTag(1);
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
-//        if(r.getPreNode() == shortestPath.get(1).getKey()){
+
+
+
+//        int nextNode = shortestPath.get(1).getKey();
+//        if (prevNode[r.getId()] == nextNode) {
 //            List<edge_data> near = new LinkedList<>(this.GraphGame.getE(r.getSrc()));
-//            int keyNearNode = near.get(0).getDest();
-//            if(keyNearNode!=shortestPath.get(1).getKey()) {
-//                this.server.chooseNextEdge(r.getId(), keyNearNode);
-//                this.server.move();
+//            if (near.size()> 1) {
+//                int keyNearNode = near.get(0).getDest();
+//                if (keyNearNode != nextNode) {
+//                    this.server.chooseNextEdge(r.getId(), keyNearNode);
+//                    this.server.move();
+//                } else {
+//                    this.server.chooseNextEdge(r.getId(), near.get(1).getDest());
+//                    this.server.move();
+//                }
 //            }
 //            else{
-//                this.server.chooseNextEdge(r.getId(), near.get(1).getDest());
-//                this.server.move();
+//                this.server.chooseNextEdge(r.getId(), prevNode[r.getId()]);
 //            }
 //        }
-//        else {
-//            this.server.chooseNextEdge(r.getId(), shortestPath.get(1).getKey());
+//        else{
+//            this.server.chooseNextEdge(r.getId(), nextNode);
 //            this.server.move();
 //        }
     }
+
+
 }
+
 
