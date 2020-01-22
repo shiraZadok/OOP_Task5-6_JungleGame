@@ -2,10 +2,7 @@ package gameClient;
 
 import Server.Game_Server;
 import Server.game_service;
-import dataStructure.DGraph;
-import dataStructure.Node;
-import dataStructure.edge_data;
-import dataStructure.node_data;
+import dataStructure.*;
 import element.Fruits;
 import element.FruitsList;
 import element.Robots;
@@ -32,6 +29,8 @@ public class MyGameGUI extends Thread {
     public Game_Algo game_algo;
     private boolean b , menual, auto = false;
     private Robots r;
+    private int numGame;
+
 
     /**
      * a default constructor.
@@ -47,16 +46,21 @@ public class MyGameGUI extends Thread {
         StdDraw.picture(0,0,"jungle_open.jpg");
         StdDraw.picture(-3,0,"welcome.png");
         StdDraw.text(-3,-8,"to the jungle");
+//        JFrame jf = new JFrame();
+//        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
+//        int id = Integer.parseInt(s);
+//        Game_Server.login(315081422);
         String[] chooseNumOfGame = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
         Object selectedNumOfGame = JOptionPane.showInputDialog(null, "Choose a num of game", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseNumOfGame, chooseNumOfGame[0]);
 
         int num = Integer.parseInt((String) selectedNumOfGame);
         this.server = Game_Server.getServer(num);
+        this.numGame = num;
 //        System.out.println("***************************************************");
 //        System.out.println(this.server.toString());
 
         String[] chooseGame = {"Manual game", "Auto game"};
-        Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[0]);
+        Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[1]);
 
         StdDraw.gameGui = this;
 
@@ -119,6 +123,9 @@ public class MyGameGUI extends Thread {
      */
     public void RobotsGui(){
         this.robots = new RobotsList(this.server);
+        if(this.numGame==5){
+            this.server.addRobot(this.GraphGame.getNode(7).getKey());
+        }
         this.game_algo.locationRobot();
         this.robots = new RobotsList(this.server);
         for(Robots c : this.robots.robots){
@@ -141,31 +148,20 @@ public class MyGameGUI extends Thread {
      * This function updating new robot location.
      */
     private void moveRobots() {
+        List<edge_data> edgeOfFruit = this.game_algo.getListOfEdgeF();
         List<String> log = this.server.move();
         if(log!=null)
         {
             this.robots.listR(log);
             for (Robots r : this.robots.robots){
                 if (r.getDest() ==-1){
-                    this.game_algo.nextNode(r, this.GraphGame);
-                    freeEdge(this.GraphGame);
+                    this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit);
                 }
             }
-        }
-        this.server.move();
-    }
+            for (edge_data e : edgeOfFruit){
+                e.setTag(0);
+            }
 
-    private void freeEdge(DGraph g) {
-        Iterator it = g.getV().iterator();
-        while (it.hasNext()) {
-            node_data n = (node_data) it.next();
-            if (g.getE(n.getKey()) != null) {
-                Iterator itEdge = g.getE(n.getKey()).iterator();
-                while (itEdge.hasNext()) {
-                    edge_data e = (edge_data) itEdge.next();
-                    e.setTag(0);
-                }
-            }
         }
     }
 
@@ -219,7 +215,6 @@ public class MyGameGUI extends Thread {
                 }
             }
         }
-        this.server.move();
     }
 
     /**
@@ -276,6 +271,7 @@ public class MyGameGUI extends Thread {
             StdDraw.setPenRadius(0.0005);
             StdDraw.text(this.g.getMinXY(this.GraphGame).x(),this.g.getMaxXY(this.GraphGame).y()+0.001,"TIMER: "+this.server.timeToEnd()/1000);
             StdDraw.text(this.g.getMinXY(this.GraphGame).x()+0.003,this.g.getMaxXY(this.GraphGame).y()+0.001,"SCORE: "+myGrade(this.server));
+            StdDraw.text(this.g.getMinXY(this.GraphGame).x()+0.006,this.g.getMaxXY(this.GraphGame).y()+0.001,"MOVES: "+numOfMoves(this.server));
             try {
                 sleep(10);
             }
@@ -305,6 +301,39 @@ public class MyGameGUI extends Thread {
         }
         return myGrade;
     }
+
+    public double numOfMoves(game_service server){
+        double myMoves =0 ;
+        try {
+            String json = server.toString();
+            JSONObject gameJson = new JSONObject(json);
+            JSONObject gameServer = gameJson.getJSONObject("GameServer");
+            myMoves = gameServer.getDouble("moves");
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return myMoves;
+    }
+
+    public int numOfSleep() {
+        int ans = 300;
+        if(this.numGame==0)return 125;
+        if(this.numGame==1)ans=180;
+        if(this.numGame==3 || this.numGame==5)ans=240;
+        for (Robots r : this.robots.robots) {
+            List<edge_data> edgeFruit = this.game_algo.getListOfEdgeF();
+            for (edge_data e : edgeFruit) {
+                if (r.getSrc() == e.getSrc()) {
+                    if(this.numGame==1)return 100;
+                    if(this.numGame==3 || this.numGame==5)return 80;
+                    return 100;
+                }
+            }
+        }
+        return ans;
+    }
+
 
     /**
      * @return the gui that draw the graph..
@@ -342,7 +371,7 @@ public class MyGameGUI extends Thread {
     }
 
     public static void main(String[] args) {
-    MyGameGUI m =new MyGameGUI();
+        MyGameGUI m =new MyGameGUI();
 
-}
+    }
 }

@@ -1,6 +1,10 @@
 package gameClient;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -73,6 +77,9 @@ public class KML_Logger {
         }
         try{
             kml.marshal(new File("KmlRun.kml"));
+            Path p = Paths.get("KmlRun.kml");
+            String toDB = Files.readString(p, StandardCharsets.US_ASCII);
+            StdDraw.gameGui.server.sendKML(toDB);
             System.out.println("Create");
         }
         catch (Exception e){

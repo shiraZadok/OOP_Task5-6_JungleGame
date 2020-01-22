@@ -37,7 +37,7 @@ public class Robots implements elementFruitRobot {
      * @param value is the value the robot collected.
      * @param pic is the robot picture for gui.
      */
-    public Robots(int src,int dest,int id,Point3D pos,int speed,double value,String pic){
+    public Robots(int src,int dest,int id,Point3D pos,int speed,double value,String pic) {
         this.src = src;
         this.dest = dest;
         this.id = id;
@@ -145,6 +145,8 @@ public class Robots implements elementFruitRobot {
     public void setValue(double v){
         this.value = v;
     }
+
+    public double getSpeed(){return this.speed;}
 
     public static void main(String[] args) {
 

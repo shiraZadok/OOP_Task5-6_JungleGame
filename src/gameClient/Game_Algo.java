@@ -85,9 +85,29 @@ public class Game_Algo {
         List<edge_data> edgeOfFruit = new LinkedList<>();
         this.fruits = new FruitsList(this.server);
         for (Fruits f : this.fruits.fruits) {
-            edgeOfFruit.add(getEdge(f));
+            boolean b = true;
+            for(edge_data e : edgeOfFruit){
+                if(edgeOfFruit.size()>0){
+                    if(e.equals(getEdge(f))) b=false;
+                }
+            }
+            if(b) edgeOfFruit.add(getEdge(f));
         }
         return edgeOfFruit;
+    }
+
+    public void changeTagEdgeGame(graph g) {
+        Iterator it = g.getV().iterator();
+        while (it.hasNext()) {
+            node_data n = (node_data) it.next();
+            if (g.getE(n.getKey()) != null) {
+                Iterator itEdge = g.getE(n.getKey()).iterator();
+                while (itEdge.hasNext()) {
+                    edge_data e = (edge_data) itEdge.next();
+                    e.setTag(0);
+                }
+            }
+        }
     }
 
     /**
@@ -114,28 +134,41 @@ public class Game_Algo {
      * @param r is the robot.
      * @param graphGame is the graph of this game.
      */
-    public void nextNode(Robots r, DGraph graphGame) {
+    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit ) {
         this.robots.listR(this.server.move());
         Graph_Algo g = new Graph_Algo();
         g.init(graphGame);
-        List<edge_data> edgeOfFruit = getListOfEdgeF();
+        //List<edge_data> edgeOfFruit = getListOfEdgeF();
         edge_data minDest = new Edge();
         double min = Integer.MAX_VALUE;
         for (edge_data e : edgeOfFruit) {
-            if(e.getTag()!=1) {
+            if(e.getTag()==0) {
                 double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
                 if (temp < min) {
                     min = temp;
                     minDest = e;
                 }
             }
-
         }
+        minDest.setTag(1);
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
-        shortestPath.get(1).setTag(1);
-        this.server.chooseNextEdge(r.getId(), shortestPath.get(1).getKey());
-        this.server.move();
+//        if(r.getPreNode() == shortestPath.get(1).getKey()){
+//            List<edge_data> near = new LinkedList<>(this.GraphGame.getE(r.getSrc()));
+//            int keyNearNode = near.get(0).getDest();
+//            if(keyNearNode!=shortestPath.get(1).getKey()) {
+//                this.server.chooseNextEdge(r.getId(), keyNearNode);
+//                this.server.move();
+//            }
+//            else{
+//                this.server.chooseNextEdge(r.getId(), near.get(1).getDest());
+//                this.server.move();
+//            }
+//        }
+//        else {
+//            this.server.chooseNextEdge(r.getId(), shortestPath.get(1).getKey());
+//            this.server.move();
+//        }
     }
 }
 
