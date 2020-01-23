@@ -61,6 +61,8 @@ An object from class Fruits contain the follow feature:
 * Value - represent the point that the fruit is worth.
 * Type - represent if the fruit is Banana or Apple.
 * Pic - represent the picture of the fruit (Banana orApple).
+* destFruit - represent the deatination of the robot
+
 
 ## FruitsList class
 An object from the FruitsList class is a collection of Fruits. In order to realize a FruitsList we used the LinkedList class where each node contains fruit.
