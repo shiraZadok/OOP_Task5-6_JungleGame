@@ -12,7 +12,6 @@ import java.util.List;
 public class FruitsList {
 
     public List<Fruits> fruits ;
-    private int amountFruits;
     private game_service numGame;
 
     /**
@@ -20,14 +19,9 @@ public class FruitsList {
      */
     public FruitsList() {
         this.fruits = new LinkedList<>();
-        this.amountFruits = fruits.size();
         this.numGame = null;
     }
 
-    public FruitsList(List<Fruits> fruits, int amountFruits){
-        this.fruits = fruits;
-        this.amountFruits = amountFruits;
-    }
 
     /**
      * constructor of new FruitsList.
@@ -35,7 +29,6 @@ public class FruitsList {
      */
     public FruitsList(game_service server) {
         this.numGame = server;
-        this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
         listF(this.numGame.getFruits());
     }

@@ -37,7 +37,6 @@ public class RobotsList {
             tempR.add(ro);
         }
         this.robots = tempR;
-        this.amountRobots = this.robots.size();
         return this.robots;
     }
 

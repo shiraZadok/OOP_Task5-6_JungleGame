@@ -1,5 +1,6 @@
 package element;
 
+import dataStructure.edge_data;
 import org.json.JSONException;
 import org.json.JSONObject;
 import utils.Point3D;
@@ -13,6 +14,7 @@ public class Robots implements elementFruitRobot {
     private int speed;
     private double value;
     private String pic;
+    private edge_data destFruit;
 
     /**
      * a default constructor.
@@ -24,7 +26,8 @@ public class Robots implements elementFruitRobot {
         this.pos = null;
         this.speed = 0;
         this.value = 0;
-        this.pic = "robot.png";
+        this.pic = "monkey.png";
+        this.destFruit = null;
     }
 
     /**
@@ -45,7 +48,7 @@ public class Robots implements elementFruitRobot {
         this.speed = speed;
         this.value = value;
         this.pic = pic;
-
+        this.destFruit = null;
     }
 
     /**
@@ -140,6 +143,21 @@ public class Robots implements elementFruitRobot {
     }
 
     /**
+     * This function updates the edge destination of the robot.
+     * @param de is the new edge.
+     */
+    public void setDestFruit(edge_data de){
+        this.destFruit = de;
+    }
+
+    /**
+     * @return the edge destination of the robot.
+     */
+    public edge_data getDestFruit(){
+        return this.destFruit;
+    }
+
+    /**
      * This function updates the value of the robot.
      * @param v is the new value.
      */
@@ -147,11 +165,9 @@ public class Robots implements elementFruitRobot {
         this.value = v;
     }
 
-    public double getSpeed(){return this.speed;}
 
-
-
-    public static void main(String[] args) {
-
+    public double getSpeed(){
+        return this.speed;
     }
+
 }

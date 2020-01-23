@@ -81,7 +81,7 @@ public class Ex4_Client implements Runnable{
 	 * in case the robot is on a node the next destination (next edge) is chosen (randomly).
 	 * @param game
 	 * @param gg
-	 * @param log
+	 //* @param log
 	 */
 	private static void moveRobots(game_service game, oop_graph gg) {
 		List<String> log = game.move();
@@ -106,7 +106,7 @@ public class Ex4_Client implements Runnable{
 					if(dest==-1) {			
 						dest = nextNode(gg, src);
 						game.chooseNextEdge(rid, dest);
-			//			System.out.println("Turn to node: "+dest+"  time to end:"+(t/1000));
+						System.out.println("Turn to node: "+dest+"  time to end:"+(t/1000));
 					}
 				} 
 				catch (JSONException e) {e.printStackTrace();}
@@ -146,7 +146,9 @@ public class Ex4_Client implements Runnable{
 			System.out.println(info);
 			// the list of fruits should be considered in your solution
 			Iterator<String> f_iter = game.getFruits().iterator();
-			while(f_iter.hasNext()) {System.out.println(f_iter.next());}	
+			while(f_iter.hasNext()) {
+				System.out.println(f_iter.next());
+			}
 			int src_node = 0;  // arbitrary node, you should start at one of the fruits
 			for(int a = 0;a<rs;a++) {
 				game.addRobot(a);

@@ -102,19 +102,6 @@ public class Game_Algo {
         return edgeOfFruit;
     }
 
-//    public void changeTagEdgeGame(graph g) {
-//        Iterator it = g.getV().iterator();
-//        while (it.hasNext()) {
-//            node_data n = (node_data) it.next();
-//            if (g.getE(n.getKey()) != null) {
-//                Iterator itEdge = g.getE(n.getKey()).iterator();
-//                while (itEdge.hasNext()) {
-//                    edge_data e = (edge_data) itEdge.next();
-//                    e.setTag(0);
-//                }
-//            }
-//        }
-//    }
 
     /**
      * This function checks which nodes to place the robots on.
@@ -137,17 +124,25 @@ public class Game_Algo {
 
     /**
      * This function checks which vertex should send the robots.
-     *
      * @param r         is the robot.
      * @param graphGame is the graph of this game.
      */
-    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit) {
+    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit,RobotsList robots) {
+        boolean ifCatchFruit = false;
+        edge_data destRobots [] = new edge_data[robots.getAmountRobots()];
+        for (Robots rd : robots.robots){
+            destRobots[rd.getId()] = rd.getDestFruit();
+            System.out.println(rd.toString());
+        }
         Graph_Algo g = new Graph_Algo();
         g.init(graphGame);
         edge_data minDest = new Edge();
         double min = Integer.MAX_VALUE;
         for (edge_data e : edgeOfFruit) {
-            if (e.getTag() == 0) {
+            for (edge_data ed : destRobots) {
+                if (e.equals(ed)) ifCatchFruit = true;
+            }
+            if(!ifCatchFruit) {
                 double temp = g.shortestPathDist(r.getSrc(), e.getSrc());
                 if (temp < min) {
                     min = temp;
@@ -155,18 +150,22 @@ public class Game_Algo {
                 }
             }
         }
-        minDest.setTag(1);
+        r.setDestFruit(minDest);
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
         runToFruitRobot(r,shortestPath, minDest);
     }
 
-
+    /**
+     * this is an auxiliary function to move the robot from the method "next node" to the closest fruit.
+     * @param r - the robot to move
+     * @param shortestPath - the route that the robot should to pass.
+     * @param catchFruit - the fruit that the robot need to eat.
+     */
     public void runToFruitRobot (Robots r, List<node_data> shortestPath, edge_data catchFruit) {
-        for (node_data n : shortestPath){
+        for (node_data n : shortestPath) {
             this.server.chooseNextEdge(r.getId(), n.getKey());
         }
-        catchFruit.setTag(0);
     }
 
 }

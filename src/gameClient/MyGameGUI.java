@@ -33,10 +33,10 @@ public class MyGameGUI extends Thread {
     private boolean b , menual, auto = false;
     private Robots r;
     private int numGame;
-    private int prevNodeRobot[];
     public static final String jdbcUrl="jdbc:mysql://db-mysql-ams3-67328-do-user-4468260-0.db.ondigitalocean.com:25060/oop?useUnicode=yes&characterEncoding=UTF-8&useSSL=false";
     public static final String jdbcUser="student";
     public static final String jdbcUserPassword="OOP2020student";
+
 
 
     /**
@@ -53,10 +53,10 @@ public class MyGameGUI extends Thread {
         StdDraw.picture(0,0,"jungle_open.jpg");
         StdDraw.picture(-3,0,"welcome.png");
         StdDraw.text(-3,-8,"to the jungle");
-        JFrame jf = new JFrame();
-        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
-        int id = Integer.parseInt(s);
-        Game_Server.login(id);
+//        JFrame jf = new JFrame();
+//        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
+//        int id = Integer.parseInt(s);
+        Game_Server.login(315081422);
         String[] chooseNumOfGame = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
         Object selectedNumOfGame = JOptionPane.showInputDialog(null, "Choose a num of game", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseNumOfGame, chooseNumOfGame[0]);
 
@@ -160,7 +160,7 @@ public class MyGameGUI extends Thread {
         for (Robots r : this.robots.robots){
             if (r.getDest() ==-1){
                 List<edge_data> edgeOfFruit = this.game_algo.getListOfEdgeF();
-                this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit);
+                this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit, this.robots);
             }
         }
     }
@@ -273,7 +273,7 @@ public class MyGameGUI extends Thread {
             StdDraw.text(this.g.getMinXY(this.GraphGame).x()+0.003,this.g.getMaxXY(this.GraphGame).y()+0.001,"SCORE: "+myGrade(this.server));
             StdDraw.text(this.g.getMinXY(this.GraphGame).x()+0.006,this.g.getMaxXY(this.GraphGame).y()+0.001,"MOVES: "+numOfMoves(this.server));
             try {
-                sleep(10);
+                sleep(numOfSleep());
             }
             catch (InterruptedException e){
                 e.printStackTrace();
@@ -317,17 +317,17 @@ public class MyGameGUI extends Thread {
     }
 
     public int numOfSleep() {
-        int ans = 300;
-        if(this.numGame==0)return 125;
-        if(this.numGame==1)ans=180;
-        if(this.numGame==3 || this.numGame==5)ans=240;
+        int ans = 100;
+        if(this.numGame==0 || this.numGame==1 || this.numGame==3)return 100;
+        if(this.numGame==5)return 120;
+        if(this.numGame==9) return 100;
+        if(this.numGame==11) return 100;
+        if(this.numGame==13) ans = 80;
         for (Robots r : this.robots.robots) {
             List<edge_data> edgeFruit = this.game_algo.getListOfEdgeF();
             for (edge_data e : edgeFruit) {
                 if (r.getSrc() == e.getSrc()) {
-                    if(this.numGame==1)return 100;
-                    if(this.numGame==3 || this.numGame==5)return 80;
-                    return 100;
+                    return 80;
                 }
             }
         }
