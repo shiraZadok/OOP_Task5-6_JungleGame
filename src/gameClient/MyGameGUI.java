@@ -334,6 +334,102 @@ public class MyGameGUI extends Thread {
         return ans;
     }
 
+    public void myScore(){
+        int level = 0;
+        int amountOfGames = 0;
+        int amountOfMoves = 0;
+        int amountOfScore = 0;
+        ArrayList<Integer> score = new ArrayList<>();
+        ArrayList<Integer> moves = new ArrayList<>();
+        int movesExpected [] = {290,580,0,580,0,500,0,0,0,580,0,580,0,580,0,0,290,0,0,580,290,0,0,1140};
+        int scoreExpected [] = {145,450,0,720,0,570,0,0,0,510,0,1050,0,310,0,0,235,0,0,250,200,0,0,1000};
+        //Creates and initializes all cells to 0
+        for (int i = 0; i < 24; i++) {
+            score.add(i,0);
+            moves.add(i,0);
+        }
+        JFrame jf = new JFrame();
+        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
+        int id = Integer.parseInt(s);
+        StdDraw.setCanvasSize(1024,512);
+        StdDraw.setYscale(-51,50);
+        StdDraw.setXscale(-51,50);
+        StdDraw.clear(Color.MAGENTA);
+        Font f = new Font("Calibri",Font.BOLD,16);
+        StdDraw.setFont(f);
+        StdDraw.setPenColor(Color.black);
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcUserPassword);
+            Statement statement = connection.createStatement();
+            String allCustomersQuery = "SELECT * FROM Logs WHERE UserID =" + id + " ORDER BY levelID , score;";
+            ResultSet resultSet = statement.executeQuery(allCustomersQuery);
+            while (resultSet.next()) {
+                amountOfGames++;
+                level = resultSet.getInt("levelID");
+                amountOfMoves = resultSet.getInt("moves");
+                amountOfScore = resultSet.getInt("score");
+                if (amountOfScore >= scoreExpected[level] && amountOfScore > score.get(level) && amountOfMoves <= movesExpected[level]) {
+                    score.remove(level);
+                    moves.remove(level);
+                    score.add(level, amountOfScore);
+                    moves.add(level, amountOfMoves);
+                }
+            }
+
+            int[] betterFriends = new int[24];
+            Hashtable<Integer, Integer> theBest = new Hashtable<>();
+            for (int i = 0; i < 24; i++) {
+                String allCustomersQuery2 = "SELECT * FROM oop.Logs where levelID = " + i + " and score > " + score.get(i) + " and moves <= " + movesExpected[i] + ";";
+                ResultSet resultSet2 = statement.executeQuery(allCustomersQuery2);
+                while (resultSet2.next()) {
+                    if (!theBest.contains(resultSet2.getInt("userID"))) {
+                        theBest.put(resultSet2.getInt("userID"), resultSet2.getInt("score"));
+                    }
+                }
+                betterFriends[i] = theBest.size();
+                theBest.clear();
+            }
+            StdDraw.text(-40, 46, "Level");
+            StdDraw.text(-20, 46, "best score");
+            StdDraw.text(0, 46, "best moves");
+            StdDraw.text(25, 46, "The place in relation to others");
+            int y = 1;
+            for (int i = 0; i <24 ; i++) {
+                if(betterFriends[i]!=0) {
+                    StdDraw.text(-40, 46 - (y * 7), "" + i);
+                    StdDraw.text(-20, 46 - (y * 7), "" + score.get(i));
+                    StdDraw.text(0, 46 - (y * 7), "" + moves.get(i));
+                    StdDraw.text(25, 46 - (y * 7), "" + betterFriends[i]);
+                    y++;
+                }
+            }
+
+            StdDraw.text(-30, -45, "The amount of games you have played is: " + amountOfGames);
+            StdDraw.text(40, -45, "Your level is: " + level);
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+            StdDraw.show();
+        }
+        catch (SQLException sqle) {
+            System.out.println("SQLException: " + sqle.getMessage());
+            System.out.println("Vendor Error: " + sqle.getErrorCode());
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        for (int i = 0; i <24 ; i++) {
+//            if(score.get(i)!=null){
+//                StdDraw.text(0,0,"Your final score in level "+i+" is: "+score.get(i));
+//                StdDraw.text(0,0,"The amount of moves in level "+i+" is: "+moves.get(i));
+//                StdDraw.text(0,0,"Your place in relation to others is: ");
+//            }
+//        }
+    }
+
 
     /**
      * @return the gui that draw the graph..
@@ -370,8 +466,35 @@ public class MyGameGUI extends Thread {
         return this.game_algo;
     }
 
+    public static String getKML(int id, int level) {
+        String ans = null;
+        String allCustomersQuery = "SELECT * FROM Users where userID="+id+";";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection =
+                    DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcUserPassword);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(allCustomersQuery);
+            if(resultSet!=null && resultSet.next()) {
+                ans = resultSet.getString("kml_"+level);
+            }
+        }
+        catch (SQLException sqle) {
+            System.out.println("SQLException: " + sqle.getMessage());
+            System.out.println("Vendor Error: " + sqle.getErrorCode());
+        }
+
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         MyGameGUI m =new MyGameGUI();
+        String kml = getKML(315081422,0);
+        System.out.println("***** KML file example: ******");
+        System.out.println(kml);
 
     }
 }
