@@ -91,7 +91,8 @@ public class Game_Algo {
         for (Fruits f : this.fruits.fruits) {
             boolean b = true;
             edge_data edgeFruit = getEdge(f);
-            for (edge_data e : edgeOfFruit) {
+
+            for (edge_data e : edgeOfFruit) { //This for prevents duplication between edge
                 if (edgeOfFruit.size() > 0) {
                     if (e.equals(edgeFruit)) b = false;
                 }
