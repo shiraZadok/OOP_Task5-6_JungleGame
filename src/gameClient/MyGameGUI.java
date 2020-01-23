@@ -136,9 +136,7 @@ public class MyGameGUI extends Thread {
         }
         this.game_algo.locationRobot();
         this.robots = new RobotsList(this.server);
-        prevNodeRobot = new int[4];
-        for (Robots r : this.robots.robots)
-            prevNodeRobot[r.getId()]= r.getSrc();
+
         for(Robots c : this.robots.robots){
             StdDraw.picture(c.getLocation().x(), c.getLocation().y(), "monkey.png",0.0009,0.001);
         }
@@ -158,24 +156,13 @@ public class MyGameGUI extends Thread {
     /**
      * This function updating new robot location.
      */
-    private void moveRobots() {
-        List<edge_data> edgeOfFruit = this.game_algo.getListOfEdgeF();
-        List<String> log = this.server.move();
-        if(log!=null)
-        {
-            this.robots.listR(log);
-            for (Robots r : this.robots.robots){
-                if (r.getDest() ==-1){
-                    this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit, prevNodeRobot);
-                }
-                else {
-                    prevNodeRobot[r.getId()] = r.getSrc();
-                }
+    private void moveRobotsAutomatic() {
+        this.robots.listR(this.server.move());
+        for (Robots r : this.robots.robots){
+            if (r.getDest() ==-1){
+                List<edge_data> edgeOfFruit = this.game_algo.getListOfEdgeF();
+                this.game_algo.nextNode(r, this.GraphGame, edgeOfFruit);
             }
-            for (edge_data e : edgeOfFruit){
-                e.setTag(0);
-            }
-
         }
     }
 
@@ -277,7 +264,7 @@ public class MyGameGUI extends Thread {
         while (this.server.isRunning()){
             FruitsGui();
             RobotsGui();
-            if(this.auto==true) moveRobots();
+            if(this.auto==true) moveRobotsAutomatic();
             if(this.menual==true) moveRobotsToDest();
             StdDraw.show();
             this.g.DrawGraph(this.GraphGame);

@@ -49,8 +49,8 @@ public class Game_Algo {
                 Iterator it = this.GraphGame.getE(n.getKey()).iterator();
                 while (it.hasNext()) {
                     ans = (edge_data) it.next();
-                    node_data dest = this.GraphGame.getNode(ans.getDest());
                     node_data src = this.GraphGame.getNode(ans.getSrc());
+                    node_data dest = this.GraphGame.getNode(ans.getDest());
                     double dis = distance(src.getLocation(), dest.getLocation());
                     double sTf = distance(src.getLocation(), fruit.getLocation());
                     double fTd = distance(fruit.getLocation(), dest.getLocation());
@@ -90,9 +90,10 @@ public class Game_Algo {
         this.fruits = new FruitsList(this.server);
         for (Fruits f : this.fruits.fruits) {
             boolean b = true;
+            edge_data edgeFruit = getEdge(f);
             for (edge_data e : edgeOfFruit) {
                 if (edgeOfFruit.size() > 0) {
-                    if (e.equals(getEdge(f))) b = false;
+                    if (e.equals(edgeFruit)) b = false;
                 }
             }
             if (b) edgeOfFruit.add(getEdge(f));
@@ -139,8 +140,7 @@ public class Game_Algo {
      * @param r         is the robot.
      * @param graphGame is the graph of this game.
      */
-    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit, int prevNode[]) {
-        //this.robots.listR(this.server.move());
+    public void nextNode(Robots r, DGraph graphGame, List<edge_data> edgeOfFruit) {
         Graph_Algo g = new Graph_Algo();
         g.init(graphGame);
         edge_data minDest = new Edge();
@@ -157,35 +157,15 @@ public class Game_Algo {
         minDest.setTag(1);
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
-        runToFruitRobot(r,shortestPath);
-
-//        int nextNode = shortestPath.get(1).getKey();
-//        if (prevNode[r.getId()] == nextNode) {
-//            List<edge_data> near = new LinkedList<>(this.GraphGame.getE(r.getSrc()));
-//            if (near.size()> 1) {
-//                int keyNearNode = near.get(0).getDest();
-//                if (keyNearNode != nextNode) {
-//                    this.server.chooseNextEdge(r.getId(), keyNearNode);
-//                    this.server.move();
-//                } else {
-//                    this.server.chooseNextEdge(r.getId(), near.get(1).getDest());
-//                    this.server.move();
-//                }
-//            }
-//            else{
-//                this.server.chooseNextEdge(r.getId(), prevNode[r.getId()]);
-//            }
-//        }
-//        else{
-//            this.server.chooseNextEdge(r.getId(), nextNode);
-//            this.server.move();
-//        }
+        runToFruitRobot(r,shortestPath, minDest);
     }
-    public synchronized void runToFruitRobot (Robots r, List<node_data> shortestPath) {
+
+
+    public void runToFruitRobot (Robots r, List<node_data> shortestPath, edge_data catchFruit) {
         for (node_data n : shortestPath){
             this.server.chooseNextEdge(r.getId(), n.getKey());
-            this.server.move();
         }
+        catchFruit.setTag(0);
     }
 
 }

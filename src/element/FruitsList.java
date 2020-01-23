@@ -31,28 +31,27 @@ public class FruitsList {
 
     /**
      * constructor of new FruitsList.
-     * @param numGame is the type of the game.
+     * @param server is the type of the game.
      */
-    public FruitsList(game_service numGame) {
-        this.numGame = numGame;
+    public FruitsList(game_service server) {
+        this.numGame = server;
         this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
-        this.fruits = listF(this.numGame.getFruits());
+        //System.out.println(this.numGame.getFruits().toString());
+        listF(this.numGame.getFruits());
     }
 
     /**
      * This function creates a list that contains all the fruits in the game.
-     * @param temp is a file of the fruits.
+     * @param json is a file of the fruits.
      * @return the list the function build.
      */
-    public List<Fruits> listF(List<String> temp) {
-        for (String f : temp) {
+    public void listF(List<String> json) {
+        for (String f : json) {
             Fruits fr = new Fruits();
             fr = (Fruits) fr.init(f);
             this.fruits.add(fr);
         }
-        this.amountFruits = this.fruits.size();
-        return this.fruits;
     }
 
     /**

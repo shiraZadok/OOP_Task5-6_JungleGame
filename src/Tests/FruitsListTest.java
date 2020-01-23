@@ -42,9 +42,9 @@ public class FruitsListTest {
     @Test
     public void listF() {
         FruitsList f = new FruitsList();
-        List<Fruits> fruitsList = f.listF(checkforBuildFruitList);
-        for(int i =0; i<fruitsList.size(); i++){
-            Fruits check = fruitsList.get(i);
+        f.listF(checkforBuildFruitList);
+        for(int i =0; i<f.fruits.size(); i++){
+            Fruits check = f.fruits.get(i);
             assertEquals((i*2)+1, check.getLocation().x(), 0.0001);
             assertEquals((i*2)+2, check.getLocation().y(), 0.0001);
             assertEquals(0.0, check.getLocation().z(), 0.0001);
