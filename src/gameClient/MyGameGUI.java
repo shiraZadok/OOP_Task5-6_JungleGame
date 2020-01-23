@@ -53,19 +53,16 @@ public class MyGameGUI extends Thread {
         StdDraw.picture(0,0,"jungle_open.jpg");
         StdDraw.picture(-3,0,"welcome.png");
         StdDraw.text(-3,-8,"to the jungle");
-//        JFrame jf = new JFrame();
-//        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
-//        int id = Integer.parseInt(s);
-        Game_Server.login(315081422);
+        JFrame jf = new JFrame();
+        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
+        int id = Integer.parseInt(s);
+        Game_Server.login(id);
         String[] chooseNumOfGame = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
         Object selectedNumOfGame = JOptionPane.showInputDialog(null, "Choose a num of game", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseNumOfGame, chooseNumOfGame[0]);
 
         int num = Integer.parseInt((String) selectedNumOfGame);
         this.server = Game_Server.getServer(num);
         this.numGame = num;
-//        System.out.println("***************************************************");
-//        System.out.println(this.server.toString());
-
         String[] chooseGame = {"Manual game", "Auto game"};
         Object selectedGame = JOptionPane.showInputDialog(null, "Choose a game mode", "Message", JOptionPane.INFORMATION_MESSAGE, null, chooseGame, chooseGame[1]);
 
@@ -302,6 +299,11 @@ public class MyGameGUI extends Thread {
         return myGrade;
     }
 
+    /**
+     * This function calculates the amount of moves during the game.
+     * @param server is the type of the game.
+     * @return the amount of moves.
+     */
     public double numOfMoves(game_service server){
         double myMoves =0 ;
         try {
@@ -316,6 +318,10 @@ public class MyGameGUI extends Thread {
         return myMoves;
     }
 
+    /**
+     * This function check the num of sleep for the run function.
+     * @return the num of sleep.
+     */
     public int numOfSleep() {
         int ans = 100;
         if(this.numGame==0 || this.numGame==1 || this.numGame==3)return 100;
@@ -334,6 +340,9 @@ public class MyGameGUI extends Thread {
         return ans;
     }
 
+    /**
+     * This function extracts the results from DB of the game by id.
+     */
     public void myScore(){
         int level = 0;
         int amountOfGames = 0;
@@ -367,13 +376,15 @@ public class MyGameGUI extends Thread {
             while (resultSet.next()) {
                 amountOfGames++;
                 level = resultSet.getInt("levelID");
-                amountOfMoves = resultSet.getInt("moves");
-                amountOfScore = resultSet.getInt("score");
-                if (amountOfScore >= scoreExpected[level] && amountOfScore > score.get(level) && amountOfMoves <= movesExpected[level]) {
-                    score.remove(level);
-                    moves.remove(level);
-                    score.add(level, amountOfScore);
-                    moves.add(level, amountOfMoves);
+                if(level>=0) {
+                    amountOfMoves = resultSet.getInt("moves");
+                    amountOfScore = resultSet.getInt("score");
+                    if (amountOfScore >= scoreExpected[level] && amountOfScore > score.get(level) && amountOfMoves <= movesExpected[level]) {
+                        score.remove(level);
+                        moves.remove(level);
+                        score.add(level, amountOfScore);
+                        moves.add(level, amountOfMoves);
+                    }
                 }
             }
 
@@ -396,7 +407,7 @@ public class MyGameGUI extends Thread {
             StdDraw.text(25, 46, "The place in relation to others");
             int y = 1;
             for (int i = 0; i <24 ; i++) {
-                if(betterFriends[i]!=0) {
+                if(i==0 || i==1 || i==3 || i==5 || i==9 || i==11 || i==13 || i==16 || i==19 || i==20 || i==23) {
                     StdDraw.text(-40, 46 - (y * 7), "" + i);
                     StdDraw.text(-20, 46 - (y * 7), "" + score.get(i));
                     StdDraw.text(0, 46 - (y * 7), "" + moves.get(i));
@@ -421,13 +432,6 @@ public class MyGameGUI extends Thread {
             e.printStackTrace();
         }
 
-//        for (int i = 0; i <24 ; i++) {
-//            if(score.get(i)!=null){
-//                StdDraw.text(0,0,"Your final score in level "+i+" is: "+score.get(i));
-//                StdDraw.text(0,0,"The amount of moves in level "+i+" is: "+moves.get(i));
-//                StdDraw.text(0,0,"Your place in relation to others is: ");
-//            }
-//        }
     }
 
 
@@ -466,6 +470,11 @@ public class MyGameGUI extends Thread {
         return this.game_algo;
     }
 
+    /**
+     * @param id is our id.
+     * @param level is our level.
+     * @return the KML string (for our check).
+     */
     public static String getKML(int id, int level) {
         String ans = null;
         String allCustomersQuery = "SELECT * FROM Users where userID="+id+";";
@@ -492,9 +501,9 @@ public class MyGameGUI extends Thread {
 
     public static void main(String[] args) {
         MyGameGUI m =new MyGameGUI();
-        String kml = getKML(315081422,0);
-        System.out.println("***** KML file example: ******");
-        System.out.println(kml);
+//        String kml = getKML(315081422,0);
+//        System.out.println("***** KML file example: ******");
+//        System.out.println(kml);
 
     }
 }

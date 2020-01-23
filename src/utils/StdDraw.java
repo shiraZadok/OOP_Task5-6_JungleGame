@@ -715,12 +715,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         game.add(move);
         JMenu data = new JMenu("Data on the game");
         menuBar.add(data);
-        JMenuItem score = new JMenuItem("My score");
-        JMenuItem scoreClass = new JMenuItem("Score relative to class");
+        JMenuItem score = new JMenuItem("Results of your game");
         score.addActionListener(std);
-        scoreClass.addActionListener(std);
         data.add(score);
-        data.add(scoreClass);
 
 //		JMenu menu = new JMenu("File");
 //		JMenu menu2 = new JMenu("Algo");
@@ -1729,12 +1726,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             JOptionPane.showMessageDialog(jf, "Please press on the monkey you want move and then on the desired destination");
         }
 
-        if(e.getActionCommand().equals("My score")){
+        if(e.getActionCommand().equals("Results of your game")){
             gameGui.myScore();
-        }
-
-        if(e.getActionCommand().equals("Score relative to class")){
-
         }
 
         if(e.getActionCommand().equals("isConnected")){
