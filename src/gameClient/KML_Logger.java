@@ -15,6 +15,12 @@ import utils.StdDraw;
 
 public class KML_Logger {
 
+
+    /**
+     * this method convert a object to KML object
+     * @throws ParseException
+     * @throws InterruptedException
+     */
     public void objKML() throws ParseException, InterruptedException {
         Kml kml = new Kml();
         Document d = kml.createAndSetDocument();
@@ -87,11 +93,22 @@ public class KML_Logger {
         }
     }
 
+    /**
+     * this method convert distance in miles to string
+     * @param m
+     * @return
+     */
     private String millisToString(Long m){
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return s.format(new Date((m)));
     }
 
+    /**
+     * this method convert string to distance in miles
+     * @param m
+     * @return
+     * @throws ParseException
+     */
     private Long stringToMillis(String m)throws ParseException{
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
         Date d = s.parse(m.toString());
@@ -99,6 +116,9 @@ public class KML_Logger {
         return l;
     }
 
+    /**
+     * @return the cuuren time of the game.
+     */
     private String timeNoe(){
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
     }
