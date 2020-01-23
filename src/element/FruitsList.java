@@ -37,7 +37,6 @@ public class FruitsList {
         this.numGame = server;
         this.amountFruits = getAmountFruits();
         this.fruits = new LinkedList<>();
-        //System.out.println(this.numGame.getFruits().toString());
         listF(this.numGame.getFruits());
     }
 
