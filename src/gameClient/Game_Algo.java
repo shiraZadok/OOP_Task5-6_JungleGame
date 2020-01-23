@@ -157,8 +157,7 @@ public class Game_Algo {
         minDest.setTag(1);
         List<node_data> shortestPath = g.shortestPath(r.getSrc(), minDest.getSrc());
         shortestPath.add(this.GraphGame.getNode(minDest.getDest()));
-
-
+        runToFruitRobot(r,shortestPath);
 
 //        int nextNode = shortestPath.get(1).getKey();
 //        if (prevNode[r.getId()] == nextNode) {
@@ -182,7 +181,12 @@ public class Game_Algo {
 //            this.server.move();
 //        }
     }
-
+    public synchronized void runToFruitRobot (Robots r, List<node_data> shortestPath) {
+        for (node_data n : shortestPath){
+            this.server.chooseNextEdge(r.getId(), n.getKey());
+            this.server.move();
+        }
+    }
 
 }
 

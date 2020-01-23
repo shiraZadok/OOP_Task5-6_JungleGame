@@ -13,6 +13,7 @@ public class Robots implements elementFruitRobot {
     private int speed;
     private double value;
     private String pic;
+    private String myFunction;
 
     /**
      * a default constructor.
@@ -25,6 +26,7 @@ public class Robots implements elementFruitRobot {
         this.speed = 0;
         this.value = 0;
         this.pic = "robot.png";
+        this.myFunction = "";
     }
 
     /**
@@ -45,6 +47,8 @@ public class Robots implements elementFruitRobot {
         this.speed = speed;
         this.value = value;
         this.pic = pic;
+        this.myFunction = "";
+
     }
 
     /**
@@ -147,6 +151,22 @@ public class Robots implements elementFruitRobot {
     }
 
     public double getSpeed(){return this.speed;}
+
+    /**
+     * @return the name of his function
+     */
+    public String getMyFunction(){
+        return this.myFunction;
+    }
+
+    /**
+     * This function updates the myFunction of the robot.
+     * @param s is the new value.
+     */
+    public void setMyFunction(String s){
+        this.myFunction = s;
+    }
+
 
     public static void main(String[] args) {
 
