@@ -117,7 +117,7 @@ public class KML_Logger {
     }
 
     /**
-     * @return the cuuren time of the game.
+     * @return the current time of the game
      */
     private String timeNoe(){
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
