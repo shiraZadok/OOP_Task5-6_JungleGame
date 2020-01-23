@@ -469,9 +469,7 @@ import javax.swing.*;
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     public static GUI g = new GUI();
     public static MyGameGUI gameGui;
-    public static final String jdbcUrl="jdbc:mysql://db-mysql-ams3-67328-do-user-4468260-0.db.ondigitalocean.com:25060/oop?useUnicode=yes&characterEncoding=UTF-8&useSSL=false";
-    public static final String jdbcUser="student";
-    public static final String jdbcUserPassword="OOP2020student";
+
     /**
      *  The color black.
      */
@@ -1698,76 +1696,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-    public void myScore(){
-        StdDraw.clear();
-        int level = 0;
-        int amountOfGames = 0;
-        int amountOfMoves = 0;
-        int amountOfScore = 0;
-        ArrayList<Integer> score = new ArrayList<>();
-        ArrayList<Integer> moves = new ArrayList<>();
-        int movesExpected [] = {290,580,0,580,0,500,0,0,0,580,0,580,0,580,0,0,290,0,0,580,290,0,0,1140};
-        int scoreExpected [] = {145,450,0,720,0,570,0,0,0,510,0,1050,0,310,0,0,235,0,0,250,200,0,0,1000};
-        //Creates and initializes all cells to 0
-        for (int i = 0; i < 24; i++) {
-            score.add(i,0);
-            moves.add(i,0);
-        }
-        JFrame jf = new JFrame();
-        String s = JOptionPane.showInputDialog(jf, "Please enter your id");
-        int id = Integer.parseInt(s);
-        String allCustomersQuery = "SELECT * FROM Users where userID="+id+ " ORDER BY levelID , score;";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcUserPassword);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(allCustomersQuery);
-            while (resultSet.next()){
-                amountOfGames++;
-                level = resultSet.getInt("levelID");
-                amountOfMoves = resultSet.getInt("moves");
-                amountOfScore = resultSet.getInt("score");
-                if(amountOfScore>=scoreExpected[level] && amountOfScore>score.get(level) && amountOfMoves<=movesExpected[level]){
-                    score.remove(level);
-                    moves.remove(level);
-                    score.add(level,amountOfScore);
-                    moves.add(level,amountOfMoves);
-                }
-            }
-
-            int [] betterFriends = new int[24];
-            Hashtable<Integer,Integer> theBest = new Hashtable<>();
-            for (int i = 0; i < 24; i++) {
-                String allCustomersQuery2 = "SELECT * FROM oop.Logs where levelID = "+i+" and score > "+score.get(i)+" and moves <= "+movesExpected[i]+";";
-                ResultSet resultSet2 = statement.executeQuery(allCustomersQuery2);
-                while (resultSet2.next()){
-                    if(!theBest.contains(resultSet2.getInt("userID"))){
-                        theBest.put(resultSet2.getInt("userID"),resultSet2.getInt("score"));
-                    }
-                }
-                betterFriends[i] = theBest.size();
-                theBest.clear();
-            }
-        }
-        catch (SQLException sqle) {
-            System.out.println("SQLException: " + sqle.getMessage());
-            System.out.println("Vendor Error: " + sqle.getErrorCode());
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        StdDraw.setPenColor(Color.black);
-        StdDraw.setPenRadius(0.05);
-        StdDraw.text(0,0,"The amount of games you have played is: "+amountOfGames);
-
-        for (int i = 0; i <24 ; i++) {
-            if(score.get(i)!=null){
-                StdDraw.text(0,0,"Final score in level "+i+" is: "+score.get(i));
-                StdDraw.text(0,0,"The amount of moves in level "+i+" is: "+moves.get(i));
-            }
-        }
-    }
-
     /**
      * This method cannot be called directly.
      */
@@ -1802,7 +1730,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
 
         if(e.getActionCommand().equals("My score")){
-
+            gameGui.myScore();
         }
 
         if(e.getActionCommand().equals("Score relative to class")){
